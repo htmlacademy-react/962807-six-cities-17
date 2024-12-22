@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
-* Студент: [Юрий Марченко](https://up.htmlacademy.ru/react/17/user/962807).
-* Наставник: `Неизвестно`.
+- Студент: [Юрий Марченко](https://up.htmlacademy.ru/react/17/user/962807).
+- Наставник: [Сергей Зуев](https://htmlacademy.ru/profile/ekzaton).
 
 ---
 
