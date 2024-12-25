@@ -1,4 +1,4 @@
-import UserNav from '../../components/header-user-nav/header-user-nav';
+import { AppProps } from '../../components/app/app';
 import Header from '../../components/header/header';
 import OfferFeatures from '../../components/offer-features/offer-features';
 import OfferGallery from '../../components/offer-gallery/offer-gallery';
@@ -10,14 +10,13 @@ import OfferNearPlaces from '../../components/offer-near-places/offer-near-place
 import OfferPresentation from '../../components/offer-presentation/offer-presentation';
 import OfferReviewsForm from '../../components/offer-reviews-form/offer-reviews-form';
 import OfferReviews from '../../components/offer-reviews/offer-reviews';
-type OfferPageProps = {
-  logged?: true;
-};
 
-export default function OfferPage({ logged }: OfferPageProps): JSX.Element {
+export default function OfferPage({
+  logged,
+}: Pick<AppProps, 'logged'>): JSX.Element {
   return (
     <div className="page">
-      <Header>{logged && <UserNav />}</Header>
+      <Header logged={logged} />
       <main className="page__main page__main--offer">
         <section className="offer">
           <OfferGallery />
@@ -29,7 +28,9 @@ export default function OfferPage({ logged }: OfferPageProps): JSX.Element {
                 <OfferHostAvatar />
                 <OfferHostDescription />
               </OfferHost>
-              <OfferReviews>{logged && <OfferReviewsForm />}</OfferReviews>
+              <OfferReviews logged={logged}>
+                <OfferReviewsForm />
+              </OfferReviews>
             </div>
           </div>
           <OfferMap />

@@ -2,10 +2,12 @@ import OfferReviewsItem from '../offer-reviews-item/offer-reviews-item';
 
 type OfferReviewsProps = {
   children?: JSX.Element;
+  logged?: true;
 };
 
 export default function OfferReviews({
   children,
+  logged,
 }: OfferReviewsProps): JSX.Element {
   return (
     <section className="offer__reviews reviews">
@@ -15,7 +17,7 @@ export default function OfferReviews({
       <ul className="reviews__list">
         <OfferReviewsItem />
       </ul>
-      {children}
+      {logged && children}
     </section>
   );
 }
