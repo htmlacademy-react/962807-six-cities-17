@@ -8,6 +8,7 @@ import OfferPage from '../../pages/offer-page/offer-page';
 export type AppProps = {
   offersCount: number;
   logged?: true;
+
 };
 
 export default function App({ offersCount, logged }: AppProps): JSX.Element {

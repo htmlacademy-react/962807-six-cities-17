@@ -1,10 +1,33 @@
-export const OFFERS = [
+export type Offers = {
+  id: number;
+  title: string;
+  type: string;
+  price: number;
+  rating: number;
+  imageSrc: string;
+  isPremium: boolean;
+  isFavorite: boolean;
+  bedrooms: number;
+  maxAdults: number;
+  features: string[];
+  description: string[];
+  host: {
+    id: number;
+    name: string;
+    isPro: boolean;
+    avatarSrc: string;
+  };
+  city: string;
+}[];
+
+export const OFFERS: Offers = [
   {
     id: 0,
     title: 'Beautiful &amp; luxurious apartment at great location',
     type: 'Apartment',
     price: 120,
     rating: 80,
+    imageScr: 'apartment-01.jpg',
     isPremium: true,
     isFavorite: false,
     bedrooms: 3,
@@ -39,6 +62,7 @@ export const OFFERS = [
     type: 'Room',
     price: 80,
     rating: 80,
+    imageScr: 'room.jpg',
     isPremium: false,
     isFavorite: true,
     bedrooms: 2,
@@ -70,6 +94,7 @@ export const OFFERS = [
     type: 'Apartment',
     price: 132,
     rating: 80,
+    imageScr: 'apartment-02.jpg',
     isPremium: false,
     isFavorite: false,
     bedrooms: 1,
@@ -101,6 +126,7 @@ export const OFFERS = [
     type: 'Apartment',
     price: 180,
     rating: 100,
+    imageScr: 'apartment-03.jpg',
     isPremium: true,
     isFavorite: false,
     bedrooms: 2,
@@ -132,6 +158,7 @@ export const OFFERS = [
     type: 'Room',
     price: 80,
     rating: 80,
+    imageScr: 'apartment-01',
     isPremium: false,
     isFavorite: true,
     bedrooms: 1,

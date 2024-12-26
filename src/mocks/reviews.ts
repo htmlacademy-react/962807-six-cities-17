@@ -1,4 +1,16 @@
-export const REVIEWS = [
+export type Reviews = {
+  id: number;
+  reviewer: {
+    id: number;
+    name: string;
+    avatarSrc: string;
+  };
+  rating: number;
+  comment: string;
+  date: string;
+}[];
+
+export const REVIEWS: Reviews = [
   {
     id: 1,
     reviewer: {
