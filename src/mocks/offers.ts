@@ -1,35 +1,43 @@
-export type Offers = {
+export type Host = {
+  id?: number;
+  name: string;
+  isPro: boolean;
+  avatarSrc: string;
+};
+export type Offer = {
   id: number;
   title: string;
   type: string;
   price: number;
   rating: number;
-  imageSrc: string;
+  imagesSrc: string[];
   isPremium: boolean;
   isFavorite: boolean;
   bedrooms: number;
   maxAdults: number;
   features: string[];
   description: string[];
-  host: {
-    id: number;
-    name: string;
-    isPro: boolean;
-    avatarSrc: string;
-  };
-  city: string;
-}[];
+  host: Host;
+};
+export type Offers = Offer[];
 
 export const OFFERS: Offers = [
   {
     id: 0,
-    title: 'Beautiful &amp; luxurious apartment at great location',
+    title: 'Beautiful luxurious apartment at great location',
     type: 'Apartment',
     price: 120,
     rating: 80,
-    imageScr: 'apartment-01.jpg',
+    imagesSrc: [
+      'room.jpg',
+      'apartment-01.jpg',
+      'room.jpg',
+      'apartment-03.jpg',
+      'apartment-01.jpg',
+      'apartment-02.jpg',
+    ],
     isPremium: true,
-    isFavorite: false,
+    isFavorite: true,
     bedrooms: 3,
     maxAdults: 4,
     features: [
@@ -54,7 +62,6 @@ export const OFFERS: Offers = [
       isPro: true,
       avatarSrc: 'avatar-angelina.jpg',
     },
-    city: 'Amsterdam',
   },
   {
     id: 1,
@@ -62,7 +69,14 @@ export const OFFERS: Offers = [
     type: 'Room',
     price: 80,
     rating: 80,
-    imageScr: 'room.jpg',
+    imagesSrc: [
+      'room.jpg',
+      'apartment-03.jpg',
+      'apartment-01.jpg',
+      'apartment-02.jpg',
+      'room.jpg',
+      'apartment-01.jpg',
+    ],
     isPremium: false,
     isFavorite: true,
     bedrooms: 2,
@@ -86,7 +100,6 @@ export const OFFERS: Offers = [
       isPro: false,
       avatarSrc: 'avatar-angelina.jpg',
     },
-    city: 'Amsterdam',
   },
   {
     id: 2,
@@ -94,7 +107,14 @@ export const OFFERS: Offers = [
     type: 'Apartment',
     price: 132,
     rating: 80,
-    imageScr: 'apartment-02.jpg',
+    imagesSrc: [
+      'apartment-01.jpg',
+      'room.jpg',
+      'apartment-03.jpg',
+      'apartment-02.jpg',
+      'room.jpg',
+      'apartment-01.jpg',
+    ],
     isPremium: false,
     isFavorite: false,
     bedrooms: 1,
@@ -118,7 +138,6 @@ export const OFFERS: Offers = [
       isPro: true,
       avatarSrc: 'avatar-angelina.jpg',
     },
-    city: 'Amsterdam',
   },
   {
     id: 3,
@@ -126,7 +145,14 @@ export const OFFERS: Offers = [
     type: 'Apartment',
     price: 180,
     rating: 100,
-    imageScr: 'apartment-03.jpg',
+    imagesSrc: [
+      'apartment-03.jpg',
+      'room.jpg',
+      'apartment-01.jpg',
+      'apartment-02.jpg',
+      'room.jpg',
+      'apartment-03.jpg',
+    ],
     isPremium: true,
     isFavorite: false,
     bedrooms: 2,
@@ -150,15 +176,21 @@ export const OFFERS: Offers = [
       isPro: false,
       avatarSrc: 'avatar-angelina.jpg',
     },
-    city: 'Amsterdam',
   },
   {
     id: 4,
     title: 'Wood and stone place',
     type: 'Room',
     price: 80,
-    rating: 80,
-    imageScr: 'apartment-01',
+    rating: 10,
+    imagesSrc: [
+      'apartment-03.jpg',
+      'apartment-02.jpg',
+      'room.jpg',
+      'apartment-01.jpg',
+      'room.jpg',
+      'apartment-02.jpg',
+    ],
     isPremium: false,
     isFavorite: true,
     bedrooms: 1,
@@ -183,6 +215,5 @@ export const OFFERS: Offers = [
       isPro: true,
       avatarSrc: 'avatar-angelina.jpg',
     },
-    city: 'Amsterdam',
   },
 ];

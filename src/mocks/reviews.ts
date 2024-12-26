@@ -1,18 +1,22 @@
-export type Reviews = {
+export type Reviewer = {
+  id?: number;
+  name: string;
+  avatarSrc: string;
+};
+
+export type Review = {
   id: number;
-  reviewer: {
-    id: number;
-    name: string;
-    avatarSrc: string;
-  };
+  reviewer: Reviewer;
   rating: number;
   comment: string;
   date: string;
-}[];
+};
+
+export type Reviews = Review[];
 
 export const REVIEWS: Reviews = [
   {
-    id: 1,
+    id: 0,
     reviewer: {
       id: 10,
       name: 'Max',
@@ -24,7 +28,7 @@ export const REVIEWS: Reviews = [
     date: '2019-04-10',
   },
   {
-    id: 2,
+    id: 1,
     reviewer: {
       id: 21,
       name: 'John',
@@ -36,7 +40,7 @@ export const REVIEWS: Reviews = [
     date: 'Fri Jan 03 2020 10:50:00 GMT+0300 (Москва, стандартное время)',
   },
   {
-    id: 3,
+    id: 2,
     reviewer: {
       id: 5,
       name: 'Valentin',
@@ -48,7 +52,7 @@ export const REVIEWS: Reviews = [
     date: '2020-09-23',
   },
   {
-    id: 4,
+    id: 3,
     reviewer: {
       id: 11,
       name: 'Michael',
@@ -60,10 +64,10 @@ export const REVIEWS: Reviews = [
     date: '2018-02-04',
   },
   {
-    id: 5,
+    id: 4,
     reviewer: {
       id: 56,
-      name: 'Alexander',
+      name: 'Alex',
       avatarSrc: 'avatar-max.jpg',
     },
     rating: 85,
