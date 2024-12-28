@@ -1,19 +1,23 @@
-export default function OfferFeatures(): JSX.Element {
+import { Offer } from '../../mocks/offers';
+
+type OfferFeaturesProps = Pick<Offer, 'features'>;
+
+export default function OfferFeatures({
+  features,
+}: OfferFeaturesProps): JSX.Element {
+  const getFeatures = () =>
+    features.map((feature) => (
+      <li
+        className="offer__inside-item"
+        key={(Date.now() * Math.random()).toFixed(10)}
+      >
+        {feature}
+      </li>
+    ));
   return (
     <div className="offer__inside">
       <h2 className="offer__inside-title">What&apos;s inside</h2>
-      <ul className="offer__inside-list">
-        <li className="offer__inside-item">Wi-Fi</li>
-        <li className="offer__inside-item">Washing machine</li>
-        <li className="offer__inside-item">Towels</li>
-        <li className="offer__inside-item">Heating</li>
-        <li className="offer__inside-item">Coffee machine</li>
-        <li className="offer__inside-item">Baby seat</li>
-        <li className="offer__inside-item">Kitchen</li>
-        <li className="offer__inside-item">Dishwasher</li>
-        <li className="offer__inside-item">Cabel TV</li>
-        <li className="offer__inside-item">Fridge</li>
-      </ul>
+      <ul className="offer__inside-list">{getFeatures()}</ul>
     </div>
   );
 }

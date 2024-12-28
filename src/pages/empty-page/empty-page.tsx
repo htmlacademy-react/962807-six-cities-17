@@ -1,13 +1,12 @@
 import { AppProps } from '../../components/app/app';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
+type EmptyPageProps = Pick<AppProps, 'logged'>;
 
-export default function EmptyPage({
-  logged,
-}: Pick<AppProps, 'logged'>): JSX.Element {
+export default function EmptyPage({ logged }: EmptyPageProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
-      <Header logged={logged} />
+      <Header logged={logged} enableUserNav={false} />
       <main className="page__main page__main--index page__main--index-empty">
         <div className="cities">
           <div className="cities__places-container cities__places-container--empty container">

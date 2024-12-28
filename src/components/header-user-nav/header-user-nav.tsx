@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
-import { HeaderProps } from '../header/header';
+import { AppProps } from '../app/app';
 
-export default function UserNav({ logged }: HeaderProps): JSX.Element {
+type UserNavProps = Pick<AppProps, 'logged'>;
+
+export default function UserNav({ logged }: UserNavProps): JSX.Element {
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">
