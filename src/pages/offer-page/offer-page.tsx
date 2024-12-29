@@ -14,6 +14,7 @@ import OfferPresentation from '../../components/offer-presentation/offer-present
 import OfferReviewsItem from '../../components/offer-reviews-item/offer-reviews-item';
 import OfferReviews from '../../components/offer-reviews/offer-reviews';
 import { Offer, Offers } from '../../mocks/offers';
+import { useState } from 'react';
 
 type OfferPageProps = Omit<AppProps, 'offersCount'>;
 export default function OfferPage({
@@ -22,6 +23,7 @@ export default function OfferPage({
   reviews,
 }: OfferPageProps): JSX.Element {
   const { id } = useParams();
+  const [activeCard, setActiveCard] = useState<number | null>(null);
 
   const offer = offers.find(
     (offerItem) => offerItem.id === Number(id)
@@ -56,6 +58,7 @@ export default function OfferPage({
         <CitiesPlacesItem
           isMainCardType={false}
           key={offerItem.id}
+          onCardHover={setActiveCard}
           {...offerItem}
         />
       ));
@@ -79,7 +82,9 @@ export default function OfferPage({
           </div>
           <OfferMap />
         </section>
-        <OfferNearPlaces>{getNearOffers()}</OfferNearPlaces>
+        <OfferNearPlaces data-active-card={activeCard}>
+          {getNearOffers()}
+        </OfferNearPlaces>
       </main>
     </div>
   );

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { AppProps } from '../../components/app/app';
 import CitiesPlacesItem from '../../components/cities-places-item/cities-places-item';
 import CitiesPlacesMap from '../../components/cities-places-map/cities-places-map';
@@ -12,9 +13,15 @@ export default function MainPage({
   logged,
   offers,
 }: MainPageProps): JSX.Element {
+  const [activeCard, setActiveCard] = useState<number | null>(null);
   const getOffersCards = function (): JSX.Element[] {
     return offers.map((offer) => (
-      <CitiesPlacesItem isMainCardType key={offer.id} {...offer} />
+      <CitiesPlacesItem
+        isMainCardType
+        key={offer.id}
+        onCardHover={setActiveCard}
+        {...offer}
+      />
     ));
   };
 
@@ -26,7 +33,10 @@ export default function MainPage({
         <LocationNav />
 
         <div className="cities">
-          <div className="cities__places-container container">
+          <div
+            className="cities__places-container container"
+            data-active-card={activeCard}
+          >
             <section className="cities__places places">
               <CitiesPlaces offersCount={offersCount}>
                 {offers && getOffersCards()}

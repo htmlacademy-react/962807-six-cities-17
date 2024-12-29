@@ -3,6 +3,7 @@ import { Offer } from '../../mocks/offers';
 
 type CitiesPlacesItemProps = {
   isMainCardType: boolean;
+  onCardHover: (id: number | null) => void;
 } & Offer;
 
 export default function CitiesPlacesItem({
@@ -15,11 +16,17 @@ export default function CitiesPlacesItem({
   isPremium,
   isFavorite,
   isMainCardType,
+  onCardHover,
 }: CitiesPlacesItemProps): JSX.Element {
   const getPrefixByCardType = (): string =>
     isMainCardType ? 'cities__' : 'near-places__';
   return (
-    <article className={`${getPrefixByCardType()}card place-card`} key={id}>
+    <article
+      className={`${getPrefixByCardType()}card place-card`}
+      key={id}
+      onMouseEnter={() => onCardHover(id)}
+      onMouseLeave={() => onCardHover(null)}
+    >
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
