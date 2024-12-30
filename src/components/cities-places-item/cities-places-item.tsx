@@ -1,37 +1,47 @@
 import { Link } from 'react-router-dom';
+import { Offer } from '../../mocks/offers';
 
 type CitiesPlacesItemProps = {
-  name: string;
-  type: string;
-  price: number;
-  rating: number;
-  src: string;
-  premium?: true;
-  bookmarked?: true;
-  id?: string;
-};
+  isMainCardType: boolean;
+  onCardHover: (id: number | null) => void;
+} & Offer;
 
 export default function CitiesPlacesItem({
-  id = '',
-  name,
+  id,
+  title,
   type,
   price,
   rating,
-  src,
-  premium,
-  bookmarked,
+  imagesSrc,
+  isPremium,
+  isFavorite,
+  isMainCardType,
+  onCardHover,
 }: CitiesPlacesItemProps): JSX.Element {
+  const getPrefixByCardType = (): string =>
+    isMainCardType ? 'cities__' : 'near-places__';
   return (
-    <article className="cities__card place-card" key={id}>
-      <div className="place-card__mark">{premium && <span>Premium</span>}</div>
-      <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to="offer">
+    <article
+      className={`${getPrefixByCardType()}card place-card`}
+      key={id}
+      onMouseEnter={() => onCardHover(id)}
+      onMouseLeave={() => onCardHover(null)}
+    >
+      {isPremium && (
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>
+      )}
+      <div
+        className={`${getPrefixByCardType()}__image-wrapper place-card__image-wrapper`}
+      >
+        <Link to={`/offer/${id}`}>
           <img
             className="place-card__image"
-            src={`img/${src}.jpg`}
+            src={`img/${imagesSrc[0]}`}
             width={260}
             height={200}
-            alt="Place image"
+            alt={`${title} ${type} image`}
           />
         </Link>
       </div>
@@ -39,11 +49,11 @@ export default function CitiesPlacesItem({
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">{`€${price}`}</b>
-            <span className="place-card__price-text">/&nbsp;night</span>
+            <span className="place-card__price-text">/night</span>
           </div>
           <button
             className={`place-card__bookmark-button${
-              bookmarked ? '--active' : ''
+              isFavorite ? '--active' : ''
             } button`}
             type="button"
           >
@@ -64,7 +74,7 @@ export default function CitiesPlacesItem({
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{name}</a>
+          <a href="#">{title}</a>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

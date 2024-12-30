@@ -1,5 +1,5 @@
 type OfferHostProps = {
-  children?: JSX.Element[] | JSX.Element;
+  children: JSX.Element[];
 };
 
 export default function OfferHost({ children }: OfferHostProps): JSX.Element {

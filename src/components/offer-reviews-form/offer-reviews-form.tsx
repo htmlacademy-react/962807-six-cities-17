@@ -1,6 +1,31 @@
+import { useState } from 'react';
+
+type OfferReviewsFormState = { rating: string; review: string };
 export default function OfferReviewsForm(): JSX.Element {
+  const [reviewForm, setReviewForm] = useState<OfferReviewsFormState>({
+    rating: '',
+    review: '',
+  });
+
+  const onReviewChange: React.FormEventHandler = (
+    evt: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    const { name, value } = evt.target;
+    setReviewForm({ ...reviewForm, [name]: value });
+  };
+  const onSubmit: React.FormEventHandler = (evt) => {
+    evt.preventDefault();
+    setReviewForm({ rating: '', review: '' });
+  };
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form
+      className="reviews__form form"
+      action="#"
+      method="post"
+      onSubmit={onSubmit}
+      onChange={onReviewChange}
+    >
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
@@ -11,6 +36,7 @@ export default function OfferReviewsForm(): JSX.Element {
           defaultValue={5}
           id="5-stars"
           type="radio"
+          checked={reviewForm.rating === '5'}
         />
         <label
           htmlFor="5-stars"
@@ -27,6 +53,7 @@ export default function OfferReviewsForm(): JSX.Element {
           defaultValue={4}
           id="4-stars"
           type="radio"
+          checked={reviewForm.rating === '4'}
         />
         <label
           htmlFor="4-stars"
@@ -43,6 +70,7 @@ export default function OfferReviewsForm(): JSX.Element {
           defaultValue={3}
           id="3-stars"
           type="radio"
+          checked={reviewForm.rating === '3'}
         />
         <label
           htmlFor="3-stars"
@@ -59,6 +87,7 @@ export default function OfferReviewsForm(): JSX.Element {
           defaultValue={2}
           id="2-stars"
           type="radio"
+          checked={reviewForm.rating === '2'}
         />
         <label
           htmlFor="2-stars"
@@ -75,6 +104,7 @@ export default function OfferReviewsForm(): JSX.Element {
           defaultValue={1}
           id="1-star"
           type="radio"
+          checked={reviewForm.rating === '1'}
         />
         <label
           htmlFor="1-star"
@@ -91,7 +121,7 @@ export default function OfferReviewsForm(): JSX.Element {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        defaultValue={''}
+        value={reviewForm.review}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -99,11 +129,7 @@ export default function OfferReviewsForm(): JSX.Element {
           <span className="reviews__star">rating</span> and describe your stay
           with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button
-          className="reviews__submit form__submit button"
-          type="submit"
-          disabled
-        >
+        <button className="reviews__submit form__submit button" type="submit">
           Submit
         </button>
       </div>

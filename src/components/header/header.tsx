@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 import UserNav from '../header-user-nav/header-user-nav';
 export type HeaderProps = {
-  logged?: true;
-  disableUserNav?: true;
+  logged: boolean;
+  enableUserNav: boolean;
 };
 
 export default function Header({
   logged,
-  disableUserNav,
+  enableUserNav,
 }: HeaderProps): JSX.Element {
   return (
     <header className="header">
@@ -27,7 +27,7 @@ export default function Header({
               />
             </Link>
           </div>
-          {disableUserNav || <UserNav logged={logged} />}
+          {enableUserNav && <UserNav logged={logged} />}
         </div>
       </div>
     </header>

@@ -29,7 +29,7 @@ export default function FavoriteList(): JSX.Element {
               <div className="place-card__price-wrapper">
                 <div className="place-card__price">
                   <b className="place-card__price-value">€180</b>
-                  <span className="place-card__price-text">/&nbsp;night</span>
+                  <span className="place-card__price-text">/night</span>
                 </div>
                 <button
                   className="place-card__bookmark-button place-card__bookmark-button--active button"
@@ -73,7 +73,7 @@ export default function FavoriteList(): JSX.Element {
               <div className="place-card__price-wrapper">
                 <div className="place-card__price">
                   <b className="place-card__price-value">€80</b>
-                  <span className="place-card__price-text">/&nbsp;night</span>
+                  <span className="place-card__price-text">/night</span>
                 </div>
                 <button
                   className="place-card__bookmark-button place-card__bookmark-button--active button"
@@ -128,7 +128,7 @@ export default function FavoriteList(): JSX.Element {
               <div className="place-card__price-wrapper">
                 <div className="place-card__price">
                   <b className="place-card__price-value">€180</b>
-                  <span className="place-card__price-text">/&nbsp;night</span>
+                  <span className="place-card__price-text">/night</span>
                 </div>
                 <button
                   className="place-card__bookmark-button place-card__bookmark-button--active button"

@@ -1,8 +1,8 @@
 import React from 'react';
 import CitiesPlacesSort from '../cities-places-sort/cities-places-sort';
-type CitiesPlacesProps = {
-  children: JSX.Element | JSX.Element[];
-  offersCount: number;
+import { AppProps } from '../app/app';
+type CitiesPlacesProps = Pick<AppProps, 'offersCount'> & {
+  children: JSX.Element[];
 };
 
 export default function CitiesPlaces({

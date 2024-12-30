@@ -1,15 +1,14 @@
-export default function OfferHostDescription(): JSX.Element {
-  return (
-    <div className="offer__description">
-      <p className="offer__text">
-        A quiet cozy and picturesque that hides behind a a river by the unique
-        lightness of Amsterdam. The building is green and from 18th century.
+import { Offer } from '../../mocks/offers';
+type OfferHostDescriptionProps = Pick<Offer, 'description'>;
+
+export default function OfferHostDescription({
+  description,
+}: OfferHostDescriptionProps): JSX.Element {
+  const getDescription = () =>
+    description.map((descriptionItem) => (
+      <p className="offer__text" key={(Date.now() * Math.random()).toFixed(10)}>
+        {descriptionItem}
       </p>
-      <p className="offer__text">
-        An independent House, strategically located between Rembrand Square and
-        National Opera, but where the bustle of the city comes to rest in this
-        alley flowery and colorful.
-      </p>
-    </div>
-  );
+    ));
+  return <div className="offer__description">{getDescription()}</div>;
 }
