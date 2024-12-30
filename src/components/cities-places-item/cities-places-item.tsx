@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 type CitiesPlacesItemProps = {
   name: string;
   type: string;
@@ -23,7 +25,7 @@ export default function CitiesPlacesItem({
     <article className="cities__card place-card" key={id}>
       <div className="place-card__mark">{premium && <span>Premium</span>}</div>
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link to="offer">
           <img
             className="place-card__image"
             src={`img/${src}.jpg`}
@@ -31,7 +33,7 @@ export default function CitiesPlacesItem({
             height={200}
             alt="Place image"
           />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">

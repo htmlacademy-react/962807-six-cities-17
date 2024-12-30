@@ -11,3 +11,9 @@ root.render(
     <App offersCount={312} />
   </React.StrictMode>
 );
+
+// root.render(
+//   <React.StrictMode>
+//     <App />
+//   </React.StrictMode>
+// );

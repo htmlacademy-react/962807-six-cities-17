@@ -1,21 +1,18 @@
+import { AppProps } from '../../components/app/app';
 import CitiesPlacesItem from '../../components/cities-places-item/cities-places-item';
 import CitiesPlacesMap from '../../components/cities-places-map/cities-places-map';
 import CitiesPlaces from '../../components/cities-places/cities-places';
-import UserNav from '../../components/header-user-nav/header-user-nav';
 import Header from '../../components/header/header';
 import LocationNavItem from '../../components/locations-nav-item/locations-nav-item';
 import LocationNav from '../../components/locations-nav/locations-nav';
 
-type MainPageProps = {
-  offersCount: number;
-};
-
-export default function MainPage({ offersCount }: MainPageProps): JSX.Element {
+export default function MainPage({
+  offersCount,
+  logged,
+}: AppProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
-      <Header>
-        <UserNav />
-      </Header>
+      <Header logged={logged} />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <LocationNav>

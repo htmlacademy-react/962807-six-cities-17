@@ -1,18 +1,14 @@
+import { AppProps } from '../../components/app/app';
 import FavoriteList from '../../components/favorites-list/favorites-list';
-import UserNav from '../../components/header-user-nav/header-user-nav';
-import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
-
-type FavoritePageProps = {
-  logged?: true;
-};
+import Header from '../../components/header/header';
 
 export default function FavoritePage({
   logged,
-}: FavoritePageProps): JSX.Element {
+}: Pick<AppProps, 'logged'>): JSX.Element {
   return (
     <div className="page">
-      <Header>{logged && <UserNav />}</Header>
+      <Header logged={logged} />
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
