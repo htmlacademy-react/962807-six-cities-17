@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { AppProps } from '../../components/app/app';
 import CitiesPlacesItem from '../../components/cities-places-item/cities-places-item';
-import CitiesPlacesMap from '../../components/cities-places-map/cities-places-map';
 import CitiesPlaces from '../../components/cities-places/cities-places';
 import Header from '../../components/header/header';
 import LocationNav from '../../components/locations-nav/locations-nav';
+import Map from '../../components/map/map';
 
 type MainPageProps = Omit<AppProps, 'reviews'>;
 
@@ -42,7 +42,13 @@ export default function MainPage({
                 {offers && getOffersCards()}
               </CitiesPlaces>
             </section>
-            <CitiesPlacesMap />
+            <div className="cities__right-section">
+              <Map
+                offers={offers}
+                selectedOffer={activeCard}
+                styleModifier="cities"
+              />
+            </div>
           </div>
         </div>
       </main>

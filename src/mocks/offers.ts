@@ -4,6 +4,18 @@ export type Host = {
   isPro: boolean;
   avatarSrc: string;
 };
+export type City = {
+  name: string;
+  lat: number;
+  lng: number;
+  zoom: number;
+};
+export type Location = {
+  lat: number;
+  lng: number;
+  zoom: number;
+};
+
 export type Offer = {
   id: number;
   title: string;
@@ -18,6 +30,8 @@ export type Offer = {
   features: string[];
   description: string[];
   host: Host;
+  city: City;
+  location: Location;
 };
 export type Offers = Offer[];
 
@@ -62,6 +76,17 @@ export const OFFERS: Offers = [
       isPro: true,
       avatarSrc: 'avatar-angelina.jpg',
     },
+    city: {
+      lat: 52.370216,
+      lng: 4.895168,
+      zoom: 10,
+      name: 'Amsterdam',
+    },
+    location: {
+      lat: 52.3909553943508,
+      lng: 4.85309666406198,
+      zoom: 10,
+    },
   },
   {
     id: 1,
@@ -99,6 +124,17 @@ export const OFFERS: Offers = [
       name: 'Julia',
       isPro: false,
       avatarSrc: 'avatar-angelina.jpg',
+    },
+    city: {
+      lat: 52.370216,
+      lng: 4.895168,
+      zoom: 10,
+      name: 'Amsterdam',
+    },
+    location: {
+      lat: 52.3609553943508,
+      lng: 4.85309666406198,
+      zoom: 10,
     },
   },
   {
@@ -138,6 +174,17 @@ export const OFFERS: Offers = [
       isPro: true,
       avatarSrc: 'avatar-angelina.jpg',
     },
+    city: {
+      lat: 52.370216,
+      lng: 4.895168,
+      zoom: 10,
+      name: 'Amsterdam',
+    },
+    location: {
+      lat: 52.3909553943508,
+      lng: 4.929309666406198,
+      zoom: 10,
+    },
   },
   {
     id: 3,
@@ -175,6 +222,17 @@ export const OFFERS: Offers = [
       name: 'Maria',
       isPro: false,
       avatarSrc: 'avatar-angelina.jpg',
+    },
+    city: {
+      lat: 52.370216,
+      lng: 4.895168,
+      zoom: 10,
+      name: 'Amsterdam',
+    },
+    location: {
+      lat: 52.3809553943508,
+      lng: 4.939309666406198,
+      zoom: 10,
     },
   },
   {
@@ -214,6 +272,17 @@ export const OFFERS: Offers = [
       name: 'Nicole',
       isPro: true,
       avatarSrc: 'avatar-angelina.jpg',
+    },
+    city: {
+      lat: 52.370216,
+      lng: 4.895168,
+      zoom: 10,
+      name: 'Amsterdam',
+    },
+    location: {
+      lat: 52.357277,
+      lng: 4.893771,
+      zoom: 10,
     },
   },
 ];
