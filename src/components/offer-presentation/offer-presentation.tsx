@@ -1,16 +1,31 @@
-import React from 'react';
+import { Offer } from '../../mocks/offers';
 
-export default function OfferPresentation(): JSX.Element {
+export default function OfferPresentation({
+  title,
+  type,
+  price,
+  rating,
+  isPremium,
+  isFavorite,
+  bedrooms,
+  maxAdults,
+}: Offer): JSX.Element {
+  const getRatingValue = (): string => ((rating / 100) * 5).toFixed(1);
   return (
-    <React.Fragment>
-      <div className="offer__mark">
-        <span>Premium</span>
-      </div>
+    <>
+      {isPremium && (
+        <div className="offer__mark">
+          <span>Premium</span>
+        </div>
+      )}
       <div className="offer__name-wrapper">
-        <h1 className="offer__name">
-          Beautiful &amp; luxurious studio at great location
-        </h1>
-        <button className="offer__bookmark-button button" type="button">
+        <h1 className="offer__name">{title}</h1>
+        <button
+          className={`offer__bookmark-button ${
+            isFavorite ? 'offer__bookmark-button--active' : ''
+          } button`}
+          type="button"
+        >
           <svg className="offer__bookmark-icon" width={31} height={33}>
             <use xlinkHref="#icon-bookmark" />
           </svg>
@@ -19,20 +34,24 @@ export default function OfferPresentation(): JSX.Element {
       </div>
       <div className="offer__rating rating">
         <div className="offer__stars rating__stars">
-          <span style={{ width: '80%' }} />
+          <span style={{ width: `${rating}%` }} />
           <span className="visually-hidden">Rating</span>
         </div>
-        <span className="offer__rating-value rating__value">4.8</span>
+        <span className="offer__rating-value rating__value">
+          {getRatingValue()}
+        </span>
       </div>
       <ul className="offer__features">
-        <li className="offer__feature offer__feature--entire">Apartment</li>
-        <li className="offer__feature offer__feature--bedrooms">3 Bedrooms</li>
-        <li className="offer__feature offer__feature--adults">Max 4 adults</li>
+        <li className="offer__feature offer__feature--entire">{type}</li>
+        <li className="offer__feature offer__feature--bedrooms">{`${bedrooms} Bedrooms`}</li>
+        <li className="offer__feature offer__feature--adults">
+          {`Max ${maxAdults} ${maxAdults === 1 ? 'adult' : 'adults'}`}
+        </li>
       </ul>
       <div className="offer__price">
-        <b className="offer__price-value">€120</b>
+        <b className="offer__price-value">&euro;{price}</b>
         <span className="offer__price-text">&nbsp;night</span>
       </div>
-    </React.Fragment>
+    </>
   );
 }
