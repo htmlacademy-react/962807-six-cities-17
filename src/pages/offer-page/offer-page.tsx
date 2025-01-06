@@ -1,20 +1,20 @@
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { AppProps } from '../../components/app/app';
 import CitiesPlacesItem from '../../components/cities-places-item/cities-places-item';
 import Header from '../../components/header/header';
+import Map from '../../components/map/map';
 import OfferFeatures from '../../components/offer-features/offer-features';
 import OfferGalleryItem from '../../components/offer-gallery-item/offer-gallery-item';
 import OfferGallery from '../../components/offer-gallery/offer-gallery';
 import OfferHostAvatar from '../../components/offer-host-avatar/offer-host-avatar';
 import OfferHostDescription from '../../components/offer-host-description/offer-host-description';
 import OfferHost from '../../components/offer-host/offer-host';
-import OfferMap from '../../components/offer-map/offer-map';
 import OfferNearPlaces from '../../components/offer-near-places/offer-near-places';
 import OfferPresentation from '../../components/offer-presentation/offer-presentation';
 import OfferReviewsItem from '../../components/offer-reviews-item/offer-reviews-item';
 import OfferReviews from '../../components/offer-reviews/offer-reviews';
 import { Offer, Offers } from '../../mocks/offers';
-import { useState } from 'react';
 
 type OfferPageProps = Omit<AppProps, 'offersCount'>;
 export default function OfferPage({
@@ -80,7 +80,11 @@ export default function OfferPage({
               <OfferReviews logged={logged}>{getReviews()}</OfferReviews>
             </div>
           </div>
-          <OfferMap />
+          <Map
+            offers={nearOffers.slice(0, 3)}
+            selectedOffer={activeCard}
+            styleModifier="offer"
+          />
         </section>
         <OfferNearPlaces data-active-card={activeCard}>
           {getNearOffers()}
