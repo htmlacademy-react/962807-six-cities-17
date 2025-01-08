@@ -35,6 +35,13 @@ export type Offer = {
 };
 export type Offers = Offer[];
 
+export const CITY: City = {
+  lat: 52.370216,
+  lng: 4.895168,
+  zoom: 10,
+  name: 'Amsterdam',
+};
+
 export const OFFERS: Offers = [
   {
     id: 0,
