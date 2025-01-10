@@ -15,15 +15,16 @@ import OfferPresentation from '../../components/offer-presentation/offer-present
 import OfferReviewsItem from '../../components/offer-reviews-item/offer-reviews-item';
 import OfferReviews from '../../components/offer-reviews/offer-reviews';
 import { Offer, Offers } from '../../mocks/offers';
+import { useAppSelector } from '../../hooks/useSelector/useAppSelector';
 
-type OfferPageProps = Omit<AppProps, 'offersCount'>;
+type OfferPageProps = Pick<AppProps, 'logged' | 'reviews'>;
 export default function OfferPage({
   logged,
-  offers,
   reviews,
 }: OfferPageProps): JSX.Element {
   const { id } = useParams();
   const [activeCard, setActiveCard] = useState<number | null>(null);
+  const offers = useAppSelector((state) => state.offers);
 
   const offer = offers.find(
     (offerItem) => offerItem.id === Number(id)
@@ -80,11 +81,7 @@ export default function OfferPage({
               <OfferReviews logged={logged}>{getReviews()}</OfferReviews>
             </div>
           </div>
-          <Map
-            offers={nearOffers.slice(0, 3)}
-            selectedOffer={activeCard}
-            styleModifier="offer"
-          />
+          <Map selectedOffer={activeCard} styleModifier="offer" />
         </section>
         <OfferNearPlaces data-active-card={activeCard}>
           {getNearOffers()}
