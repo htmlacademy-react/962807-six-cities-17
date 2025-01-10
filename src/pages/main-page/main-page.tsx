@@ -1,19 +1,26 @@
 import { useState } from 'react';
-import { AppProps } from '../../components/app/app';
 import CitiesPlacesItem from '../../components/cities-places-item/cities-places-item';
 import CitiesPlaces from '../../components/cities-places/cities-places';
 import Header from '../../components/header/header';
 import LocationNav from '../../components/locations-nav/locations-nav';
 import Map from '../../components/map/map';
+import { useAppSelector } from '../../hooks/useSelector/useAppSelector';
+import { Cities } from '../../mocks/cities';
 
-type MainPageProps = Omit<AppProps, 'reviews'>;
+export type MainPageProps = {
+  logged: boolean;
+  cities: Cities;
+};
 
 export default function MainPage({
-  offersCount,
   logged,
-  offers,
+  cities,
 }: MainPageProps): JSX.Element {
   const [activeCard, setActiveCard] = useState<number | null>(null);
+  const currentCity = useAppSelector((state) => state.city);
+  const offers = useAppSelector((state) => state.offers);
+  const offersCount = offers.length;
+
   const getOffersCards = function (): JSX.Element[] {
     return offers.map((offer) => (
       <CitiesPlacesItem
@@ -30,7 +37,7 @@ export default function MainPage({
       <Header logged={logged} enableUserNav />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <LocationNav />
+        <LocationNav cities={cities} currentCity={currentCity} />
 
         <div className="cities">
           <div
@@ -43,11 +50,7 @@ export default function MainPage({
               </CitiesPlaces>
             </section>
             <div className="cities__right-section">
-              <Map
-                offers={offers}
-                selectedOffer={activeCard}
-                styleModifier="cities"
-              />
+              <Map selectedOffer={activeCard} styleModifier="cities" />
             </div>
           </div>
         </div>

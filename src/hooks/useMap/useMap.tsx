@@ -1,6 +1,6 @@
 import leaflet, { Map } from 'leaflet';
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
-import { City } from '../../mocks/offers';
+import { City } from '../../mocks/cities';
 
 export default function useMap(
   mapRef: MutableRefObject<HTMLElement | null>,
@@ -28,11 +28,22 @@ export default function useMap(
           }
         )
         .addTo(instance);
-
       setMap(instance);
       isRenderedRef.current = true;
     }
   }, [mapRef, city]);
+
+  useEffect(() => {
+    if (map) {
+      map.setView(
+        {
+          lat: city.lat,
+          lng: city.lng,
+        },
+        city.zoom
+      );
+    }
+  }, [map, city]);
 
   return map;
 }
