@@ -81,11 +81,7 @@ export default function OfferPage({
               <OfferReviews logged={logged}>{getReviews()}</OfferReviews>
             </div>
           </div>
-          <Map
-            offers={nearOffers.slice(0, 3)}
-            selectedOffer={activeCard}
-            styleModifier="offer"
-          />
+          <Map selectedOffer={activeCard} styleModifier="offer" />
         </section>
         <OfferNearPlaces data-active-card={activeCard}>
           {getNearOffers()}
