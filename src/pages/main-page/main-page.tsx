@@ -45,7 +45,7 @@ export default function MainPage({
             data-active-card={activeCard}
           >
             <section className="cities__places places">
-              <CitiesPlaces offersCount={offersCount}>
+              <CitiesPlaces offersCount={offersCount} city={currentCity}>
                 {offers && getOffersCards()}
               </CitiesPlaces>
             </section>
