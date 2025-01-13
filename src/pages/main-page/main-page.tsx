@@ -6,6 +6,8 @@ import LocationNav from '../../components/locations-nav/locations-nav';
 import Map from '../../components/map/map';
 import { useAppSelector } from '../../hooks/useSelector/useAppSelector';
 import { Cities } from '../../mocks/cities';
+import { AppRoute } from '../../const';
+import { Navigate } from 'react-router-dom';
 
 export type MainPageProps = {
   logged: boolean;
@@ -20,6 +22,9 @@ export default function MainPage({
   const currentCity = useAppSelector((state) => state.city);
   const offers = useAppSelector((state) => state.offers);
   const offersCount = offers.length;
+  if (!offersCount) {
+    return <Navigate to={AppRoute.Empty} />;
+  }
 
   const getOffersCards = function (): JSX.Element[] {
     return offers.map((offer) => (
