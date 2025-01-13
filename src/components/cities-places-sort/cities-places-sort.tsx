@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useAppDispatch } from '../../hooks/useDispatch/useAppDispatch';
 import { useAppSelector } from '../../hooks/useSelector/useAppSelector';
 import { changeSort } from '../../store/action';
-import { SortingOption } from '../../store/const';
+import { SortingOption } from '../../const';
 
 export default function CitiesPlacesSort(): JSX.Element {
   const sort = useAppSelector((state) => state.sort);
