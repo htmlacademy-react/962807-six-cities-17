@@ -7,7 +7,7 @@ import useMap from '../../hooks/useMap/useMap';
 import { useAppSelector } from '../../hooks/useSelector/useAppSelector';
 
 type MapProps = {
-  selectedOffer: number | null;
+  selectedOffer: string | null;
   styleModifier: 'offer' | 'cities';
 };
 
@@ -27,23 +27,21 @@ export default function Map({
   styleModifier = 'cities',
 }: MapProps): JSX.Element {
   const mapRef = useRef(null);
-  const city = useAppSelector((state) => state.city);
-  const offers = useAppSelector((state) => state.offers);
+  const city = useAppSelector((state) => state.currentCity);
+  const offers = useAppSelector((state) =>
+    styleModifier === 'cities'
+      ? state.offersByCity
+      : state.nearOffers.slice(0, 3)
+  );
   const map = useMap(mapRef, city);
-  // const markersGroup = leaflet.layerGroup();
-  // потом реализовать очистку маркеров при смене города.
 
   useEffect(() => {
     if (map && offers) {
-      // markersGroup.clearLayers();
-      // console.log(markersGroup);
-
       offers.forEach((offer) => {
         leaflet
-          .marker([offer.location.lat, offer.location.lng], {
+          .marker([offer.location.latitude, offer.location.longitude], {
             icon: offer.id === selectedOffer ? activeIcon : defaultIcon,
           })
-          // .addTo(markersGroup)
           .addTo(map);
       });
     }

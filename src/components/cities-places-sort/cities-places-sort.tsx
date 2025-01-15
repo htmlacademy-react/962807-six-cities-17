@@ -2,20 +2,18 @@ import { useState } from 'react';
 import { useAppDispatch } from '../../hooks/useDispatch/useAppDispatch';
 import { useAppSelector } from '../../hooks/useSelector/useAppSelector';
 import { changeSort } from '../../store/action';
-import { SortingOption } from '../../store/const';
+import { SortingOption } from '../../const';
 
 export default function CitiesPlacesSort(): JSX.Element {
   const sort = useAppSelector((state) => state.sort);
 
   const dispatch = useAppDispatch();
-  // dispatch(changeSort('sortType'))
   const [isOpened, setIsOpened] = useState<boolean>(false);
 
   const getSortItems = function (): JSX.Element[] {
     return Object.values(SortingOption).map((sortItem) => (
       <li
         key={(Date.now() * Math.random()).toFixed(10)}
-        // className="places__option"
         className={`places__option ${
           (sortItem as string) === sort ? 'places__option--active' : ''
         }`}

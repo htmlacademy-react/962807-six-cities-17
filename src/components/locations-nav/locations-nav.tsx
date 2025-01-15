@@ -1,15 +1,15 @@
 import { MouseEvent } from 'react';
 import { useAppDispatch } from '../../hooks/useDispatch/useAppDispatch';
-import { Cities, City } from '../../mocks/cities';
 import { changeCity } from '../../store/action';
+import { City } from '../../types';
 import LocationNavItem from '../locations-nav-item/locations-nav-item';
 type LocationNavProps = {
-  cities: Cities;
+  citiesNames: string[];
   currentCity: City;
 };
 
 export default function LocationNav({
-  cities,
+  citiesNames,
   currentCity,
 }: LocationNavProps): JSX.Element {
   const dispatch = useAppDispatch();
@@ -18,23 +18,20 @@ export default function LocationNav({
     evt
   ) => {
     const cityName = (evt.currentTarget.textContent as string).trim();
-    if (!cityName) {
-      return;
-    }
-    const nextCity = cities.find((city) => city.name === cityName);
-    if (nextCity && currentCity.name !== nextCity.name) {
+    const nextCity = citiesNames.find((city) => city === cityName);
+    if (nextCity && currentCity.name !== nextCity) {
       dispatch(changeCity(nextCity));
     }
   };
 
   const getLocationNavItem = function (): JSX.Element[] {
-    return cities.map((city) => (
+    return citiesNames.map((city) => (
       <LocationNavItem
         key={(Date.now() * Math.random()).toFixed(10)}
-        active={city.name === currentCity.name ? true : undefined}
+        active={city === currentCity.name ? true : undefined}
         onCityChange={handleCityChange}
       >
-        {city.name}
+        {city}
       </LocationNavItem>
     ));
   };
@@ -43,7 +40,7 @@ export default function LocationNav({
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
-          {cities && getLocationNavItem()}
+          {citiesNames && getLocationNavItem()}
         </ul>
       </section>
     </div>

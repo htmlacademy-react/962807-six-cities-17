@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import { Offer } from '../../mocks/offers';
+import { Offer } from '../../types';
 
 type CitiesPlacesItemProps = {
   isMainCardType: boolean;
-  onCardHover: (id: number | null) => void;
+  onCardHover: (id: string | null) => void;
 } & Offer;
 
 export default function CitiesPlacesItem({
@@ -12,7 +12,7 @@ export default function CitiesPlacesItem({
   type,
   price,
   rating,
-  imagesSrc,
+  previewImage,
   isPremium,
   isFavorite,
   isMainCardType,
@@ -20,6 +20,7 @@ export default function CitiesPlacesItem({
 }: CitiesPlacesItemProps): JSX.Element {
   const getPrefixByCardType = (): string =>
     isMainCardType ? 'cities__' : 'near-places__';
+
   return (
     <article
       className={`${getPrefixByCardType()}card place-card`}
@@ -38,7 +39,7 @@ export default function CitiesPlacesItem({
         <Link to={`/offer/${id}`}>
           <img
             className="place-card__image"
-            src={`img/${imagesSrc[0]}`}
+            src={previewImage}
             width={260}
             height={200}
             alt={`${title} ${type} image`}
@@ -67,7 +68,7 @@ export default function CitiesPlacesItem({
           <div className="place-card__stars rating__stars">
             <span
               style={{
-                width: `${rating}%`,
+                width: `${(100 / 5) * Math.round(rating)}%`,
               }}
             />
             <span className="visually-hidden">Rating</span>

@@ -1,12 +1,10 @@
-import { Review } from '../../mocks/reviews';
-
-type OfferReviewsItemInfoProps = Pick<Review, 'rating' | 'comment' | 'date'>;
+import { Review } from '../../types';
 
 export default function OfferReviewsItemInfo({
-  rating,
   comment,
   date,
-}: OfferReviewsItemInfoProps): JSX.Element {
+  rating,
+}: Review): JSX.Element {
   const dateObj: Date = new Date(date);
   const getFormattedDateContent = (): string =>
     dateObj.toLocaleDateString('en', { year: 'numeric', month: 'long' });
@@ -16,7 +14,11 @@ export default function OfferReviewsItemInfo({
     <div className="reviews__info">
       <div className="reviews__rating rating">
         <div className="reviews__stars rating__stars">
-          <span style={{ width: `${rating}%` }} />
+          <span
+            style={{
+              width: `${(100 / 5) * Math.round(rating)}%`,
+            }}
+          />
           <span className="visually-hidden">Rating</span>
         </div>
       </div>
