@@ -1,9 +1,9 @@
-import { Host } from '../../mocks/offers';
+import { Host } from '../../types';
 
 export default function OfferHostAvatar({
   name,
   isPro,
-  avatarSrc,
+  avatarUrl,
 }: Host): JSX.Element {
   return (
     <div className="offer__host-user user">
@@ -14,7 +14,7 @@ export default function OfferHostAvatar({
       >
         <img
           className="offer__avatar user__avatar"
-          src={`img/${avatarSrc}`}
+          src={avatarUrl}
           width={74}
           height={74}
           alt={`${name} avatar`}

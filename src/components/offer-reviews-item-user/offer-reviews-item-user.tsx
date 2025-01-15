@@ -1,13 +1,15 @@
-import { Reviewer } from '../../mocks/reviews';
+import { Reviewer } from '../../types';
 
-export default function OfferReviewsItemUser(reviewer: Reviewer): JSX.Element {
-  const { name, avatarSrc } = reviewer;
+export default function OfferReviewsItemUser({
+  avatarUrl,
+  name,
+}: Reviewer): JSX.Element {
   return (
     <div className="reviews__user user">
       <div className="reviews__avatar-wrapper user__avatar-wrapper">
         <img
           className="reviews__avatar user__avatar"
-          src={`img/${avatarSrc}`}
+          src={avatarUrl}
           width={54}
           height={54}
           alt={`${name} avatar`}

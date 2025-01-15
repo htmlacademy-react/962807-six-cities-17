@@ -1,4 +1,4 @@
-import { Offer } from '../../mocks/offers';
+import { FullOfferData } from '../../types';
 
 export default function OfferPresentation({
   title,
@@ -9,8 +9,7 @@ export default function OfferPresentation({
   isFavorite,
   bedrooms,
   maxAdults,
-}: Offer): JSX.Element {
-  const getRatingValue = (): string => ((rating / 100) * 5).toFixed(1);
+}: FullOfferData): JSX.Element {
   return (
     <>
       {isPremium && (
@@ -34,12 +33,10 @@ export default function OfferPresentation({
       </div>
       <div className="offer__rating rating">
         <div className="offer__stars rating__stars">
-          <span style={{ width: `${rating}%` }} />
+          <span style={{ width: `${(100 / 5) * Math.round(rating)}%` }} />
           <span className="visually-hidden">Rating</span>
         </div>
-        <span className="offer__rating-value rating__value">
-          {getRatingValue()}
-        </span>
+        <span className="offer__rating-value rating__value">{rating}</span>
       </div>
       <ul className="offer__features">
         <li className="offer__feature offer__feature--entire">{type}</li>

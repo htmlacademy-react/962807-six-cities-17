@@ -1,10 +1,10 @@
 import React from 'react';
 import OfferReviewsForm from '../offer-reviews-form/offer-reviews-form';
-import { AppProps } from '../app/app';
 
 type OfferReviewsProps = {
   children: JSX.Element[];
-} & Pick<AppProps, 'logged'>;
+  logged: boolean;
+};
 
 export default function OfferReviews({
   children,

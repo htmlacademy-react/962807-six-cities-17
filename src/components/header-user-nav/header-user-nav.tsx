@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
-import { AppProps } from '../app/app';
 
-type UserNavProps = Pick<AppProps, 'logged'>;
+export type UserNavProps = {
+  logged: boolean;
+};
 
 export default function UserNav({ logged }: UserNavProps): JSX.Element {
   return (

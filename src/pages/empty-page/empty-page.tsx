@@ -1,7 +1,8 @@
-import { AppProps } from '../../components/app/app';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-type EmptyPageProps = Pick<AppProps, 'logged'>;
+type EmptyPageProps = {
+  logged: boolean;
+};
 
 export default function EmptyPage({ logged }: EmptyPageProps): JSX.Element {
   return (
