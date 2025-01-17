@@ -1,7 +1,5 @@
-import { MouseEvent } from 'react';
-import { useAppDispatch } from '../../hooks/useDispatch/useAppDispatch';
-import { changeCity } from '../../store/action';
 import { City } from '../../types';
+import { getRandomKey, handleCityChange } from '../../utils/utils';
 import LocationNavItem from '../locations-nav-item/locations-nav-item';
 type LocationNavProps = {
   citiesNames: string[];
@@ -12,24 +10,12 @@ export default function LocationNav({
   citiesNames,
   currentCity,
 }: LocationNavProps): JSX.Element {
-  const dispatch = useAppDispatch();
-
-  const handleCityChange: (evt: MouseEvent<HTMLAnchorElement>) => void = (
-    evt
-  ) => {
-    const cityName = (evt.currentTarget.textContent as string).trim();
-    const nextCity = citiesNames.find((city) => city === cityName);
-    if (nextCity && currentCity.name !== nextCity) {
-      dispatch(changeCity(nextCity));
-    }
-  };
-
   const getLocationNavItem = function (): JSX.Element[] {
     return citiesNames.map((city) => (
       <LocationNavItem
-        key={(Date.now() * Math.random()).toFixed(10)}
+        key={getRandomKey()}
         active={city === currentCity.name ? true : undefined}
-        onCityChange={handleCityChange}
+        onCityChange={(evt) => handleCityChange(evt, currentCity.name)}
       >
         {city}
       </LocationNavItem>

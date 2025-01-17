@@ -29,10 +29,9 @@ export default function Map({
   const mapRef = useRef(null);
   const city = useAppSelector((state) => state.currentCity);
   const offers = useAppSelector((state) =>
-    styleModifier === 'cities'
-      ? state.offersByCity
-      : state.nearOffers.slice(0, 3)
+    styleModifier === 'cities' ? state.offersByCity : state.nearOffers
   );
+
   const map = useMap(mapRef, city);
 
   useEffect(() => {

@@ -15,7 +15,9 @@ import {
   loadOffers,
   loadReviews,
   requireAuth,
+  setError,
   setOffersLoadingStatus,
+  setUser,
 } from './action';
 
 type StateProps = {
@@ -28,6 +30,7 @@ type StateProps = {
   currentCity: City;
   sort: string;
   authStatus: AuthStatus;
+  user: string;
   isOffersLoading: boolean;
   error: string | null;
 };
@@ -70,10 +73,11 @@ const initialState: StateProps = {
   currentCity: DEFAULT_CITY,
   sort: SortingOption.POPULAR,
   authStatus: AuthStatus.Unknown,
+  user: '',
   isOffersLoading: false,
-  error: null,
   reviews: [],
   nearOffers: [],
+  error: null,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -112,5 +116,11 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setOffersLoadingStatus, (state, action) => {
       state.isOffersLoading = action.payload;
+    })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
+    })
+    .addCase(setUser, (state, action) => {
+      state.user = action.payload;
     });
 });
