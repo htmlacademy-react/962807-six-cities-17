@@ -1,5 +1,10 @@
 import { City, FullOfferData } from './types';
 
+// export const TIMEOUT_SHOW_ERROR = 2000;
+export const TIMEOUT_SHOW_ERROR = 7000;
+export const BACKEND_URL = 'https://16.design.htmlacademy.pro/six-cities';
+export const REQUEST_TIMEOUT = 5000;
+
 export enum SortingOption {
   POPULAR = 'Popular',
   PRICE_LOW_HIGHT = 'Price: low to high',
@@ -29,7 +34,6 @@ export enum APIRoute {
   Offer = 'offers/',
   NearBy = '/nearby',
   Reviews = '/comments/',
-
 }
 
 export const DEFAULT_CITY: City = {

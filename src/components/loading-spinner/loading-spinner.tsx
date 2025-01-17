@@ -1,4 +1,4 @@
-import '../../components/loading-spinner/loading-spinner.css';
+import './loading-spinner.css';
 
 export default function LoadingSpinner(): JSX.Element {
   return (

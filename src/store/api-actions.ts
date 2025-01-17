@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { APIRoute, AuthStatus } from '../const';
+import { APIRoute, AuthStatus, TIMEOUT_SHOW_ERROR } from '../const';
 import { dropToken, saveToken } from '../services/token';
 import { AuthData, FullOfferData, Offers, Reviews, UserData } from '../types';
 import {
@@ -9,15 +9,21 @@ import {
   loadOffers,
   loadReviews,
   requireAuth,
+  setError,
   setOffersLoadingStatus,
+  setUser,
 } from './action';
-import { AppDispatch, State } from './store';
+import { AppDispatch, State, store } from './store';
 
 type AsyncThunkType = {
   dispatch: AppDispatch;
   store: State;
   extra: AxiosInstance;
 };
+
+export const clearErrorAction = createAsyncThunk('app/clearError', () => {
+  setTimeout(() => store.dispatch(setError(null)), TIMEOUT_SHOW_ERROR);
+});
 
 export const fetchOffersAction = createAsyncThunk<
   void,
@@ -37,7 +43,7 @@ export const fetchNearOffersAction = createAsyncThunk<
 >('offers/fetchNearOffers', async (id, { dispatch, extra: api }) => {
   dispatch(setOffersLoadingStatus(true));
   const { data } = await api.get<Offers>(APIRoute.Offer + id + APIRoute.NearBy);
-  dispatch(loadNearOffers(data));
+  dispatch(loadNearOffers(data.slice(0, 3)));
   dispatch(setOffersLoadingStatus(false));
 });
 
@@ -79,19 +85,25 @@ export const checkAuth = createAsyncThunk<void, undefined, AsyncThunkType>(
 export const loginAction = createAsyncThunk<void, AuthData, AsyncThunkType>(
   'user/login',
   async ({ login: email, password }, { dispatch, extra: api }) => {
+    dispatch(setOffersLoadingStatus(true));
     const {
       data: { token },
     } = await api.post<UserData>(APIRoute.Login, { email, password });
     saveToken(token);
     dispatch(requireAuth(AuthStatus.Auth));
+    dispatch(setUser(email));
+    dispatch(setOffersLoadingStatus(false));
   }
 );
 
 export const logoutAction = createAsyncThunk<void, undefined, AsyncThunkType>(
   'user/logout',
   async (_arg, { dispatch, extra: api }) => {
+    dispatch(setOffersLoadingStatus(true));
     await api.delete(APIRoute.Logout);
     dropToken();
     dispatch(requireAuth(AuthStatus.NoAuth));
+    dispatch(setUser(''));
+    dispatch(setOffersLoadingStatus(false));
   }
 );
