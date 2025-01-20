@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import CitiesPlacesItem from '../../components/cities-places-item/cities-places-item';
 import Header from '../../components/header/header';
@@ -19,14 +20,11 @@ import {
   fetchNearOffersAction,
   fetchReviewsAction,
 } from '../../store/api-actions';
-import LoadingPage from '../loading-page/loading-page';
-import { Helmet } from 'react-helmet-async';
 
 type OfferPageProps = {
   logged: boolean;
 };
 export default function OfferPage({ logged }: OfferPageProps): JSX.Element {
-  const isLoading = useAppSelector((state) => state.isOffersLoading);
   const offer = useAppSelector((state) => state.offer);
   const reviews = useAppSelector((state) => state.reviews);
   const nearOffers = useAppSelector((state) => state.nearOffers);
@@ -41,10 +39,6 @@ export default function OfferPage({ logged }: OfferPageProps): JSX.Element {
       dispatch(fetchReviewsAction(offerId));
     }
   }, [offerId, offer, dispatch]);
-
-  if (isLoading || !offer.id) {
-    return <LoadingPage />;
-  }
 
   const { title, host, description, goods, images } = offer;
 

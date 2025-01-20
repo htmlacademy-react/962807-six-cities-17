@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import CitiesEmpty from '../../components/cities-empty/cities-empty';
 import CitiesPlacesItem from '../../components/cities-places-item/cities-places-item';
 import CitiesPlaces from '../../components/cities-places/cities-places';
@@ -6,8 +7,6 @@ import Header from '../../components/header/header';
 import LocationNav from '../../components/locations-nav/locations-nav';
 import Map from '../../components/map/map';
 import { useAppSelector } from '../../hooks/useSelector/useAppSelector';
-import LoadingPage from '../loading-page/loading-page';
-import { Helmet } from 'react-helmet-async';
 
 export type MainPageProps = {
   citiesNames: string[];
@@ -23,10 +22,7 @@ export default function MainPage({
   const offers = useAppSelector((state) => state.offersByCity);
   const [activeCard, setActiveCard] = useState<string | null>(null);
   const getOffersCount = () => offers.length;
-  const isEmpty = () => !offers.length;
-  if (isLoading) {
-    return <LoadingPage />;
-  }
+  const isEmpty = () => !isLoading && !offers.length;
 
   const getOffersCards = function (): JSX.Element[] {
     return offers.map((offer) => (

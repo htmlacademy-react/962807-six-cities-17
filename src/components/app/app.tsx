@@ -9,13 +9,31 @@ import OfferPage from '../../pages/offer-page/offer-page';
 import PrivateRoute from '../private-route/private-route';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
 import { HelmetProvider } from 'react-helmet-async';
+import LoadingPage from '../../pages/loading-page/loading-page';
 
 type AppProps = {
   citiesNames: string[];
 };
 export default function App({ citiesNames }: AppProps): JSX.Element {
   const authStatus: AuthStatus = useAppSelector((state) => state.authStatus);
+  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
+  const isReviewsLoading = useAppSelector((state) => state.isReviewsLoading);
+  const isFullOfferLoading = useAppSelector(
+    (state) => state.isFullOfferLoading
+  );
+  const isNearOffersLoading = useAppSelector(
+    (state) => state.isNearOffersLoading
+  );
   const logged: boolean = authStatus === AuthStatus.Auth;
+
+  if (
+    isOffersLoading ||
+    isReviewsLoading ||
+    isFullOfferLoading ||
+    isNearOffersLoading
+  ) {
+    return <LoadingPage />;
+  }
 
   return (
     <HelmetProvider>
