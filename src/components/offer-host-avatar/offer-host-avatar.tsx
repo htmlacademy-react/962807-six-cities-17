@@ -1,10 +1,10 @@
-import { Host } from '../../types';
+import { User } from '../../types';
 
 export default function OfferHostAvatar({
   name,
   isPro,
   avatarUrl,
-}: Host): JSX.Element {
+}: User): JSX.Element {
   return (
     <div className="offer__host-user user">
       <div

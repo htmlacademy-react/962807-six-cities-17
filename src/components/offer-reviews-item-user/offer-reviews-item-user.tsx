@@ -1,9 +1,9 @@
-import { Reviewer } from '../../types';
+import { User } from '../../types';
 
 export default function OfferReviewsItemUser({
   avatarUrl,
   name,
-}: Reviewer): JSX.Element {
+}: User): JSX.Element {
   return (
     <div className="reviews__user user">
       <div className="reviews__avatar-wrapper user__avatar-wrapper">

@@ -4,6 +4,10 @@ import { City, FullOfferData } from './types';
 export const TIMEOUT_SHOW_ERROR = 7000;
 export const BACKEND_URL = 'https://16.design.htmlacademy.pro/six-cities';
 export const REQUEST_TIMEOUT = 5000;
+// export const MINIMUM_REVIEW_LENGTH = 50;
+export const MINIMUM_REVIEW_LENGTH = 0;
+export const MAXIMUM_REVIEW_LENGTH = 300;
+export const MAXIMUM_REVIEWS_QUANTITY = 50;
 
 export enum SortingOption {
   POPULAR = 'Popular',
@@ -86,3 +90,11 @@ export const INIT_OFFER: FullOfferData = {
   images: [''],
   maxAdults: 0,
 };
+
+export const RATING_GRADES = [
+  'perfect',
+  'good',
+  'not bad',
+  'badly',
+  'terribly',
+];
