@@ -8,6 +8,7 @@ import MainPage from '../../pages/main-page/main-page';
 import OfferPage from '../../pages/offer-page/offer-page';
 import PrivateRoute from '../private-route/private-route';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
+import { HelmetProvider } from 'react-helmet-async';
 
 type AppProps = {
   citiesNames: string[];
@@ -17,33 +18,35 @@ export default function App({ citiesNames }: AppProps): JSX.Element {
   const logged: boolean = authStatus === AuthStatus.Auth;
 
   return (
-    <BrowserRouter>
-      <ScrollToTop />
-      <Routes>
-        <Route path={AppRoute.Main}>
-          <Route
-            index
-            element={<MainPage logged={logged} citiesNames={citiesNames} />}
-          />
-          {logged || <Route path={AppRoute.Login} element={<LoginPage />} />}
-          <Route
-            path={AppRoute.Favorites}
-            element={
-              <PrivateRoute authStatus={authStatus}>
-                <FavoritePage />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path={`${AppRoute.Offer}/:id`}
-            element={<OfferPage logged={logged} />}
-          />
-          <Route
-            path={AppRoute.Empty}
-            element={<EmptyPage logged={logged} />}
-          />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter>
+        <ScrollToTop />
+        <Routes>
+          <Route path={AppRoute.Main}>
+            <Route
+              index
+              element={<MainPage logged={logged} citiesNames={citiesNames} />}
+            />
+            {logged || <Route path={AppRoute.Login} element={<LoginPage />} />}
+            <Route
+              path={AppRoute.Favorites}
+              element={
+                <PrivateRoute logged={logged}>
+                  <FavoritePage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path={`${AppRoute.Offer}/:id`}
+              element={<OfferPage logged={logged} />}
+            />
+            <Route
+              path={AppRoute.Empty}
+              element={<EmptyPage logged={logged} />}
+            />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </HelmetProvider>
   );
 }

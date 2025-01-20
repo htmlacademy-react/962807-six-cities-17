@@ -20,6 +20,7 @@ import {
   fetchReviewsAction,
 } from '../../store/api-actions';
 import LoadingPage from '../loading-page/loading-page';
+import { Helmet } from 'react-helmet-async';
 
 type OfferPageProps = {
   logged: boolean;
@@ -73,6 +74,9 @@ export default function OfferPage({ logged }: OfferPageProps): JSX.Element {
 
   return (
     <div className="page">
+      <Helmet>
+        <title>6 cities: offer</title>
+      </Helmet>
       <Header logged={logged} enableUserNav />
       <main className="page__main page__main--offer">
         <section className="offer">

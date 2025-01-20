@@ -7,6 +7,7 @@ import LocationNav from '../../components/locations-nav/locations-nav';
 import Map from '../../components/map/map';
 import { useAppSelector } from '../../hooks/useSelector/useAppSelector';
 import LoadingPage from '../loading-page/loading-page';
+import { Helmet } from 'react-helmet-async';
 
 export type MainPageProps = {
   citiesNames: string[];
@@ -39,6 +40,9 @@ export default function MainPage({
   };
   return (
     <div className="page page--gray page--main">
+      <Helmet>
+        <title>6 cities</title>
+      </Helmet>
       <Header logged={logged} enableUserNav />
       <main
         className={`page__main page__main--index ${
