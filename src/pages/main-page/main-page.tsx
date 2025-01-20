@@ -61,7 +61,7 @@ export default function MainPage({
               }
             >
               {isEmpty() ? (
-                <CitiesEmpty />
+                <CitiesEmpty currentCity={currentCity} />
               ) : (
                 <CitiesPlaces
                   offersCount={getOffersCount()}
