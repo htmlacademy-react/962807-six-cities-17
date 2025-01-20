@@ -12,10 +12,10 @@ export default function UserNav({ logged }: UserNavProps): JSX.Element {
   const user = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
   const handleNavLink = () => {
     if (logged) {
       dispatch(logoutAction());
+      navigate(AppRoute.Main);
     } else {
       navigate(AppRoute.Login);
     }
@@ -31,7 +31,9 @@ export default function UserNav({ logged }: UserNavProps): JSX.Element {
               to={AppRoute.Favorites}
             >
               <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-              <span className="header__user-name user__name">{user}</span>
+              <span className="header__user-name user__name">
+                {user ? user.name : ''}
+              </span>
               <span className="header__favorite-count">3</span>
             </Link>
           </li>
