@@ -31,7 +31,13 @@ const initialState: OfferProcessType = {
 export const offerProcess = createSlice({
   name: NameSpace.Offer,
   initialState,
-  reducers: {},
+  reducers: {
+    dropLoadingError: (state) => {
+      state.isFullOfferLoadingError = false;
+      state.isReviewsLoadingError = false;
+      state.isNearOffersLoadingError = false;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchNearOffersAction.pending, (state) => {
@@ -91,3 +97,5 @@ export const offerProcess = createSlice({
       });
   },
 });
+
+export const { dropLoadingError } = offerProcess.actions;

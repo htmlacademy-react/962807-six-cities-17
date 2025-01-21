@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import CitiesPlacesItem from '../../components/cities-places-item/cities-places-item';
 import Header from '../../components/header/header';
 import Map from '../../components/map/map';
@@ -26,6 +26,8 @@ import {
   getNearOffersData,
   getReviewsData,
 } from '../../store/offer-process/offer-selectors';
+import { AppRoute } from '../../const';
+import { dropLoadingError } from '../../store/offer-process/offer-process';
 
 type OfferPageProps = {
   logged: boolean;
@@ -36,21 +38,31 @@ export default function OfferPage({ logged }: OfferPageProps): JSX.Element {
   const nearOffers = useAppSelector(getNearOffersData);
   const isFullOfferLoadingError = useAppSelector(getIsFullOfferLoadingError);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const [activeCard, setActiveCard] = useState<string | null>(null);
   const offerId = useParams().id;
 
   useEffect(() => {
     if (offerId && offer.id !== offerId) {
+      if (isFullOfferLoadingError) {
+        navigate(AppRoute.Empty);
+        setTimeout(() => {
+          dispatch(dropLoadingError());
+        }, 100);
+        return;
+      }
       dispatch(fetchFullOfferDataAction(offerId)).then((response) => {
         if (response.meta.requestStatus === 'rejected') {
-          return;
+          return () => {
+            navigate(AppRoute.Main);
+          };
         }
         dispatch(fetchReviewsAction(offerId));
         dispatch(fetchNearOffersAction(offerId));
       });
     }
-  }, [offerId, dispatch, offer, isFullOfferLoadingError]);
+  }, [offerId, dispatch, offer, isFullOfferLoadingError, navigate]);
 
   const { title, host, description, goods, images } = offer;
 
