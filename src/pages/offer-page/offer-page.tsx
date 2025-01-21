@@ -34,8 +34,8 @@ type OfferPageProps = {
 };
 export default function OfferPage({ logged }: OfferPageProps): JSX.Element {
   const offer = useAppSelector(getFullOfferData);
-  const reviews = useAppSelector(getReviewsData);
-  const nearOffers = useAppSelector(getNearOffersData);
+  const reviews = useAppSelector(getReviewsData).slice(0, 10);
+  const nearOffers = useAppSelector(getNearOffersData).slice(0, 3);
   const isFullOfferLoadingError = useAppSelector(getIsFullOfferLoadingError);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

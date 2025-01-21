@@ -33,7 +33,7 @@ export default function Map({
 }: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const city = useAppSelector(getCurrentCity);
-  const nearOffers = useAppSelector(getNearOffersData);
+  const nearOffers = useAppSelector(getNearOffersData).slice(0, 3);
   const currentOffers = useAppSelector(getOfferByCity);
   const offers = styleModifier === 'cities' ? currentOffers : nearOffers;
 

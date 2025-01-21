@@ -46,7 +46,7 @@ export const offerProcess = createSlice({
       })
       .addCase(fetchNearOffersAction.fulfilled, (state, action) => {
         state.isNearOffersLoading = false;
-        state.nearOffers = action.payload.slice(0, 3);
+        state.nearOffers = action.payload;
       })
       .addCase(fetchNearOffersAction.rejected, (state) => {
         state.isNearOffersLoading = false;
@@ -71,7 +71,7 @@ export const offerProcess = createSlice({
       .addCase(fetchReviewsAction.fulfilled, (state, action) => {
         state.isReviewsLoading = false;
         state.isReviewsLoadingError = false;
-        const reviews = action.payload.slice(0, 10);
+        const reviews = action.payload;
         sortReviewsNewToOld(reviews);
         state.reviews = reviews;
       })
@@ -87,7 +87,6 @@ export const offerProcess = createSlice({
       .addCase(postReviewAction.fulfilled, (state, action) => {
         const review = action.payload;
         state.reviews.unshift(review);
-        state.reviews.slice(0, 10);
         state.isReviewPushing = false;
         state.isReviewPushingError = false;
       })

@@ -2,8 +2,7 @@ import { City, FullOfferData } from './types';
 
 export const BACKEND_URL = 'https://16.design.htmlacademy.pro/six-cities';
 export const REQUEST_TIMEOUT = 5000;
-// export const MINIMUM_REVIEW_LENGTH = 50;
-export const MINIMUM_REVIEW_LENGTH = 5;
+export const MINIMUM_REVIEW_LENGTH = 50;
 export const MAXIMUM_REVIEW_LENGTH = 300;
 export const MAXIMUM_REVIEWS_QUANTITY = 50;
 
