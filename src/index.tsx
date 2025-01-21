@@ -6,6 +6,7 @@ import App from './components/app/app';
 import { CITIES_NAMES } from './const';
 import { checkAuthAction, fetchOffersAction } from './store/api-actions';
 import { store } from './store/store';
+import { ToastContainer } from 'react-toastify';
 
 store.dispatch(fetchOffersAction());
 store.dispatch(checkAuthAction());
@@ -17,7 +18,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      {/* <ErrorMessage /> */}
+      <ToastContainer />
       <App citiesNames={CITIES_NAMES} />
     </Provider>
   </React.StrictMode>
