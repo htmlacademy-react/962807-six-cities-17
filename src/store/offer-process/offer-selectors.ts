@@ -8,6 +8,13 @@ export const getIsReviewsLoading = (state: State): boolean =>
 export const getIsNearOffersLoading = (state: State): boolean =>
   state[NameSpace.Offer].isNearOffersLoading;
 
+export const getIsFullOfferLoadingError = (state: State): boolean =>
+  state[NameSpace.Offer].isFullOfferLoadingError;
+export const getIsReviewsLoadingError = (state: State): boolean =>
+  state[NameSpace.Offer].isReviewsLoadingError;
+export const getIsNearOffersLoadingError = (state: State): boolean =>
+  state[NameSpace.Offer].isNearOffersLoadingError;
+
 export const getFullOfferData = (state: State): FullOfferData =>
   state[NameSpace.Offer].offer;
 export const getReviewsData = (state: State): Reviews =>

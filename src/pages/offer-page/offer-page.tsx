@@ -22,6 +22,7 @@ import {
 } from '../../store/api-actions';
 import {
   getFullOfferData,
+  getIsFullOfferLoadingError,
   getNearOffersData,
   getReviewsData,
 } from '../../store/offer-process/offer-selectors';
@@ -33,18 +34,23 @@ export default function OfferPage({ logged }: OfferPageProps): JSX.Element {
   const offer = useAppSelector(getFullOfferData);
   const reviews = useAppSelector(getReviewsData);
   const nearOffers = useAppSelector(getNearOffersData);
-
+  const isFullOfferLoadingError = useAppSelector(getIsFullOfferLoadingError);
   const dispatch = useAppDispatch();
 
   const [activeCard, setActiveCard] = useState<string | null>(null);
   const offerId = useParams().id;
+
   useEffect(() => {
-    if (offerId && (!offer || offer.id !== offerId)) {
-      dispatch(fetchFullOfferDataAction(offerId));
-      dispatch(fetchNearOffersAction(offerId));
-      dispatch(fetchReviewsAction(offerId));
+    if (offerId && offer.id !== offerId) {
+      dispatch(fetchFullOfferDataAction(offerId)).then((response) => {
+        if (response.meta.requestStatus === 'rejected') {
+          return;
+        }
+        dispatch(fetchReviewsAction(offerId));
+        dispatch(fetchNearOffersAction(offerId));
+      });
     }
-  }, [offerId, offer, dispatch]);
+  }, [offerId, dispatch, offer, isFullOfferLoadingError]);
 
   const { title, host, description, goods, images } = offer;
 

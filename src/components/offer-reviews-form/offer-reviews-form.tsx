@@ -20,9 +20,9 @@ export default function OfferReviewsForm(): JSX.Element {
   };
   const [reviewForm, setReviewForm] = useState(initialState);
 
-  const checkReviewLength = (reviewLength = reviewForm.review.length) =>
-    reviewLength >= MINIMUM_REVIEW_LENGTH &&
-    reviewLength <= MAXIMUM_REVIEW_LENGTH;
+  // const checkReviewLength = (reviewLength = reviewForm.review.length) =>
+  //   reviewLength >= MINIMUM_REVIEW_LENGTH &&
+  //   reviewLength <= MAXIMUM_REVIEW_LENGTH;
 
   const onReviewChange: React.FormEventHandler = (
     evt: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
@@ -31,9 +31,9 @@ export default function OfferReviewsForm(): JSX.Element {
       return;
     }
     const { name, value } = evt.target;
-    if (name === 'review' && value.length >= MAXIMUM_REVIEW_LENGTH) {
-      return;
-    }
+    // if (name === 'review' && value.length >= MAXIMUM_REVIEW_LENGTH) {
+    //   return;
+    // }
     setReviewForm({
       ...reviewForm,
       [name]: name === 'rating' ? Number(value) : value,
@@ -101,6 +101,8 @@ export default function OfferReviewsForm(): JSX.Element {
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={reviewForm.review}
         disabled={reviewForm.disable}
+        minLength={MINIMUM_REVIEW_LENGTH}
+        maxLength={MAXIMUM_REVIEW_LENGTH}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -111,7 +113,8 @@ export default function OfferReviewsForm(): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={!checkReviewLength() || reviewForm.disable}
+          // disabled={!checkReviewLength() || reviewForm.disable}
+          disabled={reviewForm.disable}
         >
           Submit
         </button>
