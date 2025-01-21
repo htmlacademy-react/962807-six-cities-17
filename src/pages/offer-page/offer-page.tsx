@@ -20,14 +20,20 @@ import {
   fetchNearOffersAction,
   fetchReviewsAction,
 } from '../../store/api-actions';
+import {
+  getFullOfferData,
+  getNearOffersData,
+  getReviewsData,
+} from '../../store/offer-process/offer-selectors';
 
 type OfferPageProps = {
   logged: boolean;
 };
 export default function OfferPage({ logged }: OfferPageProps): JSX.Element {
-  const offer = useAppSelector((state) => state.offer);
-  const reviews = useAppSelector((state) => state.reviews);
-  const nearOffers = useAppSelector((state) => state.nearOffers);
+  const offer = useAppSelector(getFullOfferData);
+  const reviews = useAppSelector(getReviewsData);
+  const nearOffers = useAppSelector(getNearOffersData);
+
   const dispatch = useAppDispatch();
 
   const [activeCard, setActiveCard] = useState<string | null>(null);

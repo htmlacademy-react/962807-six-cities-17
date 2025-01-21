@@ -5,7 +5,7 @@ import axios, {
   InternalAxiosRequestConfig,
 } from 'axios';
 import { getToken } from './token';
-import { processErrorHandle } from './process-error-handle';
+// import { processErrorHandle } from './process-error-handle';
 import { BACKEND_URL, REQUEST_TIMEOUT } from '../const';
 import { StatusCodes } from 'http-status-codes';
 
@@ -43,9 +43,8 @@ export const createAPI = (): AxiosInstance => {
     (response) => response,
     (error: AxiosError<DetailMessageType>) => {
       if (error.response && shouldDisplayError(error.response)) {
-        const detailMessage = error.response.data;
-
-        processErrorHandle(detailMessage.message);
+        // const detailMessage = error.response.data;
+        // processErrorHandle(detailMessage.message);
       }
 
       throw error;

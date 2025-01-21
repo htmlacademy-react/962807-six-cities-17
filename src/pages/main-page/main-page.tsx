@@ -7,6 +7,11 @@ import Header from '../../components/header/header';
 import LocationNav from '../../components/locations-nav/locations-nav';
 import Map from '../../components/map/map';
 import { useAppSelector } from '../../hooks/useSelector/useAppSelector';
+import {
+  getCurrentCity,
+  getIsOffersLoading,
+  getOfferByCity,
+} from '../../store/card-process/card-selectors';
 
 export type MainPageProps = {
   citiesNames: string[];
@@ -17,9 +22,12 @@ export default function MainPage({
   citiesNames,
   logged,
 }: MainPageProps): JSX.Element {
-  const isLoading = useAppSelector((state) => state.isOffersLoading);
-  const currentCity = useAppSelector((state) => state.currentCity);
-  const offers = useAppSelector((state) => state.offersByCity);
+  const isLoading = useAppSelector(getIsOffersLoading);
+  // const isLoading = useAppSelector((state) => state.isOffersLoading);
+  const currentCity = useAppSelector(getCurrentCity);
+  // const currentCity = useAppSelector((state) => state.currentCity);
+  const offers = useAppSelector(getOfferByCity);
+  // const offers = useAppSelector((state) => state.offersByCity);
   const [activeCard, setActiveCard] = useState<string | null>(null);
   const getOffersCount = () => offers.length;
   const isEmpty = () => !isLoading && !offers.length;

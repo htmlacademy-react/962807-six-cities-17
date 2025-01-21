@@ -3,13 +3,14 @@ import { AppRoute } from '../../const';
 import { useAppDispatch } from '../../hooks/useDispatch/useAppDispatch';
 import { useAppSelector } from '../../hooks/useSelector/useAppSelector';
 import { logoutAction } from '../../store/api-actions';
+import { getUserData } from '../../store/user-process/user-selectors';
 
 export type UserNavProps = {
   logged: boolean;
 };
 
 export default function UserNav({ logged }: UserNavProps): JSX.Element {
-  const user = useAppSelector((state) => state.user);
+  const user = useAppSelector(getUserData);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const handleNavLink = () => {

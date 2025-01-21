@@ -1,12 +1,13 @@
 import { useState } from 'react';
+import { SortingOption } from '../../const';
 import { useAppDispatch } from '../../hooks/useDispatch/useAppDispatch';
 import { useAppSelector } from '../../hooks/useSelector/useAppSelector';
-import { changeSort } from '../../store/action';
-import { SortingOption } from '../../const';
+import { getCurrentSort } from '../../store/card-process/card-selectors';
 import { getRandomKey } from '../../utils/utils';
+import { changeSort } from '../../store/card-process/card-process';
 
 export default function CitiesPlacesSort(): JSX.Element {
-  const sort = useAppSelector((state) => state.sort);
+  const CurrentSort = useAppSelector(getCurrentSort);
 
   const dispatch = useAppDispatch();
   const [isOpened, setIsOpened] = useState<boolean>(false);
@@ -16,7 +17,7 @@ export default function CitiesPlacesSort(): JSX.Element {
       <li
         key={getRandomKey()}
         className={`places__option ${
-          (sortItem as string) === sort ? 'places__option--active' : ''
+          (sortItem as string) === CurrentSort ? 'places__option--active' : ''
         }`}
         tabIndex={0}
         onClick={() => {
@@ -37,7 +38,7 @@ export default function CitiesPlacesSort(): JSX.Element {
         tabIndex={0}
         onClick={() => setIsOpened(!isOpened)}
       >
-        {sort}
+        {CurrentSort}
         <svg className="places__sorting-arrow" width={7} height={4}>
           <use xlinkHref="#icon-arrow-select" />
         </svg>

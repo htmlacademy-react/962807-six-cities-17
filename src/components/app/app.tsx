@@ -10,20 +10,24 @@ import PrivateRoute from '../private-route/private-route';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
 import { HelmetProvider } from 'react-helmet-async';
 import LoadingPage from '../../pages/loading-page/loading-page';
+import { getAuthStatus } from '../../store/user-process/user-selectors';
+import { getIsOffersLoading } from '../../store/card-process/card-selectors';
+import {
+  getIsFullOfferLoading,
+  getIsNearOffersLoading,
+  getIsReviewsLoading,
+} from '../../store/offer-process/offer-selectors';
 
 type AppProps = {
   citiesNames: string[];
 };
 export default function App({ citiesNames }: AppProps): JSX.Element {
-  const authStatus: AuthStatus = useAppSelector((state) => state.authStatus);
-  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
-  const isReviewsLoading = useAppSelector((state) => state.isReviewsLoading);
-  const isFullOfferLoading = useAppSelector(
-    (state) => state.isFullOfferLoading
-  );
-  const isNearOffersLoading = useAppSelector(
-    (state) => state.isNearOffersLoading
-  );
+  const authStatus: AuthStatus = useAppSelector(getAuthStatus);
+  const isOffersLoading = useAppSelector(getIsOffersLoading);
+  const isReviewsLoading = useAppSelector(getIsReviewsLoading);
+  const isFullOfferLoading = useAppSelector(getIsFullOfferLoading);
+  const isNearOffersLoading = useAppSelector(getIsNearOffersLoading);
+
   const logged: boolean = authStatus === AuthStatus.Auth;
 
   if (

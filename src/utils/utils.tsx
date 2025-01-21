@@ -1,7 +1,7 @@
 import { MouseEvent } from 'react';
 import { store } from '../store/store';
 import { CITIES_NAMES } from '../const';
-import { changeCity } from '../store/action';
+import { changeCity } from '../store/card-process/card-process';
 
 export const handleCityChange: (
   evt: MouseEvent<HTMLAnchorElement>,

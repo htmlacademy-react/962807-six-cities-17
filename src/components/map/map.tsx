@@ -5,6 +5,11 @@ import 'leaflet/dist/leaflet.css';
 
 import useMap from '../../hooks/useMap/useMap';
 import { useAppSelector } from '../../hooks/useSelector/useAppSelector';
+import {
+  getCurrentCity,
+  getOfferByCity,
+} from '../../store/card-process/card-selectors';
+import { getNearOffersData } from '../../store/offer-process/offer-selectors';
 
 type MapProps = {
   selectedOffer: string | null;
@@ -27,10 +32,10 @@ export default function Map({
   styleModifier = 'cities',
 }: MapProps): JSX.Element {
   const mapRef = useRef(null);
-  const city = useAppSelector((state) => state.currentCity);
-  const offers = useAppSelector((state) =>
-    styleModifier === 'cities' ? state.offersByCity : state.nearOffers
-  );
+  const city = useAppSelector(getCurrentCity);
+  const nearOffers = useAppSelector(getNearOffersData);
+  const currentOffers = useAppSelector(getOfferByCity);
+  const offers = styleModifier === 'cities' ? currentOffers : nearOffers;
 
   const map = useMap(mapRef, city);
 

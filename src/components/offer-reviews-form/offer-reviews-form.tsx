@@ -5,11 +5,13 @@ import {
   RATING_GRADES,
 } from '../../const';
 import { useAppDispatch } from '../../hooks/useDispatch/useAppDispatch';
+import { useAppSelector } from '../../hooks/useSelector/useAppSelector';
 import { postReviewAction } from '../../store/api-actions';
-import { store } from '../../store/store';
+import { getFullOfferData } from '../../store/offer-process/offer-selectors';
 
 export default function OfferReviewsForm(): JSX.Element {
   const dispatch = useAppDispatch();
+  const offerId = useAppSelector(getFullOfferData).id;
 
   const initialState = {
     rating: 0,
@@ -44,7 +46,7 @@ export default function OfferReviewsForm(): JSX.Element {
       postReviewAction({
         comment: reviewForm.review,
         rating: reviewForm.rating,
-        id: store.getState().offer.id,
+        id: offerId,
       })
     ).then((result) => {
       if (result.meta.requestStatus === 'fulfilled') {
