@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import CitiesPlacesItem from '../../components/cities-places-item/cities-places-item';
+import { useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { useNavigate, useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
 import Map from '../../components/map/map';
 import OfferGalleryItem from '../../components/offer-gallery-item/offer-gallery-item';
@@ -10,40 +10,49 @@ import OfferHostAvatar from '../../components/offer-host-avatar/offer-host-avata
 import OfferHost from '../../components/offer-host/offer-host';
 import OfferNearPlaces from '../../components/offer-near-places/offer-near-places';
 import OfferPresentation from '../../components/offer-presentation/offer-presentation';
-import OfferReviewsItem from '../../components/offer-reviews-item/offer-reviews-item';
 import OfferReviews from '../../components/offer-reviews/offer-reviews';
-import { useAppDispatch } from '../../hooks/useDispatch/useAppDispatch';
-import { useAppSelector } from '../../hooks/useSelector/useAppSelector';
+import { AppRoute } from '../../const';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { useAppSelector } from '../../hooks/useAppSelector';
 import {
   fetchFullOfferDataAction,
   fetchNearOffersAction,
   fetchReviewsAction,
 } from '../../store/api-actions';
-import LoadingPage from '../loading-page/loading-page';
+import { dropLoadingError } from '../../store/offer-process/offer-process';
+import {
+  getFullOfferData,
+  getIsFullOfferLoadingError,
+} from '../../store/offer-process/offer-selectors';
 
-type OfferPageProps = {
-  logged: boolean;
-};
-export default function OfferPage({ logged }: OfferPageProps): JSX.Element {
-  const isLoading = useAppSelector((state) => state.isOffersLoading);
-  const offer = useAppSelector((state) => state.offer);
-  const reviews = useAppSelector((state) => state.reviews);
-  const nearOffers = useAppSelector((state) => state.nearOffers);
+export default function OfferPage(): JSX.Element {
+  const offer = useAppSelector(getFullOfferData);
+  const isFullOfferLoadingError = useAppSelector(getIsFullOfferLoadingError);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-  const [activeCard, setActiveCard] = useState<string | null>(null);
   const offerId = useParams().id;
-  useEffect(() => {
-    if (offerId && (!offer || offer.id !== offerId)) {
-      dispatch(fetchFullOfferDataAction(offerId));
-      dispatch(fetchNearOffersAction(offerId));
-      dispatch(fetchReviewsAction(offerId));
-    }
-  }, [offerId, offer, dispatch]);
 
-  if (isLoading || !offer.id) {
-    return <LoadingPage />;
-  }
+  useEffect(() => {
+    if (offerId && offer.id !== offerId) {
+      if (isFullOfferLoadingError) {
+        navigate(AppRoute.Empty);
+        setTimeout(() => {
+          dispatch(dropLoadingError());
+        }, 100);
+        return;
+      }
+      dispatch(fetchFullOfferDataAction(offerId)).then((response) => {
+        if (response.meta.requestStatus === 'rejected') {
+          return () => {
+            navigate(AppRoute.Main);
+          };
+        }
+        dispatch(fetchReviewsAction(offerId));
+        dispatch(fetchNearOffersAction(offerId));
+      });
+    }
+  }, [offerId, dispatch, offer, isFullOfferLoadingError, navigate]);
 
   const { title, host, description, goods, images } = offer;
 
@@ -53,27 +62,12 @@ export default function OfferPage({ logged }: OfferPageProps): JSX.Element {
     ));
   };
 
-  const getReviews = function (): JSX.Element[] {
-    return reviews.map((reviewItem) => (
-      <OfferReviewsItem {...reviewItem} key={reviewItem.id} />
-    ));
-  };
-  const getNearOffers = function (): JSX.Element[] {
-    return nearOffers
-      .slice(0, 3)
-      .map((offerItem) => (
-        <CitiesPlacesItem
-          isMainCardType={false}
-          key={offerItem.id}
-          onCardHover={setActiveCard}
-          {...offerItem}
-        />
-      ));
-  };
-
   return (
     <div className="page">
-      <Header logged={logged} enableUserNav />
+      <Helmet>
+        <title>6 cities: offer</title>
+      </Helmet>
+      <Header enableUserNav />
       <main className="page__main page__main--offer">
         <section className="offer">
           {images.length && <OfferGallery>{getPhotos()}</OfferGallery>}
@@ -87,14 +81,12 @@ export default function OfferPage({ logged }: OfferPageProps): JSX.Element {
                   <p className="offer__text">{description}</p>
                 </div>
               </OfferHost>
-              <OfferReviews logged={logged}>{getReviews()}</OfferReviews>
+              <OfferReviews />
             </div>
           </div>
-          <Map selectedOffer={activeCard} styleModifier="offer" />
+          <Map styleModifier="offer" />
         </section>
-        <OfferNearPlaces data-active-card={activeCard}>
-          {getNearOffers()}
-        </OfferNearPlaces>
+        <OfferNearPlaces />
       </main>
     </div>
   );

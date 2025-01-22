@@ -1,11 +1,8 @@
 import { City, FullOfferData } from './types';
 
-// export const TIMEOUT_SHOW_ERROR = 2000;
-export const TIMEOUT_SHOW_ERROR = 7000;
 export const BACKEND_URL = 'https://16.design.htmlacademy.pro/six-cities';
 export const REQUEST_TIMEOUT = 5000;
-// export const MINIMUM_REVIEW_LENGTH = 50;
-export const MINIMUM_REVIEW_LENGTH = 0;
+export const MINIMUM_REVIEW_LENGTH = 50;
 export const MAXIMUM_REVIEW_LENGTH = 300;
 export const MAXIMUM_REVIEWS_QUANTITY = 50;
 
@@ -98,3 +95,9 @@ export const RATING_GRADES = [
   'badly',
   'terribly',
 ];
+
+export enum NameSpace {
+  Cards = 'CARDS',
+  Offer = 'Offer',
+  User = 'User',
+}

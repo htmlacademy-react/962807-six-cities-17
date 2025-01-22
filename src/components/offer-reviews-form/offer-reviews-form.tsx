@@ -4,12 +4,14 @@ import {
   MINIMUM_REVIEW_LENGTH,
   RATING_GRADES,
 } from '../../const';
-import { useAppDispatch } from '../../hooks/useDispatch/useAppDispatch';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { useAppSelector } from '../../hooks/useAppSelector';
 import { postReviewAction } from '../../store/api-actions';
-import { store } from '../../store/store';
+import { getFullOfferData } from '../../store/offer-process/offer-selectors';
 
 export default function OfferReviewsForm(): JSX.Element {
   const dispatch = useAppDispatch();
+  const offerId = useAppSelector(getFullOfferData).id;
 
   const initialState = {
     rating: 0,
@@ -18,10 +20,6 @@ export default function OfferReviewsForm(): JSX.Element {
   };
   const [reviewForm, setReviewForm] = useState(initialState);
 
-  const checkReviewLength = (reviewLength = reviewForm.review.length) =>
-    reviewLength >= MINIMUM_REVIEW_LENGTH &&
-    reviewLength <= MAXIMUM_REVIEW_LENGTH;
-
   const onReviewChange: React.FormEventHandler = (
     evt: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
@@ -29,9 +27,7 @@ export default function OfferReviewsForm(): JSX.Element {
       return;
     }
     const { name, value } = evt.target;
-    if (name === 'review' && value.length >= MAXIMUM_REVIEW_LENGTH) {
-      return;
-    }
+
     setReviewForm({
       ...reviewForm,
       [name]: name === 'rating' ? Number(value) : value,
@@ -44,7 +40,7 @@ export default function OfferReviewsForm(): JSX.Element {
       postReviewAction({
         comment: reviewForm.review,
         rating: reviewForm.rating,
-        id: store.getState().offer.id,
+        id: offerId,
       })
     ).then((result) => {
       if (result.meta.requestStatus === 'fulfilled') {
@@ -99,6 +95,8 @@ export default function OfferReviewsForm(): JSX.Element {
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={reviewForm.review}
         disabled={reviewForm.disable}
+        minLength={MINIMUM_REVIEW_LENGTH}
+        maxLength={MAXIMUM_REVIEW_LENGTH}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -109,7 +107,7 @@ export default function OfferReviewsForm(): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={!checkReviewLength() || reviewForm.disable}
+          disabled={reviewForm.disable}
         >
           Submit
         </button>

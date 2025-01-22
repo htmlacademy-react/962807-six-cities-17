@@ -1,5 +1,6 @@
 import { AxiosInstance } from 'axios';
-import { AppDispatch, Store } from './store/store';
+import { AuthStatus } from './const';
+import { AppDispatch, store, Store } from './store/store';
 
 export type Offer = {
   id: string;
@@ -82,3 +83,40 @@ export type AsyncThunkType = {
   store: Store;
   extra: AxiosInstance;
 };
+
+export type CardProcessType = {
+  offers: Offers;
+  offersByCity: Offers;
+  offersByCityQuantity: number;
+  cities: string[];
+  currentCity: City;
+  sort: string;
+  isOffersLoading: boolean;
+  isOffersLoadingError: boolean;
+  activeCardOffer: string | null;
+};
+
+export type UserProcessType = {
+  authStatus: AuthStatus;
+  user: UserData | null;
+  isLogin: boolean;
+  isLogout: boolean;
+  isLoginError: boolean;
+  isLogoutError: boolean;
+};
+
+export type OfferProcessType = {
+  offer: FullOfferData;
+  nearOffers: Offers;
+  reviews: Reviews;
+  isNearOffersLoading: boolean;
+  isFullOfferLoading: boolean;
+  isReviewsLoading: boolean;
+  isReviewPushing: boolean;
+  isNearOffersLoadingError: boolean;
+  isFullOfferLoadingError: boolean;
+  isReviewsLoadingError: boolean;
+  isReviewPushingError: boolean;
+};
+
+export type State = ReturnType<typeof store.getState>;

@@ -1,11 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { useAppSelector } from '../../hooks/useSelector/useAppSelector';
+import { useAppSelector } from '../../hooks/useAppSelector';
 import { handleCityChange } from '../../utils/utils';
+import {
+  getCitiesNames,
+  getCurrentCity,
+} from '../../store/card-process/card-selectors';
 
 export default function LoginLocation(): JSX.Element {
-  const currentCityName = useAppSelector((state) => state.currentCity.name);
-  const citiesNames = useAppSelector((state) => state.cities);
+  const currentCityName = useAppSelector(getCurrentCity).name;
+  const citiesNames = useAppSelector(getCitiesNames);
   const randomCityName =
     citiesNames[Math.floor(Math.random() * citiesNames.length)];
   const navigate = useNavigate();

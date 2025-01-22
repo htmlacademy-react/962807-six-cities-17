@@ -1,19 +1,20 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { AppRoute } from '../../const';
-import { useAppDispatch } from '../../hooks/useDispatch/useAppDispatch';
-import { useAppSelector } from '../../hooks/useSelector/useAppSelector';
+import { AppRoute, AuthStatus } from '../../const';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { useAppSelector } from '../../hooks/useAppSelector';
 import { logoutAction } from '../../store/api-actions';
+import {
+  getAuthStatus,
+  getUserData,
+} from '../../store/user-process/user-selectors';
 
-export type UserNavProps = {
-  logged: boolean;
-};
-
-export default function UserNav({ logged }: UserNavProps): JSX.Element {
-  const user = useAppSelector((state) => state.user);
+export default function UserNav(): JSX.Element {
+  const user = useAppSelector(getUserData);
+  const isLogged = useAppSelector(getAuthStatus) === AuthStatus.Auth;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const handleNavLink = () => {
-    if (logged) {
+    if (isLogged) {
       dispatch(logoutAction());
       navigate(AppRoute.Main);
     } else {
@@ -24,7 +25,7 @@ export default function UserNav({ logged }: UserNavProps): JSX.Element {
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">
-        {logged && (
+        {isLogged && (
           <li className="header__nav-item user">
             <Link
               className="header__nav-link header__nav-link--profile"
@@ -41,7 +42,7 @@ export default function UserNav({ logged }: UserNavProps): JSX.Element {
         <li className="header__nav-item">
           <a className="header__nav-link" onClick={handleNavLink}>
             <span className="header__signout">
-              {logged ? 'Sign out' : 'Sign in'}
+              {isLogged ? 'Sign out' : 'Sign in'}
             </span>
           </a>
         </li>

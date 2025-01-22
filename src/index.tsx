@@ -2,8 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import App from './components/app/app';
-import ErrorMessage from './components/error-message/error-message';
-import { CITIES_NAMES } from './const';
+import { ToastContainer } from 'react-toastify';
 import { checkAuthAction, fetchOffersAction } from './store/api-actions';
 import { store } from './store/store';
 
@@ -17,8 +16,8 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ErrorMessage />
-      <App citiesNames={CITIES_NAMES} />
+      <ToastContainer />
+      <App />
     </Provider>
   </React.StrictMode>
 );

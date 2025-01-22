@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { changeActiveCard } from '../../store/card-process/card-process';
+import { useCallback } from 'react';
 
 type CitiesPlacesItemProps = {
   isMainCardType: boolean;
-  onCardHover: (id: string | null) => void;
 } & Offer;
 
-export default function CitiesPlacesItem({
+export default function PlacesCard({
   id,
   title,
   type,
@@ -16,17 +18,26 @@ export default function CitiesPlacesItem({
   isPremium,
   isFavorite,
   isMainCardType,
-  onCardHover,
 }: CitiesPlacesItemProps): JSX.Element {
   const getPrefixByCardType = (): string =>
     isMainCardType ? 'cities__' : 'near-places__';
+
+  const dispatch = useAppDispatch();
+  const onCardMouseEnter = useCallback(
+    () => dispatch(changeActiveCard(id)),
+    [id, dispatch]
+  );
+  const onCardMouseLeave = useCallback(
+    () => dispatch(changeActiveCard(null)),
+    [dispatch]
+  );
 
   return (
     <article
       className={`${getPrefixByCardType()}card place-card`}
       key={id}
-      onMouseEnter={() => onCardHover(id)}
-      onMouseLeave={() => onCardHover(null)}
+      onMouseEnter={onCardMouseEnter}
+      onMouseLeave={onCardMouseLeave}
     >
       {isPremium && (
         <div className="place-card__mark">
