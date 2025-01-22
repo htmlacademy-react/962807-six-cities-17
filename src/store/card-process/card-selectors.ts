@@ -21,3 +21,6 @@ export const getActiveCardOffer = (state: State): string | null =>
 
 export const getOfferByCityQuantity = (state: State): number =>
   state[NameSpace.Cards].offersByCityQuantity;
+
+export const getIsOffersLoadingError = (state: State): boolean =>
+  state[NameSpace.Cards].isOffersLoadingError;

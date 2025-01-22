@@ -12,16 +12,6 @@ export default function LoginForm(): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  // const validateCredentials = () => {
-  //   const isEmailValid = /[\w.-_]{3,}@([\w.-_]{3,}\.)+?\w{2,}/.test(
-  //     formData.email
-  //   );
-  //   const isPasswordValid = /([a-z]+?\d+?)+?|(\d+?[a-z]+?)+?/i.test(
-  //     formData.password
-  //   );
-  //   return isEmailValid && isPasswordValid;
-  // };
-
   const handleFieldChange: (evt: ChangeEvent<HTMLInputElement>) => void = (
     evt
   ) => {
@@ -31,7 +21,6 @@ export default function LoginForm(): JSX.Element {
 
   const handleSubmitForm = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    // if (validateCredentials()) {
     dispatch(
       loginAction({
         login: formData.email,
@@ -78,11 +67,7 @@ export default function LoginForm(): JSX.Element {
             title="Пароль должен содержать как минимум 1 букву и 1 цифру"
           />
         </div>
-        <button
-          className="login__submit form__submit button"
-          type="submit"
-          // disabled ={!validateCredentials()}
-        >
+        <button className="login__submit form__submit button" type="submit">
           Sign in
         </button>
       </form>

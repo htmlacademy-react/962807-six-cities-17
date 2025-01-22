@@ -17,9 +17,6 @@ import {
 import PrivateRoute from '../private-route/private-route';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
 
-// type AppProps = {
-//   citiesNames: string[];
-// };
 export default function App(): JSX.Element {
   const isOffersLoading = useAppSelector(getIsOffersLoading);
   const isReviewsLoading = useAppSelector(getIsReviewsLoading);
@@ -42,14 +39,7 @@ export default function App(): JSX.Element {
         <Routes>
           <Route path={AppRoute.Main}>
             <Route index element={<MainPage />} />
-            <Route
-              path={AppRoute.Login}
-              element={
-                // <PrivateRoute>
-                <LoginPage />
-                // </PrivateRoute>
-              }
-            />
+            <Route path={AppRoute.Login} element={<LoginPage />} />
             <Route
               path={AppRoute.Favorites}
               element={

@@ -7,6 +7,7 @@ import {
 } from '../../const';
 import { CardProcessType, City, Offers } from '../../types';
 import { fetchOffersAction } from '../api-actions';
+import { toast } from 'react-toastify';
 
 const filterOffersByCity = (currentCity: City, offers: Offers): Offers =>
   offers.filter((offer) => offer.city.name === currentCity.name);
@@ -94,6 +95,7 @@ export const cardProcess = createSlice({
       .addCase(fetchOffersAction.rejected, (state) => {
         state.isOffersLoading = false;
         state.isOffersLoadingError = true;
+        toast.warn('Ошибка при загрузке');
       });
   },
 });

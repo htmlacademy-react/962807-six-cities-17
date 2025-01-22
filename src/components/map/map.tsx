@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -35,7 +35,10 @@ export default function Map({
   const selectedOffer = useAppSelector(getActiveCardOffer);
   const nearOffers = useAppSelector(getNearOffersData).slice(0, 3);
   const currentOffers = useAppSelector(getOfferByCity);
-  const offers = styleModifier === 'cities' ? currentOffers : nearOffers;
+
+  const offersTemplate =
+    styleModifier === 'cities' ? currentOffers : nearOffers;
+  const offers = useMemo(() => offersTemplate, [offersTemplate]);
 
   const map = useMap(mapRef, city);
 

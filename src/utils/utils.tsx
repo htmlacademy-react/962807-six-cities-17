@@ -22,12 +22,11 @@ export const getRandomKey = (): string =>
 export const getOffersCards: (
   offers: Offers,
   isMainCardType: boolean
-) => JSX.Element[] = function (offers, isMainCardType): JSX.Element[] {
-  return offers.map((offerItem) => (
+) => JSX.Element[] = (offers, isMainCardType) =>
+  offers.map((offerItem) => (
     <PlacesCard
       isMainCardType={isMainCardType}
       key={offerItem.id}
       {...offerItem}
     />
   ));
-};

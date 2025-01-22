@@ -29,24 +29,6 @@ export default function PlacesSort(): JSX.Element {
       </li>
     ));
 
-  // const getSortItems = function (): JSX.Element[] {
-  //   return Object.values(SortingOption).map((sortItem) => (
-  //     <li
-  //       key={getRandomKey()}
-  //       className={`places__option ${
-  //         (sortItem as string) === currentSort ? 'places__option--active' : ''
-  //       }`}
-  //       tabIndex={0}
-  //       onClick={() => {
-  //         setIsOpened(false);
-  //         dispatch(changeSort(sortItem));
-  //       }}
-  //     >
-  //       {sortItem}
-  //     </li>
-  //   ));
-  // };
-
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>

@@ -10,7 +10,6 @@ import OfferHostAvatar from '../../components/offer-host-avatar/offer-host-avata
 import OfferHost from '../../components/offer-host/offer-host';
 import OfferNearPlaces from '../../components/offer-near-places/offer-near-places';
 import OfferPresentation from '../../components/offer-presentation/offer-presentation';
-import OfferReviewsItem from '../../components/offer-reviews-item/offer-reviews-item';
 import OfferReviews from '../../components/offer-reviews/offer-reviews';
 import { AppRoute } from '../../const';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
@@ -24,12 +23,10 @@ import { dropLoadingError } from '../../store/offer-process/offer-process';
 import {
   getFullOfferData,
   getIsFullOfferLoadingError,
-  getReviewsData,
 } from '../../store/offer-process/offer-selectors';
 
 export default function OfferPage(): JSX.Element {
   const offer = useAppSelector(getFullOfferData);
-  const reviews = useAppSelector(getReviewsData).slice(0, 10);
   const isFullOfferLoadingError = useAppSelector(getIsFullOfferLoadingError);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -65,12 +62,6 @@ export default function OfferPage(): JSX.Element {
     ));
   };
 
-  const getReviews = function (): JSX.Element[] {
-    return reviews.map((reviewItem) => (
-      <OfferReviewsItem {...reviewItem} key={reviewItem.id} />
-    ));
-  };
-
   return (
     <div className="page">
       <Helmet>
@@ -90,7 +81,7 @@ export default function OfferPage(): JSX.Element {
                   <p className="offer__text">{description}</p>
                 </div>
               </OfferHost>
-              <OfferReviews>{getReviews()}</OfferReviews>
+              <OfferReviews />
             </div>
           </div>
           <Map styleModifier="offer" />

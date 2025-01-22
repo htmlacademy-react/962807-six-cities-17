@@ -3,9 +3,6 @@ import { useAppSelector } from '../../hooks/useAppSelector';
 import { getCurrentCity } from '../../store/card-process/card-selectors';
 import { getRandomKey, handleCityChange } from '../../utils/utils';
 import LocationNavItem from '../locations-nav-item/locations-nav-item';
-// type LocationNavProps = {
-//   citiesNames: string[];
-// };
 
 export default function LocationNav(): JSX.Element {
   const citiesNames = CITIES_NAMES;

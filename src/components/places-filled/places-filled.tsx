@@ -2,10 +2,6 @@ import LocationNav from '../locations-nav/locations-nav';
 import Map from '../../components/map/map';
 import PlacesCards from '../places-cards/places-cards';
 
-// export type PlacesFilledProps = {
-//   citiesNames: string[];
-// };
-
 export default function PlacesFilled(): JSX.Element {
   return (
     <main className={'page__main page__main--index'}>
