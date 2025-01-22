@@ -28,6 +28,8 @@ export type City = {
   location: Location;
 };
 
+export type Cities = City[];
+
 export type FullOfferData = {
   id: string;
   title: string;
@@ -88,7 +90,7 @@ export type CardProcessType = {
   offers: Offers;
   offersByCity: Offers;
   offersByCityQuantity: number;
-  cities: string[];
+  cities: Cities;
   currentCity: City;
   sort: string;
   isOffersLoading: boolean;

@@ -1,10 +1,10 @@
 import { NameSpace } from '../../const';
-import { City, Offers, State } from '../../types';
+import { Cities, City, Offers, State } from '../../types';
 
 export const getCurrentCity = (state: State): City =>
   state[NameSpace.Cards].currentCity;
 
-export const getCitiesNames = (state: State): string[] =>
+export const getCitiesData = (state: State): Cities =>
   state[NameSpace.Cards].cities;
 
 export const getIsOffersLoading = (state: State): boolean =>
