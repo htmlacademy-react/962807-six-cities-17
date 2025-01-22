@@ -3,10 +3,9 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import App from './components/app/app';
 // import ErrorMessage from './components/error-message/error-message';
-import { CITIES_NAMES } from './const';
+import { ToastContainer } from 'react-toastify';
 import { checkAuthAction, fetchOffersAction } from './store/api-actions';
 import { store } from './store/store';
-import { ToastContainer } from 'react-toastify';
 
 store.dispatch(fetchOffersAction());
 store.dispatch(checkAuthAction());
@@ -19,7 +18,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <ToastContainer />
-      <App citiesNames={CITIES_NAMES} />
+      <App />
     </Provider>
   </React.StrictMode>
 );

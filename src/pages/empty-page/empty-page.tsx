@@ -1,17 +1,14 @@
 import { Helmet } from 'react-helmet-async';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-type EmptyPageProps = {
-  logged: boolean;
-};
 
-export default function EmptyPage({ logged }: EmptyPageProps): JSX.Element {
+export default function EmptyPage(): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Helmet>
         <title>6 cities</title>
       </Helmet>
-      <Header logged={logged} enableUserNav={false} />
+      <Header enableUserNav={false} />
       <main className="page__main page__main--index page__main--index-empty">
         <div className="cities">
           <div className="cities__places-container cities__places-container--empty container">

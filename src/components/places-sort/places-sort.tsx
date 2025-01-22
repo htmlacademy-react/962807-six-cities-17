@@ -1,23 +1,23 @@
 import { useState } from 'react';
 import { SortingOption } from '../../const';
-import { useAppDispatch } from '../../hooks/useDispatch/useAppDispatch';
-import { useAppSelector } from '../../hooks/useSelector/useAppSelector';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { useAppSelector } from '../../hooks/useAppSelector';
 import { getCurrentSort } from '../../store/card-process/card-selectors';
 import { getRandomKey } from '../../utils/utils';
 import { changeSort } from '../../store/card-process/card-process';
 
-export default function CitiesPlacesSort(): JSX.Element {
-  const CurrentSort = useAppSelector(getCurrentSort);
-
+export default function PlacesSort(): JSX.Element {
+  const currentSort = useAppSelector(getCurrentSort);
   const dispatch = useAppDispatch();
   const [isOpened, setIsOpened] = useState<boolean>(false);
+  const SortingOptionsNames = Object.values(SortingOption);
 
-  const getSortItems = function (): JSX.Element[] {
-    return Object.values(SortingOption).map((sortItem) => (
+  const getSortItems = () =>
+    SortingOptionsNames.map((sortItem) => (
       <li
         key={getRandomKey()}
         className={`places__option ${
-          (sortItem as string) === CurrentSort ? 'places__option--active' : ''
+          (sortItem as string) === currentSort ? 'places__option--active' : ''
         }`}
         tabIndex={0}
         onClick={() => {
@@ -28,7 +28,24 @@ export default function CitiesPlacesSort(): JSX.Element {
         {sortItem}
       </li>
     ));
-  };
+
+  // const getSortItems = function (): JSX.Element[] {
+  //   return Object.values(SortingOption).map((sortItem) => (
+  //     <li
+  //       key={getRandomKey()}
+  //       className={`places__option ${
+  //         (sortItem as string) === currentSort ? 'places__option--active' : ''
+  //       }`}
+  //       tabIndex={0}
+  //       onClick={() => {
+  //         setIsOpened(false);
+  //         dispatch(changeSort(sortItem));
+  //       }}
+  //     >
+  //       {sortItem}
+  //     </li>
+  //   ));
+  // };
 
   return (
     <form className="places__sorting" action="#" method="get">
@@ -38,7 +55,7 @@ export default function CitiesPlacesSort(): JSX.Element {
         tabIndex={0}
         onClick={() => setIsOpened(!isOpened)}
       >
-        {CurrentSort}
+        {currentSort}
         <svg className="places__sorting-arrow" width={7} height={4}>
           <use xlinkHref="#icon-arrow-select" />
         </svg>
@@ -47,6 +64,7 @@ export default function CitiesPlacesSort(): JSX.Element {
         className={`places__options places__options--custom places__options${
           isOpened ? '--opened' : ''
         }`}
+        onMouseLeave={() => setIsOpened(false)}
       >
         {getSortItems()}
       </ul>

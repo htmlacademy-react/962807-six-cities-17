@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { useAppSelector } from '../../hooks/useSelector/useAppSelector';
+import { useAppSelector } from '../../hooks/useAppSelector';
 import { handleCityChange } from '../../utils/utils';
 import {
   getCitiesNames,

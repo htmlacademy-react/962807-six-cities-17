@@ -3,16 +3,16 @@ import { useEffect, useRef } from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-import useMap from '../../hooks/useMap/useMap';
-import { useAppSelector } from '../../hooks/useSelector/useAppSelector';
+import useMap from '../../hooks/useMap';
+import { useAppSelector } from '../../hooks/useAppSelector';
 import {
+  getActiveCardOffer,
   getCurrentCity,
   getOfferByCity,
 } from '../../store/card-process/card-selectors';
 import { getNearOffersData } from '../../store/offer-process/offer-selectors';
 
 type MapProps = {
-  selectedOffer: string | null;
   styleModifier: 'offer' | 'cities';
 };
 
@@ -28,11 +28,11 @@ const activeIcon = leaflet.icon({
 });
 
 export default function Map({
-  selectedOffer,
   styleModifier = 'cities',
 }: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const city = useAppSelector(getCurrentCity);
+  const selectedOffer = useAppSelector(getActiveCardOffer);
   const nearOffers = useAppSelector(getNearOffersData).slice(0, 3);
   const currentOffers = useAppSelector(getOfferByCity);
   const offers = styleModifier === 'cities' ? currentOffers : nearOffers;

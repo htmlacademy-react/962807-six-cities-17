@@ -87,11 +87,13 @@ export type AsyncThunkType = {
 export type CardProcessType = {
   offers: Offers;
   offersByCity: Offers;
+  offersByCityQuantity: number;
   cities: string[];
   currentCity: City;
   sort: string;
   isOffersLoading: boolean;
   isOffersLoadingError: boolean;
+  activeCardOffer: string | null;
 };
 
 export type UserProcessType = {

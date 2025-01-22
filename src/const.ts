@@ -97,7 +97,7 @@ export const RATING_GRADES = [
 ];
 
 export enum NameSpace {
-  Cards = 'CARDS',
+  Cards = 'Cards',
   Offer = 'Offer',
   User = 'User',
 }

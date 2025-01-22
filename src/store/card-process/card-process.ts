@@ -41,11 +41,13 @@ const getCityData = (offers: Offers, cityName: string) => {
 const initialState: CardProcessType = {
   offers: [],
   offersByCity: [],
+  offersByCityQuantity: 0,
   cities: CITIES_NAMES,
   currentCity: DEFAULT_CITY,
   sort: SortingOption.POPULAR,
   isOffersLoading: false,
   isOffersLoadingError: false,
+  activeCardOffer: null,
 };
 
 export const cardProcess = createSlice({
@@ -60,6 +62,7 @@ export const cardProcess = createSlice({
           state.currentCity,
           state.offers
         );
+        state.offersByCityQuantity = offersByCity.length;
         sortOffers(offersByCity, state.sort);
         state.offersByCity = offersByCity;
       }
@@ -67,6 +70,9 @@ export const cardProcess = createSlice({
     changeSort: (state, action: PayloadAction<string>) => {
       state.sort = action.payload;
       sortOffers(state.offersByCity, state.sort);
+    },
+    changeActiveCard: (state, action: PayloadAction<string | null>) => {
+      state.activeCardOffer = action.payload;
     },
   },
   extraReducers(builder) {
@@ -78,10 +84,12 @@ export const cardProcess = createSlice({
       .addCase(fetchOffersAction.fulfilled, (state, action) => {
         state.isOffersLoading = false;
         state.offers = action.payload;
-        state.offersByCity = filterOffersByCity(
+        const offersByCity = filterOffersByCity(
           state.currentCity,
           state.offers
         );
+        state.offersByCityQuantity = offersByCity.length;
+        state.offersByCity = offersByCity;
       })
       .addCase(fetchOffersAction.rejected, (state) => {
         state.isOffersLoading = false;
@@ -90,4 +98,4 @@ export const cardProcess = createSlice({
   },
 });
 
-export const { changeCity, changeSort } = cardProcess.actions;
+export const { changeCity, changeSort, changeActiveCard } = cardProcess.actions;

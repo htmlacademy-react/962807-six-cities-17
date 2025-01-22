@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate, useParams } from 'react-router-dom';
-import CitiesPlacesItem from '../../components/cities-places-item/cities-places-item';
 import Header from '../../components/header/header';
 import Map from '../../components/map/map';
 import OfferGalleryItem from '../../components/offer-gallery-item/offer-gallery-item';
@@ -13,34 +12,28 @@ import OfferNearPlaces from '../../components/offer-near-places/offer-near-place
 import OfferPresentation from '../../components/offer-presentation/offer-presentation';
 import OfferReviewsItem from '../../components/offer-reviews-item/offer-reviews-item';
 import OfferReviews from '../../components/offer-reviews/offer-reviews';
-import { useAppDispatch } from '../../hooks/useDispatch/useAppDispatch';
-import { useAppSelector } from '../../hooks/useSelector/useAppSelector';
+import { AppRoute } from '../../const';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { useAppSelector } from '../../hooks/useAppSelector';
 import {
   fetchFullOfferDataAction,
   fetchNearOffersAction,
   fetchReviewsAction,
 } from '../../store/api-actions';
+import { dropLoadingError } from '../../store/offer-process/offer-process';
 import {
   getFullOfferData,
   getIsFullOfferLoadingError,
-  getNearOffersData,
   getReviewsData,
 } from '../../store/offer-process/offer-selectors';
-import { AppRoute } from '../../const';
-import { dropLoadingError } from '../../store/offer-process/offer-process';
 
-type OfferPageProps = {
-  logged: boolean;
-};
-export default function OfferPage({ logged }: OfferPageProps): JSX.Element {
+export default function OfferPage(): JSX.Element {
   const offer = useAppSelector(getFullOfferData);
   const reviews = useAppSelector(getReviewsData).slice(0, 10);
-  const nearOffers = useAppSelector(getNearOffersData).slice(0, 3);
   const isFullOfferLoadingError = useAppSelector(getIsFullOfferLoadingError);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const [activeCard, setActiveCard] = useState<string | null>(null);
   const offerId = useParams().id;
 
   useEffect(() => {
@@ -77,25 +70,13 @@ export default function OfferPage({ logged }: OfferPageProps): JSX.Element {
       <OfferReviewsItem {...reviewItem} key={reviewItem.id} />
     ));
   };
-  const getNearOffers = function (): JSX.Element[] {
-    return nearOffers
-      .slice(0, 3)
-      .map((offerItem) => (
-        <CitiesPlacesItem
-          isMainCardType={false}
-          key={offerItem.id}
-          onCardHover={setActiveCard}
-          {...offerItem}
-        />
-      ));
-  };
 
   return (
     <div className="page">
       <Helmet>
         <title>6 cities: offer</title>
       </Helmet>
-      <Header logged={logged} enableUserNav />
+      <Header enableUserNav />
       <main className="page__main page__main--offer">
         <section className="offer">
           {images.length && <OfferGallery>{getPhotos()}</OfferGallery>}
@@ -109,14 +90,12 @@ export default function OfferPage({ logged }: OfferPageProps): JSX.Element {
                   <p className="offer__text">{description}</p>
                 </div>
               </OfferHost>
-              <OfferReviews logged={logged}>{getReviews()}</OfferReviews>
+              <OfferReviews>{getReviews()}</OfferReviews>
             </div>
           </div>
-          <Map selectedOffer={activeCard} styleModifier="offer" />
+          <Map styleModifier="offer" />
         </section>
-        <OfferNearPlaces data-active-card={activeCard}>
-          {getNearOffers()}
-        </OfferNearPlaces>
+        <OfferNearPlaces />
       </main>
     </div>
   );

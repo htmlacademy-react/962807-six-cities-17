@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { useAppDispatch } from '../../hooks/useDispatch/useAppDispatch';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { loginAction } from '../../store/api-actions';
 
 export default function LoginForm(): JSX.Element {

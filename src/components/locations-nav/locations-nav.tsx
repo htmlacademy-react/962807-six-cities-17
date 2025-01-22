@@ -1,17 +1,17 @@
-import { City } from '../../types';
+import { CITIES_NAMES } from '../../const';
+import { useAppSelector } from '../../hooks/useAppSelector';
+import { getCurrentCity } from '../../store/card-process/card-selectors';
 import { getRandomKey, handleCityChange } from '../../utils/utils';
 import LocationNavItem from '../locations-nav-item/locations-nav-item';
-type LocationNavProps = {
-  citiesNames: string[];
-  currentCity: City;
-};
+// type LocationNavProps = {
+//   citiesNames: string[];
+// };
 
-export default function LocationNav({
-  citiesNames,
-  currentCity,
-}: LocationNavProps): JSX.Element {
-  const getLocationNavItem = function (): JSX.Element[] {
-    return citiesNames.map((city) => (
+export default function LocationNav(): JSX.Element {
+  const citiesNames = CITIES_NAMES;
+  const currentCity = useAppSelector(getCurrentCity);
+  const getLocationNavItem = () =>
+    citiesNames.map((city) => (
       <LocationNavItem
         key={getRandomKey()}
         active={city === currentCity.name ? true : undefined}
@@ -20,7 +20,6 @@ export default function LocationNav({
         {city}
       </LocationNavItem>
     ));
-  };
 
   return (
     <div className="tabs">

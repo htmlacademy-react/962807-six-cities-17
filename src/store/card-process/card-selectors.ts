@@ -15,3 +15,9 @@ export const getOfferByCity = (state: State): Offers =>
 
 export const getCurrentSort = (state: State): string =>
   state[NameSpace.Cards].sort;
+
+export const getActiveCardOffer = (state: State): string | null =>
+  state[NameSpace.Cards].activeCardOffer;
+
+export const getOfferByCityQuantity = (state: State): number =>
+  state[NameSpace.Cards].offersByCityQuantity;

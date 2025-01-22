@@ -9,7 +9,7 @@ export default function LoginPage(): JSX.Element {
       <Helmet>
         <title>6 cities: authorization</title>
       </Helmet>
-      <Header enableUserNav={false} logged={false} />
+      <Header enableUserNav={false} />
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <LoginForm />

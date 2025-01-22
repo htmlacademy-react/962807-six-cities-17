@@ -4,8 +4,8 @@ import {
   MINIMUM_REVIEW_LENGTH,
   RATING_GRADES,
 } from '../../const';
-import { useAppDispatch } from '../../hooks/useDispatch/useAppDispatch';
-import { useAppSelector } from '../../hooks/useSelector/useAppSelector';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { useAppSelector } from '../../hooks/useAppSelector';
 import { postReviewAction } from '../../store/api-actions';
 import { getFullOfferData } from '../../store/offer-process/offer-selectors';
 
