@@ -13,6 +13,12 @@ export enum SortingOption {
   RATING = 'Top rated first',
 }
 
+export enum CardType {
+  Main = 'cities',
+  NearBy = 'near-places',
+  Favorites = 'favorites',
+}
+
 export enum AppRoute {
   Main = '/',
   Login = '/login',

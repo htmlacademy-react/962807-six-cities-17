@@ -10,8 +10,11 @@ export const getCitiesData = (state: State): Cities =>
 export const getIsOffersLoading = (state: State): boolean =>
   state[NameSpace.Cards].isOffersLoading;
 
-export const getOfferByCity = (state: State): Offers =>
+export const getOffersByCity = (state: State): Offers =>
   state[NameSpace.Cards].offersByCity;
+
+export const getOffers = (state: State): Offers =>
+  state[NameSpace.Cards].offers;
 
 export const getCurrentSort = (state: State): string =>
   state[NameSpace.Cards].sort;

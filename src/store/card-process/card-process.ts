@@ -88,6 +88,35 @@ export const cardProcess = createSlice({
         state.isOffersLoading = false;
         state.isOffersLoadingError = true;
       });
+
+    // .addCase(loadFavoriteOfferCards.pending, (state) => {
+    //   state.isFavoriteOfferLoading = true;
+    // })
+    // .addCase(loadFavoriteOfferCards.fulfilled, (state, action) => {
+    //   state.isFavoriteOfferLoading = false;
+    //   state.favoriteOfferCards = action.payload;
+    // })
+    // .addCase(loadFavoriteOfferCards.rejected, (state) => {
+    //   state.isFavoriteOfferLoading = false;
+    // })
+
+    // .addCase(uploadFavoriteStatus.pending, (state) => {
+    //   state.isFavoriteOfferUploading = true;
+    // })
+    // .addCase(uploadFavoriteStatus.fulfilled, (state, action) => {
+    //   state.isFavoriteOfferUploading = false;
+    //   if (action.payload.isFavorite) {
+    //     state.favoriteOfferCards.push(action.paylaod);
+    //   } else {
+    //     const favoriteIndex = state.favoriteOfferCards.findIndex(
+    //       (card) => card.id === action.payload.id
+    //     );
+    //     state.favoriteOfferCards.splice(favoriteIndex, 1);
+    //   }
+    // })
+    // .addCase(uploadFavoriteStatus.rejected, (state) => {
+    //   state.isFavoriteOfferUploading = false;
+    // });
   },
 });
 

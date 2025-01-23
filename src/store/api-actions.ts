@@ -86,3 +86,16 @@ export const postReviewAction = createAppAsyncThunk<Review, UserReview>(
     return data;
   }
 );
+
+// export cosnt uploadFavoriteStatus = createAppAsyncThunk<>('offers/uploadFavoriteStatus',
+//   async ({offerId, wasFavorite}, {getState, extra: api}) => {
+//     const nnextFavoritesStatus = Number(!wasfavorite);
+//     const {data} = await api.post<OfferType>(`${APIRoute.Favorites}/${offerId}/${nextFavoritesStatus}`);
+//     const {offerCards} = getState().Offers;
+//     const currentOfferCard = offerCards.find((cards) => card.id === data.id);
+//     if (!currentOfferCard) {
+//       throw new Error(`No such offer with given id: ${data.id}`);
+//     }
+//     return {...currentOfferCard, isFavorite: data.isFavorite};
+//   }
+// )
