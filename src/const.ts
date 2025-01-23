@@ -36,7 +36,7 @@ export enum AuthStatus {
 export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
-  Favorites = '/favorite',
+  Favorite = '/favorite',
   Offers = '/offers',
   Offer = 'offers/',
   NearBy = '/nearby',
@@ -145,7 +145,7 @@ export const RATING_GRADES = [
 ];
 
 export enum NameSpace {
-  Cards = 'CARDS',
+  Cards = 'Cards',
   Offer = 'Offer',
   User = 'User',
 }

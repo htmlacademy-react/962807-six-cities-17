@@ -2,7 +2,7 @@ import React, { ChangeEvent, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { loginAction } from '../../store/api-actions';
+import { fetchFavoriteOffers, loginAction } from '../../store/api-actions';
 
 export default function LoginForm(): JSX.Element {
   const [formData, setFormData] = React.useState({
@@ -28,7 +28,8 @@ export default function LoginForm(): JSX.Element {
       })
     ).then((response) => {
       if (response.meta.requestStatus === 'fulfilled') {
-        navigate(AppRoute.Main);
+        dispatch(fetchFavoriteOffers());
+        navigate(AppRoute.Favorites);
       }
     });
   };

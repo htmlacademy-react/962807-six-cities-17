@@ -4,6 +4,7 @@ import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { changeActiveCard } from '../../store/card-process/card-process';
 import { Offer } from '../../types';
 import { CardType } from '../../const';
+import FavoriteButton from '../favorites-button/favorites-button';
 
 type CitiesPlacesItemProps = {
   cardType: string;
@@ -17,7 +18,6 @@ export default function PlacesCard({
   rating,
   previewImage,
   isPremium,
-  isFavorite,
   cardType = CardType.Main,
 }: CitiesPlacesItemProps): JSX.Element {
   const dispatch = useAppDispatch();
@@ -63,17 +63,7 @@ export default function PlacesCard({
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button
-            className={`place-card__bookmark-button${
-              isFavorite ? '--active' : ''
-            } button`}
-            type="button"
-          >
-            <svg className="place-card__bookmark-icon" width={18} height={19}>
-              <use xlinkHref="#icon-bookmark" />
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <FavoriteButton offerId={id} isOfferBookmark={false} />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

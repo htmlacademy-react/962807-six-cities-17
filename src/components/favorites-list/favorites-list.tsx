@@ -1,20 +1,22 @@
 import { useNavigate } from 'react-router-dom';
 import { AppRoute, CardType } from '../../const';
 import { useAppSelector } from '../../hooks/useAppSelector';
-import {
-  getCurrentCity,
-  getOffers,
-} from '../../store/card-process/card-selectors';
+import { getCurrentCity } from '../../store/card-process/card-selectors';
+import { Offers } from '../../types';
 import {
   getOffersCards,
   getRandomKey,
   handleCityChange,
 } from '../../utils/utils';
 
-export default function FavoriteList(): JSX.Element {
+export default function FavoriteList({
+  favoriteListData,
+}: {
+  favoriteListData: Offers;
+}): JSX.Element {
   const navigate = useNavigate();
   const currentCity = useAppSelector(getCurrentCity);
-  const favoriteListData = useAppSelector(getOffers); // заменить на данные с сервера
+  // const favoriteListData = useAppSelector(getOffers); // заменить на данные с сервера
 
   const favoriteListDataByCity = (city: string) =>
     favoriteListData.filter((offer) => offer.city.name === city);

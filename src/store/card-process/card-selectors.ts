@@ -13,6 +13,9 @@ export const getIsOffersLoading = (state: State): boolean =>
 export const getOffersByCity = (state: State): Offers =>
   state[NameSpace.Cards].offersByCity;
 
+export const getFavoriteOffers = (state: State): Offers =>
+  state[NameSpace.Cards].favoriteOffers;
+
 export const getOffers = (state: State): Offers =>
   state[NameSpace.Cards].offers;
 

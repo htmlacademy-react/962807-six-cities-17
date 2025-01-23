@@ -1,48 +1,56 @@
-// import { useNavigate } from 'react-router-dom';
-// import { AppRoute } from '../../const';
-// import { useDispatch } from 'react-redux';
-// import { useAppSelector } from '../../hooks/useAppSelector';
-// import { getAuthStatus } from '../../store/user-process/user-selectors';
+import { useNavigate } from 'react-router-dom';
+import { AppRoute, AuthStatus } from '../../const';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { useAppSelector } from '../../hooks/useAppSelector';
+import { pushFavoriteStatus } from '../../store/api-actions';
+import { getAuthStatus } from '../../store/user-process/user-selectors';
 
-// export default function FavoriteButton({
-//   className,
-//   offerId,
-// }: FavoriteButtonProps) {
-//   const imgWidth = className === OFFER_CLASS_NAME ? 33 : 18;
-//   const imgHeight = className === OFFER_CLASS_NAME ? 33 : 19;
-//   const navigate = useNavigate();
-//   const dispatch = useDispatch();
-//   const isAuthorized = useAppSelector(getAuthStatus);
-//   const isFavorite = useAppSelector((state) =>
-//     getFavoriteByOfferId(state, oferId)
-//   );
+type FavoriteButtonProps = {
+  offerId: string;
+  isOfferBookmark: boolean;
+};
 
-//   return (
-//     <button
-//       className={`${className}__bookmark-button ${
-//         isFavorite && isAuthorized
-//           ? `${className}__bookmark-button--active`
-//           : ''
-//       } button`}
-//       type="button"
-//       onClick={() => {
-//         if (isAuthorized) {
-//           dispatch(uploadFavoriteStatus({ offerId, wasFavorit: isFavorite }));
-//         } else {
-//           navigate(AppRoute.Login);
-//         }
-//       }}
-//     >
-//       <svg
-//         className={`${className}__bookmark-icon`}
-//         width={imgWidth}
-//         height={imgHeight}
-//       >
-//         <use xlinkHref="#icon-bookmark" />
-//       </svg>
-//       <span className="visually-hidden">
-//         {isFavorite && isAuthorized ? 'In bookmarks' : 'To boo'}
-//       </span>
-//     </button>
-//   );
-// }
+export default function FavoriteButton({
+  offerId,
+  isOfferBookmark,
+}: FavoriteButtonProps) {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const isLogged = useAppSelector(getAuthStatus) === AuthStatus.Auth;
+  const isFavorite = useAppSelector(
+    (state) =>
+      !!state.Cards.favoriteOffers.find((offer) => offer.id === offerId)
+  );
+
+  const classNamePrefix = isOfferBookmark ? 'offer' : 'place-card';
+  return (
+    <button
+      type="button"
+      className={`${classNamePrefix}__bookmark-button ${
+        isFavorite && isLogged
+          ? `${classNamePrefix}__bookmark-button--active`
+          : ''
+      } button`}
+      onClick={() => {
+        if (isLogged) {
+          dispatch(
+            pushFavoriteStatus({ id: offerId, isFavorite: !isFavorite })
+          );
+        } else {
+          navigate(AppRoute.Login);
+        }
+      }}
+    >
+      <svg
+        className={`${classNamePrefix}__bookmark-icon`}
+        width={isOfferBookmark ? 31 : 18}
+        height={isOfferBookmark ? 33 : 19}
+      >
+        <use xlinkHref="#icon-bookmark" />
+      </svg>
+      <span className="visually-hidden">
+        {isFavorite && isLogged ? 'In bookmarks' : 'To bookmarks'}
+      </span>
+    </button>
+  );
+}

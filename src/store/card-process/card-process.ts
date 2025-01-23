@@ -1,7 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CITIES_DATA, NameSpace, SortingOption } from '../../const';
 import { CardProcessType, Cities, City, Offers } from '../../types';
-import { fetchOffersAction } from '../api-actions';
+import {
+  fetchFavoriteOffers,
+  fetchOffersAction,
+  pushFavoriteStatus,
+} from '../api-actions';
 
 const filterOffersByCity = (currentCity: City, offers: Offers): Offers =>
   offers.filter((offer) => offer.city.name === currentCity.name);
@@ -34,12 +38,16 @@ const getCityData = (cities: Cities, cityName: string) =>
 const initialState: CardProcessType = {
   offers: [],
   offersByCity: [],
+  favoriteOffers: [],
   offersByCityQuantity: 0,
   cities: CITIES_DATA,
   currentCity: CITIES_DATA[0],
   sort: SortingOption.POPULAR,
   isOffersLoading: false,
   isOffersLoadingError: false,
+  isFavoriteOffersLoading: false,
+  isFavoriteOffersLoadingError: false,
+  isPushingFavoriteStatus: false,
   activeCardOffer: null,
 };
 
@@ -87,36 +95,44 @@ export const cardProcess = createSlice({
       .addCase(fetchOffersAction.rejected, (state) => {
         state.isOffersLoading = false;
         state.isOffersLoadingError = true;
+      })
+
+      .addCase(fetchFavoriteOffers.pending, (state) => {
+        state.isFavoriteOffersLoading = true;
+      })
+      .addCase(fetchFavoriteOffers.fulfilled, (state, action) => {
+        state.isFavoriteOffersLoading = false;
+        state.favoriteOffers = action.payload;
+      })
+      .addCase(fetchFavoriteOffers.rejected, (state) => {
+        state.isFavoriteOffersLoadingError = false;
+      })
+
+      .addCase(pushFavoriteStatus.pending, (state) => {
+        state.isPushingFavoriteStatus = true;
+      })
+      .addCase(pushFavoriteStatus.fulfilled, (state, action) => {
+        state.isPushingFavoriteStatus = false;
+        const evaluatedOffer = state.offers.find(
+          (offer) => offer.id === action.payload.id
+        );
+        if (!evaluatedOffer) {
+          throw new Error(`Нет предложения с данным id: ${action.payload.id}`);
+        }
+        if (action.payload.isFavorite) {
+          state.favoriteOffers.push(evaluatedOffer);
+          // console.log('pushed in state');
+        } else {
+          const excludedOfferIndex = state.favoriteOffers.findIndex(
+            (offer) => offer.id === evaluatedOffer.id
+          );
+          state.favoriteOffers.splice(excludedOfferIndex, 1);
+          // console.log('rejected out of state');
+        }
+      })
+      .addCase(pushFavoriteStatus.rejected, (state) => {
+        state.isPushingFavoriteStatus = false;
       });
-
-    // .addCase(loadFavoriteOfferCards.pending, (state) => {
-    //   state.isFavoriteOfferLoading = true;
-    // })
-    // .addCase(loadFavoriteOfferCards.fulfilled, (state, action) => {
-    //   state.isFavoriteOfferLoading = false;
-    //   state.favoriteOfferCards = action.payload;
-    // })
-    // .addCase(loadFavoriteOfferCards.rejected, (state) => {
-    //   state.isFavoriteOfferLoading = false;
-    // })
-
-    // .addCase(uploadFavoriteStatus.pending, (state) => {
-    //   state.isFavoriteOfferUploading = true;
-    // })
-    // .addCase(uploadFavoriteStatus.fulfilled, (state, action) => {
-    //   state.isFavoriteOfferUploading = false;
-    //   if (action.payload.isFavorite) {
-    //     state.favoriteOfferCards.push(action.paylaod);
-    //   } else {
-    //     const favoriteIndex = state.favoriteOfferCards.findIndex(
-    //       (card) => card.id === action.payload.id
-    //     );
-    //     state.favoriteOfferCards.splice(favoriteIndex, 1);
-    //   }
-    // })
-    // .addCase(uploadFavoriteStatus.rejected, (state) => {
-    //   state.isFavoriteOfferUploading = false;
-    // });
   },
 });
 
