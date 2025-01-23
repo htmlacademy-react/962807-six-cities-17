@@ -1,4 +1,4 @@
-import { City, FullOfferData } from './types';
+import { Cities, FullOfferData } from './types';
 
 export const BACKEND_URL = 'https://16.design.htmlacademy.pro/six-cities';
 export const REQUEST_TIMEOUT = 5000;
@@ -11,6 +11,12 @@ export enum SortingOption {
   PRICE_LOW_HIGHT = 'Price: low to high',
   PRICE_HIGHT_LOW = 'Price: high to low',
   RATING = 'Top rated first',
+}
+
+export enum CardType {
+  Main = 'cities',
+  NearBy = 'near-places',
+  Favorites = 'favorites',
 }
 
 export enum AppRoute {
@@ -30,21 +36,63 @@ export enum AuthStatus {
 export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
-  Favorites = '/favorite',
+  Favorite = '/favorite',
   Offers = '/offers',
   Offer = 'offers/',
   NearBy = '/nearby',
   Reviews = '/comments/',
 }
 
-export const DEFAULT_CITY: City = {
-  name: 'Paris',
-  location: {
-    latitude: 48.85661,
-    longitude: 2.351499,
-    zoom: 13,
+export const CITIES_DATA: Cities = [
+  {
+    name: 'Paris',
+    location: {
+      latitude: 48.85661,
+      longitude: 2.351499,
+      zoom: 13,
+    },
   },
-};
+  {
+    name: 'Cologne',
+    location: {
+      latitude: 50.938361,
+      longitude: 6.959974,
+      zoom: 13,
+    },
+  },
+  {
+    name: 'Brussels',
+    location: {
+      latitude: 50.846557,
+      longitude: 4.351697,
+      zoom: 13,
+    },
+  },
+  {
+    name: 'Amsterdam',
+    location: {
+      latitude: 52.37454,
+      longitude: 4.897976,
+      zoom: 13,
+    },
+  },
+  {
+    name: 'Hamburg',
+    location: {
+      latitude: 53.550341,
+      longitude: 10.000654,
+      zoom: 13,
+    },
+  },
+  {
+    name: 'Dusseldorf',
+    location: {
+      latitude: 51.225402,
+      longitude: 6.776314,
+      zoom: 13,
+    },
+  },
+];
 
 export const CITIES_NAMES = [
   'Paris',
@@ -97,7 +145,7 @@ export const RATING_GRADES = [
 ];
 
 export enum NameSpace {
-  Cards = 'CARDS',
+  Cards = 'Cards',
   Offer = 'Offer',
   User = 'User',
 }

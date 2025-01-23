@@ -1,13 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { CITIES_DATA, NameSpace, SortingOption } from '../../const';
+import { CardProcessType, Cities, City, Offers } from '../../types';
 import {
-  CITIES_NAMES,
-  DEFAULT_CITY,
-  NameSpace,
-  SortingOption,
-} from '../../const';
-import { CardProcessType, City, Offers } from '../../types';
-import { fetchOffersAction } from '../api-actions';
-import { toast } from 'react-toastify';
+  fetchFavoriteOffers,
+  fetchOffersAction,
+  pushFavoriteStatus,
+} from '../api-actions';
 
 const filterOffersByCity = (currentCity: City, offers: Offers): Offers =>
   offers.filter((offer) => offer.city.name === currentCity.name);
@@ -34,20 +32,22 @@ const sortOffers = (offers: Offers, sortType: string): void => {
   offers.sort(sortingCallback);
 };
 
-const getCityData = (offers: Offers, cityName: string) => {
-  const offerByCity = offers.find((offer) => offer.city.name === cityName);
-  return offerByCity ? offerByCity.city : null;
-};
+const getCityData = (cities: Cities, cityName: string) =>
+  cities.find((city) => city.name === cityName) as City;
 
 const initialState: CardProcessType = {
   offers: [],
   offersByCity: [],
+  favoriteOffers: [],
   offersByCityQuantity: 0,
-  cities: CITIES_NAMES,
-  currentCity: DEFAULT_CITY,
+  cities: CITIES_DATA,
+  currentCity: CITIES_DATA[0],
   sort: SortingOption.POPULAR,
   isOffersLoading: false,
   isOffersLoadingError: false,
+  isFavoriteOffersLoading: false,
+  isFavoriteOffersLoadingError: false,
+  isPushingFavoriteStatus: false,
   activeCardOffer: null,
 };
 
@@ -56,14 +56,11 @@ export const cardProcess = createSlice({
   initialState,
   reducers: {
     changeCity: (state, action: PayloadAction<string>) => {
-      const cityData = getCityData(state.offers, action.payload);
-      if (cityData) {
-        state.currentCity = cityData;
-        const offersByCity = filterOffersByCity(
-          state.currentCity,
-          state.offers
-        );
-        state.offersByCityQuantity = offersByCity.length;
+      state.currentCity = getCityData(state.cities, action.payload);
+
+      const offersByCity = filterOffersByCity(state.currentCity, state.offers);
+      state.offersByCityQuantity = offersByCity.length;
+      if (offersByCity.length) {
         sortOffers(offersByCity, state.sort);
         state.offersByCity = offersByCity;
       }
@@ -90,12 +87,51 @@ export const cardProcess = createSlice({
           state.offers
         );
         state.offersByCityQuantity = offersByCity.length;
-        state.offersByCity = offersByCity;
+        if (offersByCity.length) {
+          sortOffers(offersByCity, state.sort);
+          state.offersByCity = offersByCity;
+        }
       })
       .addCase(fetchOffersAction.rejected, (state) => {
         state.isOffersLoading = false;
         state.isOffersLoadingError = true;
-        toast.warn('Ошибка при загрузке');
+      })
+
+      .addCase(fetchFavoriteOffers.pending, (state) => {
+        state.isFavoriteOffersLoading = true;
+      })
+      .addCase(fetchFavoriteOffers.fulfilled, (state, action) => {
+        state.isFavoriteOffersLoading = false;
+        state.favoriteOffers = action.payload;
+      })
+      .addCase(fetchFavoriteOffers.rejected, (state) => {
+        state.isFavoriteOffersLoadingError = false;
+      })
+
+      .addCase(pushFavoriteStatus.pending, (state) => {
+        state.isPushingFavoriteStatus = true;
+      })
+      .addCase(pushFavoriteStatus.fulfilled, (state, action) => {
+        state.isPushingFavoriteStatus = false;
+        const evaluatedOffer = state.offers.find(
+          (offer) => offer.id === action.payload.id
+        );
+        if (!evaluatedOffer) {
+          throw new Error(`Нет предложения с данным id: ${action.payload.id}`);
+        }
+        if (action.payload.isFavorite) {
+          state.favoriteOffers.push(evaluatedOffer);
+          // console.log('pushed in state');
+        } else {
+          const excludedOfferIndex = state.favoriteOffers.findIndex(
+            (offer) => offer.id === evaluatedOffer.id
+          );
+          state.favoriteOffers.splice(excludedOfferIndex, 1);
+          // console.log('rejected out of state');
+        }
+      })
+      .addCase(pushFavoriteStatus.rejected, (state) => {
+        state.isPushingFavoriteStatus = false;
       });
   },
 });

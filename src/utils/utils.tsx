@@ -1,6 +1,6 @@
 import { MouseEvent } from 'react';
 import { store } from '../store/store';
-import { CITIES_NAMES } from '../const';
+import { CardType, CITIES_NAMES } from '../const';
 import { changeCity } from '../store/card-process/card-process';
 import { Offers } from '../types';
 import PlacesCard from '../components/places-card/places-card';
@@ -21,12 +21,8 @@ export const getRandomKey = (): string =>
 
 export const getOffersCards: (
   offers: Offers,
-  isMainCardType: boolean
-) => JSX.Element[] = (offers, isMainCardType) =>
+  cardType: CardType
+) => JSX.Element[] = (offers, cardType) =>
   offers.map((offerItem) => (
-    <PlacesCard
-      isMainCardType={isMainCardType}
-      key={offerItem.id}
-      {...offerItem}
-    />
+    <PlacesCard cardType={cardType} key={offerItem.id} {...offerItem} />
   ));

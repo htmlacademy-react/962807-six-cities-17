@@ -8,7 +8,7 @@ import { useAppSelector } from '../../hooks/useAppSelector';
 import {
   getActiveCardOffer,
   getCurrentCity,
-  getOfferByCity,
+  getOffersByCity,
 } from '../../store/card-process/card-selectors';
 import { getNearOffersData } from '../../store/offer-process/offer-selectors';
 
@@ -34,7 +34,7 @@ export default function Map({
   const city = useAppSelector(getCurrentCity);
   const selectedOffer = useAppSelector(getActiveCardOffer);
   const nearOffers = useAppSelector(getNearOffersData).slice(0, 3);
-  const currentOffers = useAppSelector(getOfferByCity);
+  const currentOffers = useAppSelector(getOffersByCity);
 
   const offersTemplate =
     styleModifier === 'cities' ? currentOffers : nearOffers;

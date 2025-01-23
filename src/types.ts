@@ -28,6 +28,8 @@ export type City = {
   location: Location;
 };
 
+export type Cities = City[];
+
 export type FullOfferData = {
   id: string;
   title: string;
@@ -87,12 +89,16 @@ export type AsyncThunkType = {
 export type CardProcessType = {
   offers: Offers;
   offersByCity: Offers;
+  favoriteOffers: Offers;
   offersByCityQuantity: number;
-  cities: string[];
+  cities: Cities;
   currentCity: City;
   sort: string;
   isOffersLoading: boolean;
   isOffersLoadingError: boolean;
+  isFavoriteOffersLoading: boolean;
+  isFavoriteOffersLoadingError: boolean;
+  isPushingFavoriteStatus: boolean;
   activeCardOffer: string | null;
 };
 

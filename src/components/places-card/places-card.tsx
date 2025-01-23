@@ -1,11 +1,13 @@
+import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { Offer } from '../../types';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { changeActiveCard } from '../../store/card-process/card-process';
-import { useCallback } from 'react';
+import { Offer } from '../../types';
+import { CardType } from '../../const';
+import FavoriteButton from '../favorites-button/favorites-button';
 
 type CitiesPlacesItemProps = {
-  isMainCardType: boolean;
+  cardType: string;
 } & Offer;
 
 export default function PlacesCard({
@@ -16,12 +18,8 @@ export default function PlacesCard({
   rating,
   previewImage,
   isPremium,
-  isFavorite,
-  isMainCardType,
+  cardType = CardType.Main,
 }: CitiesPlacesItemProps): JSX.Element {
-  const getPrefixByCardType = (): string =>
-    isMainCardType ? 'cities__' : 'near-places__';
-
   const dispatch = useAppDispatch();
   const onCardMouseEnter = useCallback(
     () => dispatch(changeActiveCard(id)),
@@ -34,7 +32,7 @@ export default function PlacesCard({
 
   return (
     <article
-      className={`${getPrefixByCardType()}card place-card`}
+      className={`${cardType}__card place-card`}
       key={id}
       onMouseEnter={onCardMouseEnter}
       onMouseLeave={onCardMouseLeave}
@@ -44,36 +42,28 @@ export default function PlacesCard({
           <span>Premium</span>
         </div>
       )}
-      <div
-        className={`${getPrefixByCardType()}__image-wrapper place-card__image-wrapper`}
-      >
+      <div className={`${cardType}__image-wrapper place-card__image-wrapper`}>
         <Link to={`/offer/${id}`}>
           <img
             className="place-card__image"
             src={previewImage}
-            width={260}
-            height={200}
+            width={cardType === 'favorites' ? 150 : 260}
+            height={cardType === 'favorites' ? 110 : 200}
             alt={`${title} ${type} image`}
           />
         </Link>
       </div>
-      <div className="place-card__info">
+      <div
+        className={`${
+          cardType === 'favorites' ? 'favorites__card-info' : ''
+        } place-card__info`}
+      >
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">{`€${price}`}</b>
-            <span className="place-card__price-text">/night</span>
+            <b className="place-card__price-value">&euro;{price}</b>
+            <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button
-            className={`place-card__bookmark-button${
-              isFavorite ? '--active' : ''
-            } button`}
-            type="button"
-          >
-            <svg className="place-card__bookmark-icon" width={18} height={19}>
-              <use xlinkHref="#icon-bookmark" />
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <FavoriteButton offerId={id} isOfferBookmark={false} />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

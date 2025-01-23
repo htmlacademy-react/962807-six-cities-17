@@ -86,3 +86,29 @@ export const postReviewAction = createAppAsyncThunk<Review, UserReview>(
     return data;
   }
 );
+
+export const fetchFavoriteOffers = createAppAsyncThunk<Offers, undefined>(
+  'offers/fetchFavoriteOffers',
+  async (_arg, { extra: api }) => {
+    // console.log('fetchFavoriteOffers');
+    const { data } = await api.get<Offers>(APIRoute.Favorite);
+    return data;
+  }
+);
+
+// type AType = {
+//   id: string;
+//   isFavorite: boolean;
+// };
+
+export const pushFavoriteStatus = createAppAsyncThunk<
+  FullOfferData,
+  { id: string; isFavorite: boolean }
+>('offers/pushFavoriteStatus', async ({ id, isFavorite }, { extra: api }) => {
+  // console.log('pushOnServer', id, isFavorite);
+  const { data } = await api.post<FullOfferData>(
+    `${APIRoute.Favorite}/${id}/${Number(isFavorite)}`
+  );
+  // console.log('uploadedFromServer', data.isFavorite);
+  return data;
+});
