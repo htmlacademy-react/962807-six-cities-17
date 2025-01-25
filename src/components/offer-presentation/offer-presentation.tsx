@@ -1,4 +1,5 @@
 import { FullOfferData } from '../../types';
+import { getRatingStarStyle } from '../../utils/utils';
 import FavoriteButton from '../favorites-button/favorites-button';
 
 export default function OfferPresentation({
@@ -24,7 +25,7 @@ export default function OfferPresentation({
       </div>
       <div className="offer__rating rating">
         <div className="offer__stars rating__stars">
-          <span style={{ width: `${(100 / 5) * Math.round(rating)}%` }} />
+          <span style={{ width: getRatingStarStyle(rating) }} />
           <span className="visually-hidden">Rating</span>
         </div>
         <span className="offer__rating-value rating__value">{rating}</span>

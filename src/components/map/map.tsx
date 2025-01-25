@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef } from 'react';
 
-import leaflet from 'leaflet';
+import leaflet, { layerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import useMap from '../../hooks/useMap';
@@ -11,18 +11,19 @@ import {
   getOffersByCity,
 } from '../../store/card-process/card-selectors';
 import { getNearOffersData } from '../../store/offer-process/offer-selectors';
+import { MapIcon } from '../../const';
 
 type MapProps = {
   styleModifier: 'offer' | 'cities';
 };
 
 const defaultIcon = leaflet.icon({
-  iconUrl: './img/pin.svg',
+  iconUrl: MapIcon.Default,
   iconSize: [28, 40],
   iconAnchor: [14, 40],
 });
 const activeIcon = leaflet.icon({
-  iconUrl: './img/pin-active.svg',
+  iconUrl: MapIcon.Active,
   iconSize: [28, 40],
   iconAnchor: [14, 40],
 });
@@ -39,20 +40,34 @@ export default function Map({
   const offersTemplate =
     styleModifier === 'cities' ? currentOffers : nearOffers;
   const offers = useMemo(() => offersTemplate, [offersTemplate]);
+  const isZoomDisabled = styleModifier === 'cities';
 
-  const map = useMap(mapRef, city);
+  const map = useMap(mapRef, city, isZoomDisabled);
+
+  useEffect(() => {
+    if (map) {
+      map.setView(
+        { lat: city.location.latitude, lng: city.location.longitude },
+        city.location.zoom
+      );
+    }
+  }, [map, city]);
 
   useEffect(() => {
     if (map && offers) {
+      const markerLayer = layerGroup().addTo(map);
       offers.forEach((offer) => {
         leaflet
           .marker([offer.location.latitude, offer.location.longitude], {
             icon: offer.id === selectedOffer ? activeIcon : defaultIcon,
           })
-          .addTo(map);
+          .addTo(markerLayer);
       });
+      return () => {
+        map.removeLayer(markerLayer);
+      };
     }
-  }, [map, city, offers, selectedOffer]);
+  }, [map, offers, selectedOffer]);
 
   return (
     <section

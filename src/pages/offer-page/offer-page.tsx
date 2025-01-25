@@ -45,7 +45,7 @@ export default function OfferPage(): JSX.Element {
       dispatch(fetchFullOfferDataAction(offerId)).then((response) => {
         if (response.meta.requestStatus === 'rejected') {
           return () => {
-            navigate(AppRoute.Main);
+            navigate(AppRoute.Empty);
           };
         }
         dispatch(fetchReviewsAction(offerId));

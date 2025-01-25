@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import FavoriteList from '../../components/favorites-list/favorites-list';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-import { AppRoute, AuthStatus } from '../../const';
+import { AuthStatus } from '../../const';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { getFavoriteOffers } from '../../store/card-process/card-selectors';
 import { getAuthStatus } from '../../store/user-process/user-selectors';
@@ -11,11 +11,10 @@ import { getAuthStatus } from '../../store/user-process/user-selectors';
 export default function FavoritePage(): JSX.Element {
   const navigate = useNavigate();
   const isLogged = useAppSelector(getAuthStatus) === AuthStatus.Auth;
-  const favoriteListData = useAppSelector(getFavoriteOffers); // заменить на данные с сервера
-  // const favoriteListData = [];
+  const favoriteListData = useAppSelector(getFavoriteOffers);
   const isEmpty = favoriteListData.length === 0;
   if (!isLogged) {
-    navigate(AppRoute.Main);
+    navigate(-1);
   }
 
   return (

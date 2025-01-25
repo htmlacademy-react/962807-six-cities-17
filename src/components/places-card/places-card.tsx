@@ -5,6 +5,7 @@ import { changeActiveCard } from '../../store/card-process/card-process';
 import { Offer } from '../../types';
 import { CardType } from '../../const';
 import FavoriteButton from '../favorites-button/favorites-button';
+import { getRatingStarStyle } from '../../utils/utils';
 
 type CitiesPlacesItemProps = {
   cardType: string;
@@ -69,7 +70,7 @@ export default function PlacesCard({
           <div className="place-card__stars rating__stars">
             <span
               style={{
-                width: `${(100 / 5) * Math.round(rating)}%`,
+                width: getRatingStarStyle(rating),
               }}
             />
             <span className="visually-hidden">Rating</span>

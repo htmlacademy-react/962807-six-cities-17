@@ -1,9 +1,7 @@
 import { MouseEvent } from 'react';
-import { store } from '../store/store';
-import { CardType, CITIES_NAMES } from '../const';
+import { CITIES_NAMES } from '../const';
 import { changeCity } from '../store/card-process/card-process';
-import { Offers } from '../types';
-import PlacesCard from '../components/places-card/places-card';
+import { store } from '../store/store';
 
 export const handleCityChange: (
   evt: MouseEvent<HTMLAnchorElement>,
@@ -19,10 +17,5 @@ export const handleCityChange: (
 export const getRandomKey = (): string =>
   (Date.now() * Math.random()).toFixed(10);
 
-export const getOffersCards: (
-  offers: Offers,
-  cardType: CardType
-) => JSX.Element[] = (offers, cardType) =>
-  offers.map((offerItem) => (
-    <PlacesCard cardType={cardType} key={offerItem.id} {...offerItem} />
-  ));
+export const getRatingStarStyle = (rating: number) =>
+  `${(100 / 5) * Math.round(rating)}%`;

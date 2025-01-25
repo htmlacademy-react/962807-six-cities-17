@@ -1,13 +1,13 @@
 import React from 'react';
+import { CardType } from '../../const';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import {
   getCurrentCity,
-  getOffersByCity,
   getOfferByCityQuantity,
+  getOffersByCity,
 } from '../../store/card-process/card-selectors';
-import { getOffersCards } from '../../utils/utils';
+import PlacesCardList from '../places-card-list/places-card-list';
 import PlacesSort from '../places-sort/places-sort';
-import { CardType } from '../../const';
 
 export default function PlacesCards(): JSX.Element {
   const currentCity = useAppSelector(getCurrentCity);
@@ -22,7 +22,7 @@ export default function PlacesCards(): JSX.Element {
       </b>
       <PlacesSort />
       <div className="cities__places-list places__list tabs__content">
-        {getOffersCards(offers, CardType.Main)}
+        <PlacesCardList offers={offers} cardType={CardType.Main} />
       </div>
     </React.Fragment>
   );

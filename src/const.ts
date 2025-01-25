@@ -149,3 +149,13 @@ export enum NameSpace {
   Offer = 'Offer',
   User = 'User',
 }
+
+export enum MapIcon {
+  Default = '/img/pin.svg',
+  Active = '/img/pin-active.svg',
+}
+
+export enum MapBaseSettings {
+  TitleLayer = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+  Copyright = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+}

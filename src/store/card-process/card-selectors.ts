@@ -1,11 +1,8 @@
 import { NameSpace } from '../../const';
-import { Cities, City, Offers, State } from '../../types';
+import { City, Offers, State } from '../../types';
 
 export const getCurrentCity = (state: State): City =>
   state[NameSpace.Cards].currentCity;
-
-export const getCitiesData = (state: State): Cities =>
-  state[NameSpace.Cards].cities;
 
 export const getIsOffersLoading = (state: State): boolean =>
   state[NameSpace.Cards].isOffersLoading;
@@ -15,9 +12,6 @@ export const getOffersByCity = (state: State): Offers =>
 
 export const getFavoriteOffers = (state: State): Offers =>
   state[NameSpace.Cards].favoriteOffers;
-
-export const getOffers = (state: State): Offers =>
-  state[NameSpace.Cards].offers;
 
 export const getCurrentSort = (state: State): string =>
   state[NameSpace.Cards].sort;

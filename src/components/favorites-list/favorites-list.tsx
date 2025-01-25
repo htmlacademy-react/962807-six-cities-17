@@ -3,11 +3,8 @@ import { AppRoute, CardType } from '../../const';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { getCurrentCity } from '../../store/card-process/card-selectors';
 import { Offers } from '../../types';
-import {
-  getOffersCards,
-  getRandomKey,
-  handleCityChange,
-} from '../../utils/utils';
+import { getRandomKey, handleCityChange } from '../../utils/utils';
+import PlacesCardList from '../places-card-list/places-card-list';
 
 export default function FavoriteList({
   favoriteListData,
@@ -16,7 +13,6 @@ export default function FavoriteList({
 }): JSX.Element {
   const navigate = useNavigate();
   const currentCity = useAppSelector(getCurrentCity);
-  // const favoriteListData = useAppSelector(getOffers); // заменить на данные с сервера
 
   const favoriteListDataByCity = (city: string) =>
     favoriteListData.filter((offer) => offer.city.name === city);
@@ -32,27 +28,32 @@ export default function FavoriteList({
 
   const favoriteCitiesList = getFavoriteCitiesList();
 
-  const getFavoriteListItems = () =>
-    favoriteCitiesList.map((city) => (
-      <li className="favorites__locations-items" key={getRandomKey()}>
-        <div className="favorites__locations locations locations--current">
-          <div className="locations__item">
-            <a
-              className="locations__item-link"
-              onClick={(evt) => {
-                evt.preventDefault();
-                handleCityChange(evt, currentCity.name);
-                navigate(AppRoute.Main);
-              }}
-            >
-              <span>{city}</span>
-            </a>
+  return (
+    <ul className="favorites__list">
+      {favoriteCitiesList.map((city) => (
+        <li className="favorites__locations-items" key={getRandomKey()}>
+          <div className="favorites__locations locations locations--current">
+            <div className="locations__item">
+              <a
+                className="locations__item-link"
+                onClick={(evt) => {
+                  evt.preventDefault();
+                  handleCityChange(evt, currentCity.name);
+                  navigate(AppRoute.Main);
+                }}
+              >
+                <span>{city}</span>
+              </a>
+            </div>
           </div>
-        </div>
-        <div className="favorites__places">
-          {getOffersCards(favoriteListDataByCity(city), CardType.Favorites)}
-        </div>
-      </li>
-    ));
-  return <ul className="favorites__list">{getFavoriteListItems()}</ul>;
+          <div className="favorites__places">
+            <PlacesCardList
+              offers={favoriteListDataByCity(city)}
+              cardType={CardType.Favorites}
+            />
+          </div>
+        </li>
+      ))}
+    </ul>
+  );
 }

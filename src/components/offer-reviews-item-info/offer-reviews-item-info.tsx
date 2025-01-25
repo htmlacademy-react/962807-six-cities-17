@@ -1,4 +1,5 @@
 import { Review } from '../../types';
+import { getRatingStarStyle } from '../../utils/utils';
 
 export default function OfferReviewsItemInfo({
   comment,
@@ -16,7 +17,7 @@ export default function OfferReviewsItemInfo({
         <div className="reviews__stars rating__stars">
           <span
             style={{
-              width: `${(100 / 5) * Math.round(rating)}%`,
+              width: getRatingStarStyle(rating),
             }}
           />
           <span className="visually-hidden">Rating</span>
