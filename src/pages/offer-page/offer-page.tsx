@@ -84,7 +84,7 @@ export default function OfferPage(): JSX.Element {
               <OfferReviews />
             </div>
           </div>
-          <Map styleModifier="offer" />
+          <Map currentOffer={offer} />
         </section>
         <OfferNearPlaces />
       </main>

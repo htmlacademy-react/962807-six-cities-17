@@ -159,3 +159,11 @@ export enum MapBaseSettings {
   TitleLayer = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
   Copyright = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
 }
+
+export const NEAR_OFFER_COUNT = 3;
+export const VISIBLE_REVIEW_LIMIT = 10;
+
+export enum MapSizeType {
+  MainPage = '100%',
+  OfferPage = '579px',
+}

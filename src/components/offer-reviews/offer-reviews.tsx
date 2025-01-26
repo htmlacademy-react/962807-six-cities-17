@@ -1,4 +1,4 @@
-import { AuthStatus } from '../../const';
+import { AuthStatus, VISIBLE_REVIEW_LIMIT } from '../../const';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { getReviewsData } from '../../store/offer-process/offer-selectors';
 import { getAuthStatus } from '../../store/user-process/user-selectors';
@@ -6,7 +6,7 @@ import OfferReviewsForm from '../offer-reviews-form/offer-reviews-form';
 import OfferReviewsItem from '../offer-reviews-item/offer-reviews-item';
 
 export default function OfferReviews(): JSX.Element {
-  const reviews = useAppSelector(getReviewsData).slice(0, 10);
+  const reviews = useAppSelector(getReviewsData).slice(0, VISIBLE_REVIEW_LIMIT);
   const isLogged = useAppSelector(getAuthStatus) === AuthStatus.Auth;
   const getReviews = () =>
     reviews.map((reviewItem) => (

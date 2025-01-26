@@ -1,10 +1,13 @@
-import { CardType } from '../../const';
+import { CardType, NEAR_OFFER_COUNT } from '../../const';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { getNearOffersData } from '../../store/offer-process/offer-selectors';
 import PlacesCardList from '../places-card-list/places-card-list';
 
 export default function OfferNearPlaces(): JSX.Element {
-  const nearOffers = useAppSelector(getNearOffersData).slice(0, 3);
+  const nearOffers = useAppSelector(getNearOffersData).slice(
+    0,
+    NEAR_OFFER_COUNT
+  );
 
   return (
     <div className="container">

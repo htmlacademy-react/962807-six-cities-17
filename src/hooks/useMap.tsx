@@ -6,7 +6,7 @@ import { MapBaseSettings } from '../const';
 export default function useMap(
   mapRef: MutableRefObject<HTMLElement | null>,
   city: City,
-  disableScroll: boolean = false
+  enableZoom: boolean
 ): Map | null {
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef(false);
@@ -19,7 +19,7 @@ export default function useMap(
           lng: city.location.longitude,
         },
         zoom: city.location.zoom,
-        scrollWheelZoom: disableScroll,
+        scrollWheelZoom: enableZoom,
       });
 
       leaflet
@@ -30,7 +30,7 @@ export default function useMap(
       setMap(instance);
       isRenderedRef.current = true;
     }
-  }, [mapRef, city, disableScroll]);
+  }, [mapRef, city, enableZoom]);
 
   useEffect(() => {
     if (map) {
