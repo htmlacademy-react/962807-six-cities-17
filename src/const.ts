@@ -5,6 +5,9 @@ export const REQUEST_TIMEOUT = 5000;
 export const MINIMUM_REVIEW_LENGTH = 50;
 export const MAXIMUM_REVIEW_LENGTH = 300;
 export const MAXIMUM_REVIEWS_QUANTITY = 50;
+export const NEAR_OFFER_COUNT = 3;
+export const VISIBLE_REVIEW_LIMIT = 10;
+export const MAX_OFFER_IMAGES = 6;
 
 export enum SortingOption {
   POPULAR = 'Popular',
@@ -159,9 +162,6 @@ export enum MapBaseSettings {
   TitleLayer = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
   Copyright = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
 }
-
-export const NEAR_OFFER_COUNT = 3;
-export const VISIBLE_REVIEW_LIMIT = 10;
 
 export enum MapSizeType {
   MainPage = '100%',

@@ -4,6 +4,7 @@ import Header from '../../components/header/header';
 import { getIsOffersLoadingError } from '../../store/card-process/card-selectors';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { getIsFullOfferLoadingError } from '../../store/offer-process/offer-selectors';
+import { Link } from 'react-router-dom';
 
 export default function EmptyPage(): JSX.Element {
   const isOffersLoadingError = useAppSelector(getIsOffersLoadingError);
@@ -29,6 +30,14 @@ export default function EmptyPage(): JSX.Element {
                     ? 'Some error occurred on upload. Please try again later.'
                     : 'This is not the page you are looking for'}
                 </p>
+                <Link
+                  to="/"
+                  className="reviews__submit form__submit button"
+                  type="submit"
+                  style={{ marginTop: '30px' }}
+                >
+                  To Main Page
+                </Link>
               </div>
             </section>
             <div className="cities__right-section" />

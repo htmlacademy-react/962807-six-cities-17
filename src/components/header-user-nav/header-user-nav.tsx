@@ -16,7 +16,6 @@ export default function UserNav(): JSX.Element {
   const handleNavLink = () => {
     if (isLogged) {
       dispatch(logoutAction());
-      navigate(-1);
     } else {
       navigate(AppRoute.Login);
     }

@@ -14,7 +14,7 @@ export default function PlacesFilled(): JSX.Element {
             <PlacesCards />
           </section>
           <div className="cities__right-section">
-            <Map styleModifier="cities" />
+            <Map />
           </div>
         </div>
       </div>

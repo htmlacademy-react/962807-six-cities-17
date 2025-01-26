@@ -11,7 +11,7 @@ import OfferHost from '../../components/offer-host/offer-host';
 import OfferNearPlaces from '../../components/offer-near-places/offer-near-places';
 import OfferPresentation from '../../components/offer-presentation/offer-presentation';
 import OfferReviews from '../../components/offer-reviews/offer-reviews';
-import { AppRoute } from '../../const';
+import { AppRoute, MAX_OFFER_IMAGES } from '../../const';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import {
@@ -56,11 +56,12 @@ export default function OfferPage(): JSX.Element {
 
   const { title, host, description, goods, images } = offer;
 
-  const getPhotos = function (): JSX.Element[] {
-    return images.map((image) => (
-      <OfferGalleryItem key={image} image={image} title={title} />
-    ));
-  };
+  const getPhotos = () =>
+    images
+      .slice(0, MAX_OFFER_IMAGES)
+      .map((image) => (
+        <OfferGalleryItem key={image} image={image} title={title} />
+      ));
 
   return (
     <div className="page">
