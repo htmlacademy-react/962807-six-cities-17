@@ -7,10 +7,12 @@ import {
   getAuthStatus,
   getUserData,
 } from '../../store/user-process/user-selectors';
+import { getFavoriteOffers } from '../../store/card-process/card-selectors';
 
 export default function UserNav(): JSX.Element {
   const user = useAppSelector(getUserData);
   const isLogged = useAppSelector(getAuthStatus) === AuthStatus.Auth;
+  const favoriteOffersCount = useAppSelector(getFavoriteOffers).length;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const handleNavLink = () => {
@@ -34,7 +36,9 @@ export default function UserNav(): JSX.Element {
               <span className="header__user-name user__name">
                 {user ? user.name : ''}
               </span>
-              <span className="header__favorite-count">3</span>
+              <span className="header__favorite-count">
+                {favoriteOffersCount}
+              </span>
             </Link>
           </li>
         )}

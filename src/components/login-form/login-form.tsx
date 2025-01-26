@@ -22,7 +22,9 @@ export default function LoginForm(): JSX.Element {
   };
 
   const checkLoginForm = () => {
-    const isLoginValid = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email);
+    const isLoginValid = /^[\w-.]+@([\w-]+\.)+[a-zA-Z]{2,4}$/.test(
+      formData.email
+    );
     if (!isLoginValid) {
       toast.info('Please set a valid email', {
         toastId: toastIds.current[0],

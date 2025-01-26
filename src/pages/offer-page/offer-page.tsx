@@ -30,11 +30,11 @@ export default function OfferPage(): JSX.Element {
   const isFullOfferLoadingError = useAppSelector(getIsFullOfferLoadingError);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
-  const offerId = useParams().id;
+  const { id } = useParams();
+  const isNeedUpdate = id && offer.id !== id;
 
   useEffect(() => {
-    if (offerId && offer.id !== offerId) {
+    if (isNeedUpdate) {
       if (isFullOfferLoadingError) {
         navigate(AppRoute.Empty);
         setTimeout(() => {
@@ -42,17 +42,17 @@ export default function OfferPage(): JSX.Element {
         }, 100);
         return;
       }
-      dispatch(fetchFullOfferDataAction(offerId)).then((response) => {
+      dispatch(fetchFullOfferDataAction(id)).then((response) => {
         if (response.meta.requestStatus === 'rejected') {
           return () => {
             navigate(AppRoute.Empty);
           };
         }
-        dispatch(fetchReviewsAction(offerId));
-        dispatch(fetchNearOffersAction(offerId));
+        dispatch(fetchReviewsAction(id));
+        dispatch(fetchNearOffersAction(id));
       });
     }
-  }, [offerId, dispatch, offer, isFullOfferLoadingError, navigate]);
+  }, [id, dispatch, offer, isFullOfferLoadingError, navigate, isNeedUpdate]);
 
   const { title, host, description, goods, images } = offer;
 
