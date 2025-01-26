@@ -1,17 +1,16 @@
 import { Fragment, useState } from 'react';
-import {
-  MAXIMUM_REVIEW_LENGTH,
-  MINIMUM_REVIEW_LENGTH,
-  RATING_GRADES,
-} from '../../const';
+import { toast } from 'react-toastify';
+import { MINIMUM_REVIEW_LENGTH, RATING_GRADES } from '../../const';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { postReviewAction } from '../../store/api-actions';
 import { getFullOfferData } from '../../store/offer-process/offer-selectors';
+import React from 'react';
 
 export default function OfferReviewsForm(): JSX.Element {
   const dispatch = useAppDispatch();
   const offerId = useAppSelector(getFullOfferData).id;
+  const toastIds = React.useRef(['lengthToast', 'ratingToast']);
 
   const initialState = {
     rating: 0,
@@ -33,9 +32,35 @@ export default function OfferReviewsForm(): JSX.Element {
       [name]: name === 'rating' ? Number(value) : value,
     });
   };
+
+  const checkReviewForm = () => {
+    const isLengthCorrect = reviewForm.review.length > MINIMUM_REVIEW_LENGTH;
+    if (!isLengthCorrect) {
+      toast.info('Please write for review at least 50 characters', {
+        toastId: toastIds.current[0],
+      });
+      return isLengthCorrect;
+    }
+    const isRatingChecked = reviewForm.rating;
+    if (!isRatingChecked) {
+      toast.info(
+        'To post review you need evaluate place by rating from 1 to 5',
+        {
+          toastId: toastIds.current[1],
+        }
+      );
+    }
+    return isLengthCorrect && isRatingChecked;
+  };
+
   const onSubmit: React.FormEventHandler = (evt) => {
     evt.preventDefault();
+    if (!checkReviewForm()) {
+      return;
+    }
+    toast.dismiss();
     reviewForm.disable = true;
+
     dispatch(
       postReviewAction({
         comment: reviewForm.review,
@@ -61,6 +86,7 @@ export default function OfferReviewsForm(): JSX.Element {
           type="radio"
           checked={reviewForm.rating === grades.length - index}
           disabled={reviewForm.disable}
+          onChange={onReviewChange}
         />
         <label
           htmlFor={`${grades.length - index}-stars`}
@@ -80,7 +106,7 @@ export default function OfferReviewsForm(): JSX.Element {
       action="#"
       method="post"
       onSubmit={onSubmit}
-      onChange={onReviewChange}
+      // onChange={onReviewChange}
     >
       <label className="reviews__label form__label" htmlFor="review">
         Your review
@@ -95,8 +121,7 @@ export default function OfferReviewsForm(): JSX.Element {
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={reviewForm.review}
         disabled={reviewForm.disable}
-        minLength={MINIMUM_REVIEW_LENGTH}
-        maxLength={MAXIMUM_REVIEW_LENGTH}
+        onChange={onReviewChange}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">

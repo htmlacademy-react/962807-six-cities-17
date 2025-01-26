@@ -117,17 +117,15 @@ export const cardProcess = createSlice({
           (offer) => offer.id === action.payload.id
         );
         if (!evaluatedOffer) {
-          throw new Error(`Нет предложения с данным id: ${action.payload.id}`);
+          throw new Error(`There is no offers with id: ${action.payload.id}`);
         }
         if (action.payload.isFavorite) {
           state.favoriteOffers.push(evaluatedOffer);
-          // console.log('pushed in state');
         } else {
           const excludedOfferIndex = state.favoriteOffers.findIndex(
             (offer) => offer.id === evaluatedOffer.id
           );
           state.favoriteOffers.splice(excludedOfferIndex, 1);
-          // console.log('rejected out of state');
         }
       })
       .addCase(pushFavoriteStatus.rejected, (state) => {
