@@ -3,12 +3,12 @@ import { getRatingStarStyle } from '../../utils/utils';
 
 export default function OfferReviewsItemInfo({
   comment,
-  date,
+  date: dateTemplate,
   rating,
 }: Review): JSX.Element {
-  const dateObj: Date = new Date(date);
+  const date: Date = new Date(dateTemplate);
   const getFormattedDateContent = (): string =>
-    dateObj.toLocaleDateString('en', { year: 'numeric', month: 'long' });
+    date.toLocaleDateString('en', { year: 'numeric', month: 'long' });
   const getFormattedDateAttribute = (): string =>
     getFormattedDateContent().split('.').reverse().join('.');
   return (

@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { changeActiveCard } from '../../store/card-process/card-process';
 import { Offer } from '../../types';
 import { CardType } from '../../const';

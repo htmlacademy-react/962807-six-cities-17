@@ -3,7 +3,7 @@ import { APIRoute } from '../const';
 import { dropToken, saveToken } from '../services/token';
 import {
   AsyncThunkType,
-  AuthData,
+  AuthenticationData,
   FullOfferData,
   Offers,
   Review,
@@ -48,15 +48,15 @@ export const fetchReviewsAction = createAppAsyncThunk<Reviews, string>(
   }
 );
 
-export const checkAuthAction = createAppAsyncThunk<UserData, undefined>(
-  'user/checkAuth',
-  async (_arg, { extra: api }) => {
-    const { data } = await api.get<UserData>(APIRoute.Login);
-    return data;
-  }
-);
+export const checkAuthenticationAction = createAppAsyncThunk<
+  UserData,
+  undefined
+>('user/checkAuth', async (_arg, { extra: api }) => {
+  const { data } = await api.get<UserData>(APIRoute.Login);
+  return data;
+});
 
-export const loginAction = createAppAsyncThunk<UserData, AuthData>(
+export const loginAction = createAppAsyncThunk<UserData, AuthenticationData>(
   'user/login',
   async ({ login: email, password }, { extra: api }) => {
     const { data } = await api.post<UserData>(APIRoute.Login, {

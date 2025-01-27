@@ -1,8 +1,8 @@
 import { Fragment, useState } from 'react';
 import { toast } from 'react-toastify';
 import { MINIMUM_REVIEW_LENGTH, RATING_GRADES } from '../../const';
-import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { useAppSelector } from '../../hooks/useAppSelector';
+import { useAppDispatch } from '../../hooks/use-app-dispatch';
+import { useAppSelector } from '../../hooks/use-app-selector';
 import { postReviewAction } from '../../store/api-actions';
 import { getFullOfferData } from '../../store/offer-process/offer-selectors';
 import React from 'react';
@@ -106,7 +106,6 @@ export default function OfferReviewsForm(): JSX.Element {
       action="#"
       method="post"
       onSubmit={onSubmit}
-      // onChange={onReviewChange}
     >
       <label className="reviews__label form__label" htmlFor="review">
         Your review

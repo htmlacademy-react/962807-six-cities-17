@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { INIT_OFFER, NameSpace } from '../../const';
+import { INITIAL_OFFER, NameSpace } from '../../const';
 import { OfferProcessType, Review, Reviews } from '../../types';
 import {
   fetchFullOfferDataAction,
@@ -15,7 +15,7 @@ const sortReviewsNewToOld = (reviews: Reviews) =>
   );
 
 const initialState: OfferProcessType = {
-  offer: INIT_OFFER,
+  offer: INITIAL_OFFER,
   reviews: [],
   nearOffers: [],
   isFullOfferLoading: false,

@@ -1,4 +1,4 @@
-import { useAppSelector } from '../../hooks/useAppSelector';
+import { useAppSelector } from '../../hooks/use-app-selector';
 import { getCurrentCity } from '../../store/card-process/card-selectors';
 import LocationNav from '../locations-nav/locations-nav';
 

@@ -30,7 +30,7 @@ export enum AppRoute {
   Empty = '*',
 }
 
-export enum AuthStatus {
+export enum AuthenticationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
@@ -106,7 +106,7 @@ export const CITIES_NAMES = [
   'Dusseldorf',
 ];
 
-export const INIT_OFFER: FullOfferData = {
+export const INITIAL_OFFER: FullOfferData = {
   id: '',
   title: '',
   type: '',

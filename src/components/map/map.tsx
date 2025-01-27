@@ -4,8 +4,8 @@ import leaflet, { layerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import { MapIcon, MapSizeType, NEAR_OFFER_COUNT } from '../../const';
-import { useAppSelector } from '../../hooks/useAppSelector';
-import useMap from '../../hooks/useMap';
+import { useAppSelector } from '../../hooks/use-app-selector';
+import useMap from '../../hooks/use-map';
 import {
   getActiveCardOffer,
   getCurrentCity,

@@ -1,5 +1,5 @@
 import { CardType, NEAR_OFFER_COUNT } from '../../const';
-import { useAppSelector } from '../../hooks/useAppSelector';
+import { useAppSelector } from '../../hooks/use-app-selector';
 import { getNearOffersData } from '../../store/offer-process/offer-selectors';
 import PlacesCardList from '../places-card-list/places-card-list';
 

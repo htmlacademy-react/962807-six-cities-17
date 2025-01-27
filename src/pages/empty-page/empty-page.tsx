@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import { getIsOffersLoadingError } from '../../store/card-process/card-selectors';
-import { useAppSelector } from '../../hooks/useAppSelector';
+import { useAppSelector } from '../../hooks/use-app-selector';
 import { getIsFullOfferLoadingError } from '../../store/offer-process/offer-selectors';
 import { Link } from 'react-router-dom';
 

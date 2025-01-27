@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
-import { AppRoute, AuthStatus } from '../../const';
-import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { useAppSelector } from '../../hooks/useAppSelector';
+import { AppRoute, AuthenticationStatus } from '../../const';
+import { useAppDispatch } from '../../hooks/use-app-dispatch';
+import { useAppSelector } from '../../hooks/use-app-selector';
 import { pushFavoriteStatus } from '../../store/api-actions';
-import { getAuthStatus } from '../../store/user-process/user-selectors';
+import { getAuthenticationStatus } from '../../store/user-process/user-selectors';
 
 type FavoriteButtonProps = {
   offerId: string;
@@ -16,7 +16,8 @@ export default function FavoriteButton({
 }: FavoriteButtonProps) {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const isLogged = useAppSelector(getAuthStatus) === AuthStatus.Auth;
+  const isLogged =
+    useAppSelector(getAuthenticationStatus) === AuthenticationStatus.Auth;
   const isFavorite = useAppSelector(
     (state) =>
       !!state.Cards.favoriteOffers.find((offer) => offer.id === offerId)

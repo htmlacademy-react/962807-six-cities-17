@@ -1,5 +1,5 @@
 import { AxiosInstance } from 'axios';
-import { AuthStatus } from './const';
+import { AuthenticationStatus } from './const';
 import { AppDispatch, store, Store } from './store/store';
 
 export type Offer = {
@@ -48,7 +48,7 @@ export type FullOfferData = {
   maxAdults: number;
 };
 
-export type AuthData = {
+export type AuthenticationData = {
   login: string;
   password: string;
 };
@@ -103,7 +103,7 @@ export type CardProcessType = {
 };
 
 export type UserProcessType = {
-  authStatus: AuthStatus;
+  authenticationStatus: AuthenticationStatus;
   user: UserData | null;
   isLogin: boolean;
   isLogout: boolean;

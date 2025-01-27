@@ -1,10 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { AuthStatus, NameSpace } from '../../const';
+import { AuthenticationStatus, NameSpace } from '../../const';
 import { UserProcessType } from '../../types';
-import { checkAuthAction, loginAction, logoutAction } from '../api-actions';
+import {
+  checkAuthenticationAction,
+  loginAction,
+  logoutAction,
+} from '../api-actions';
 
 const initialState: UserProcessType = {
-  authStatus: AuthStatus.Unknown,
+  authenticationStatus: AuthenticationStatus.Unknown,
   user: null,
   isLogin: false,
   isLogout: false,
@@ -18,28 +22,28 @@ export const userProcess = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(checkAuthAction.fulfilled, (state, action) => {
+      .addCase(checkAuthenticationAction.fulfilled, (state, action) => {
         state.isLoginError = false;
-        state.authStatus = AuthStatus.Auth;
+        state.authenticationStatus = AuthenticationStatus.Auth;
         state.user = action.payload;
       })
-      .addCase(checkAuthAction.rejected, (state) => {
+      .addCase(checkAuthenticationAction.rejected, (state) => {
         state.isLoginError = true;
-        state.authStatus = AuthStatus.NoAuth;
+        state.authenticationStatus = AuthenticationStatus.NoAuth;
       })
 
       .addCase(loginAction.fulfilled, (state, action) => {
         state.isLoginError = false;
-        state.authStatus = AuthStatus.Auth;
+        state.authenticationStatus = AuthenticationStatus.Auth;
         state.user = action.payload;
       })
       .addCase(loginAction.rejected, (state) => {
         state.isLoginError = true;
-        state.authStatus = AuthStatus.NoAuth;
+        state.authenticationStatus = AuthenticationStatus.NoAuth;
       })
       .addCase(logoutAction.fulfilled, (state) => {
         state.isLogoutError = false;
-        state.authStatus = AuthStatus.NoAuth;
+        state.authenticationStatus = AuthenticationStatus.NoAuth;
         state.user = null;
       })
       .addCase(logoutAction.rejected, (state) => {

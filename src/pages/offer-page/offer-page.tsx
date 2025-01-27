@@ -12,8 +12,8 @@ import OfferNearPlaces from '../../components/offer-near-places/offer-near-place
 import OfferPresentation from '../../components/offer-presentation/offer-presentation';
 import OfferReviews from '../../components/offer-reviews/offer-reviews';
 import { AppRoute, MAX_OFFER_IMAGES } from '../../const';
-import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { useAppSelector } from '../../hooks/useAppSelector';
+import { useAppDispatch } from '../../hooks/use-app-dispatch';
+import { useAppSelector } from '../../hooks/use-app-selector';
 import {
   fetchFullOfferDataAction,
   fetchNearOffersAction,

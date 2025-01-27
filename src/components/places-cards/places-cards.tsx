@@ -1,6 +1,6 @@
 import React from 'react';
 import { CardType } from '../../const';
-import { useAppSelector } from '../../hooks/useAppSelector';
+import { useAppSelector } from '../../hooks/use-app-selector';
 import {
   getCurrentCity,
   getOfferByCityQuantity,

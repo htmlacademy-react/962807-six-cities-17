@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { AppRoute, CardType } from '../../const';
-import { useAppSelector } from '../../hooks/useAppSelector';
+import { useAppSelector } from '../../hooks/use-app-selector';
 import { getCurrentCity } from '../../store/card-process/card-selectors';
 import { Offers } from '../../types';
 import { getRandomKey, handleCityChange } from '../../utils/utils';

@@ -4,14 +4,14 @@ import { Provider } from 'react-redux';
 import App from './components/app/app';
 import { ToastContainer } from 'react-toastify';
 import {
-  checkAuthAction,
+  checkAuthenticationAction,
   fetchFavoriteOffers,
   fetchOffersAction,
 } from './store/api-actions';
 import { store } from './store/store';
 
 store.dispatch(fetchOffersAction());
-store.dispatch(checkAuthAction()).then((response) => {
+store.dispatch(checkAuthenticationAction()).then((response) => {
   if (response.meta.requestStatus === 'fulfilled') {
     store.dispatch(fetchFavoriteOffers());
   }

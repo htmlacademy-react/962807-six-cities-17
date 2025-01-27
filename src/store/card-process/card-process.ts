@@ -113,17 +113,17 @@ export const cardProcess = createSlice({
       })
       .addCase(pushFavoriteStatus.fulfilled, (state, action) => {
         state.isPushingFavoriteStatus = false;
-        const evaluatedOffer = state.offers.find(
+        const ratedOffer = state.offers.find(
           (offer) => offer.id === action.payload.id
         );
-        if (!evaluatedOffer) {
+        if (!ratedOffer) {
           throw new Error(`There is no offers with id: ${action.payload.id}`);
         }
         if (action.payload.isFavorite) {
-          state.favoriteOffers.push(evaluatedOffer);
+          state.favoriteOffers.push(ratedOffer);
         } else {
           const excludedOfferIndex = state.favoriteOffers.findIndex(
-            (offer) => offer.id === evaluatedOffer.id
+            (offer) => offer.id === ratedOffer.id
           );
           state.favoriteOffers.splice(excludedOfferIndex, 1);
         }
