@@ -14,7 +14,12 @@ export default function PlacesCardList({
   return (
     <>
       {offers.map((offerItem) => (
-        <PlacesCard cardType={cardType} key={offerItem.id} {...offerItem} />
+        <PlacesCard
+          cardType={cardType}
+          key={offerItem.id}
+          {...offerItem}
+          data-testId="PlacesCard"
+        />
       ))}
     </>
   );
