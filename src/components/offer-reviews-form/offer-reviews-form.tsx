@@ -19,7 +19,7 @@ export default function OfferReviewsForm(): JSX.Element {
   };
   const [reviewForm, setReviewForm] = useState(initialState);
 
-  const onReviewChange: React.FormEventHandler = (
+  const handleReviewChange: React.FormEventHandler = (
     evt: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
     if (reviewForm.disable) {
@@ -86,7 +86,7 @@ export default function OfferReviewsForm(): JSX.Element {
           type="radio"
           checked={reviewForm.rating === grades.length - index}
           disabled={reviewForm.disable}
-          onChange={onReviewChange}
+          onChange={handleReviewChange}
         />
         <label
           htmlFor={`${grades.length - index}-stars`}
@@ -120,7 +120,7 @@ export default function OfferReviewsForm(): JSX.Element {
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={reviewForm.review}
         disabled={reviewForm.disable}
-        onChange={onReviewChange}
+        onChange={handleReviewChange}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
