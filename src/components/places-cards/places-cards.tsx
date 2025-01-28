@@ -18,7 +18,8 @@ export default function PlacesCards(): JSX.Element {
     <React.Fragment>
       <h2 className="visually-hidden">Places</h2>
       <b className="places__found">
-        {offersQuantity} places to stay in {currentCity.name}
+        {offersQuantity} {`place${offersQuantity === 1 ? '' : 's'}`} to stay in{' '}
+        {currentCity.name}
       </b>
       <PlacesSort />
       <div className="cities__places-list places__list tabs__content">
