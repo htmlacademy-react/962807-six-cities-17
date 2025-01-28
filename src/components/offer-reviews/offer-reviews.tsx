@@ -6,7 +6,9 @@ import OfferReviewsForm from '../offer-reviews-form/offer-reviews-form';
 import OfferReviewsItem from '../offer-reviews-item/offer-reviews-item';
 
 export default function OfferReviews(): JSX.Element {
-  const reviews = useAppSelector(getReviewsData).slice(0, VISIBLE_REVIEW_LIMIT);
+  const allReviews = useAppSelector(getReviewsData);
+  const reviewsCount = allReviews.length;
+  const reviews = allReviews.slice(0, VISIBLE_REVIEW_LIMIT);
   const isLogged =
     useAppSelector(getAuthenticationStatus) === AuthenticationStatus.Auth;
   const getReviews = () =>
@@ -17,7 +19,7 @@ export default function OfferReviews(): JSX.Element {
   return (
     <section className="offer__reviews reviews">
       <h2 className="reviews__title">
-        Reviews · <span className="reviews__amount">{reviews.length}</span>
+        Reviews · <span className="reviews__amount">{reviewsCount}</span>
       </h2>
       <ul className="reviews__list">{getReviews()}</ul>
       {isLogged && <OfferReviewsForm />}
