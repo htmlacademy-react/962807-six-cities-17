@@ -1,5 +1,5 @@
 import { FullOfferData } from '../../types';
-import { getRatingStarStyle } from '../../utils/utils';
+import { getRatingStarStyle, toUpperCaseFirstLetter } from '../../utils/utils';
 import FavoriteButton from '../favorites-button/favorites-button';
 
 export default function OfferPresentation({
@@ -31,7 +31,7 @@ export default function OfferPresentation({
         <span className="offer__rating-value rating__value">{rating}</span>
       </div>
       <ul className="offer__features">
-        <li className="offer__feature offer__feature--entire">{type}</li>
+        <li className="offer__feature offer__feature--entire">{toUpperCaseFirstLetter(type)}</li>
         <li className="offer__feature offer__feature--bedrooms">
           {`${bedrooms} ${bedrooms === 1 ? 'Bedroom' : 'Bedrooms'}`}
         </li>
