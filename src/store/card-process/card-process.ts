@@ -86,7 +86,7 @@ export const cardProcess = createSlice({
         );
         state.offersByCityQuantity = offersByCity.length;
         if (offersByCity.length) {
-          sortOffers(offersByCity, state.sort);
+          sortOffers(offersByCity, state.sort as SortingOption);
           state.offersByCity = offersByCity;
         }
       })
