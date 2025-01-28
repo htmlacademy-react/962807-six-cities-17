@@ -11,7 +11,7 @@ export default function LoginPage(): JSX.Element {
   const isLogged =
     useAppSelector(getAuthenticationStatus) === AuthenticationStatus.Auth;
   if (isLogged) {
-    return <Navigate to={AppRoute.Favorites} />;
+    return <Navigate to={AppRoute.Main} />;
   }
   return (
     <div className="page page--gray page--login">

@@ -28,7 +28,7 @@ export default function LoginForm(): JSX.Element {
     if (!isLoginValid) {
       toast.info('Please set a valid email', {
         toastId: toastIds.current[0],
-        position: 'bottom-center',
+        position: 'top-center',
       });
     }
     const isPasswordValid = /^([a-zA-Z]+?\d+?)+?|(\d+?[a-zA-Z]+?)+?$/.test(
@@ -38,7 +38,7 @@ export default function LoginForm(): JSX.Element {
     if (!isPasswordValid) {
       toast.info('Password must contain at least 1 letter and 1 digit', {
         toastId: toastIds.current[1],
-        position: 'bottom-center',
+        position: 'top-center',
       });
     }
     return isLoginValid && isPasswordValid;

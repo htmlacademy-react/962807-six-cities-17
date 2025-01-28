@@ -22,3 +22,6 @@ export const getRatingStarStyle = (rating: number) =>
 
 export const getRandomInteger = (min: number, max: number): number =>
   min + Math.floor((max - min + 1) * Math.random());
+
+export const toUpperCaseFirstLetter = (text: string): string =>
+  text ? text[0].toUpperCase() + text.slice(1) : '';

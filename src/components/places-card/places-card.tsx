@@ -5,7 +5,7 @@ import { changeActiveCard } from '../../store/card-process/card-process';
 import { Offer } from '../../types';
 import { CardType } from '../../const';
 import FavoriteButton from '../favorites-button/favorites-button';
-import { getRatingStarStyle } from '../../utils/utils';
+import { getRatingStarStyle, toUpperCaseFirstLetter } from '../../utils/utils';
 
 type CitiesPlacesItemProps = {
   cardType: string;
@@ -79,7 +79,7 @@ export default function PlacesCard({
         <h2 className="place-card__name">
           <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{toUpperCaseFirstLetter(type)}</p>
       </div>
     </article>
   );
