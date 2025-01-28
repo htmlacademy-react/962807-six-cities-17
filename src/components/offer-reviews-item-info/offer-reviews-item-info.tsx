@@ -1,13 +1,14 @@
 import { Review } from '../../types';
+import { getRatingStarStyle } from '../../utils/utils';
 
 export default function OfferReviewsItemInfo({
   comment,
-  date,
+  date: dateTemplate,
   rating,
 }: Review): JSX.Element {
-  const dateObj: Date = new Date(date);
+  const date: Date = new Date(dateTemplate);
   const getFormattedDateContent = (): string =>
-    dateObj.toLocaleDateString('en', { year: 'numeric', month: 'long' });
+    date.toLocaleDateString('en', { year: 'numeric', month: 'long' });
   const getFormattedDateAttribute = (): string =>
     getFormattedDateContent().split('.').reverse().join('.');
   return (
@@ -16,7 +17,7 @@ export default function OfferReviewsItemInfo({
         <div className="reviews__stars rating__stars">
           <span
             style={{
-              width: `${(100 / 5) * Math.round(rating)}%`,
+              width: getRatingStarStyle(rating),
             }}
           />
           <span className="visually-hidden">Rating</span>

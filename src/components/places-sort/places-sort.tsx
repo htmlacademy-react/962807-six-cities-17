@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { SortingOption } from '../../const';
-import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { useAppSelector } from '../../hooks/useAppSelector';
+import { useAppDispatch } from '../../hooks/use-app-dispatch';
+import { useAppSelector } from '../../hooks/use-app-selector';
 import { getCurrentSort } from '../../store/card-process/card-selectors';
 import { getRandomKey } from '../../utils/utils';
 import { changeSort } from '../../store/card-process/card-process';

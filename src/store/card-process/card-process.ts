@@ -113,21 +113,19 @@ export const cardProcess = createSlice({
       })
       .addCase(pushFavoriteStatus.fulfilled, (state, action) => {
         state.isPushingFavoriteStatus = false;
-        const evaluatedOffer = state.offers.find(
+        const ratedOffer = state.offers.find(
           (offer) => offer.id === action.payload.id
         );
-        if (!evaluatedOffer) {
-          throw new Error(`Нет предложения с данным id: ${action.payload.id}`);
+        if (!ratedOffer) {
+          throw new Error(`There is no offers with id: ${action.payload.id}`);
         }
         if (action.payload.isFavorite) {
-          state.favoriteOffers.push(evaluatedOffer);
-          // console.log('pushed in state');
+          state.favoriteOffers.push(ratedOffer);
         } else {
           const excludedOfferIndex = state.favoriteOffers.findIndex(
-            (offer) => offer.id === evaluatedOffer.id
+            (offer) => offer.id === ratedOffer.id
           );
           state.favoriteOffers.splice(excludedOfferIndex, 1);
-          // console.log('rejected out of state');
         }
       })
       .addCase(pushFavoriteStatus.rejected, (state) => {
@@ -137,3 +135,5 @@ export const cardProcess = createSlice({
 });
 
 export const { changeCity, changeSort, changeActiveCard } = cardProcess.actions;
+
+export { initialState };

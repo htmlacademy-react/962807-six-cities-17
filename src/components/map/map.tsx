@@ -1,64 +1,94 @@
 import { useEffect, useMemo, useRef } from 'react';
 
-import leaflet from 'leaflet';
+import leaflet, { layerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-import useMap from '../../hooks/useMap';
-import { useAppSelector } from '../../hooks/useAppSelector';
+import { MapIcon, MapSizeType, NEAR_OFFER_COUNT } from '../../const';
+import { useAppSelector } from '../../hooks/use-app-selector';
+import useMap from '../../hooks/use-map';
 import {
   getActiveCardOffer,
   getCurrentCity,
   getOffersByCity,
 } from '../../store/card-process/card-selectors';
 import { getNearOffersData } from '../../store/offer-process/offer-selectors';
+import { FullOfferData } from '../../types';
 
 type MapProps = {
-  styleModifier: 'offer' | 'cities';
+  currentOffer?: FullOfferData;
 };
 
 const defaultIcon = leaflet.icon({
-  iconUrl: './img/pin.svg',
+  iconUrl: MapIcon.Default,
   iconSize: [28, 40],
   iconAnchor: [14, 40],
 });
 const activeIcon = leaflet.icon({
-  iconUrl: './img/pin-active.svg',
+  iconUrl: MapIcon.Active,
   iconSize: [28, 40],
   iconAnchor: [14, 40],
 });
 
-export default function Map({
-  styleModifier = 'cities',
-}: MapProps): JSX.Element {
+export default function Map({ currentOffer }: MapProps): JSX.Element {
   const mapRef = useRef(null);
+  const styleModifier = currentOffer ? 'offer' : 'cities';
   const city = useAppSelector(getCurrentCity);
-  const selectedOffer = useAppSelector(getActiveCardOffer);
-  const nearOffers = useAppSelector(getNearOffersData).slice(0, 3);
+  const selectedOfferId = useAppSelector(getActiveCardOffer);
+  const nearOffers = useAppSelector(getNearOffersData).slice(
+    0,
+    NEAR_OFFER_COUNT
+  );
   const currentOffers = useAppSelector(getOffersByCity);
 
-  const offersTemplate =
-    styleModifier === 'cities' ? currentOffers : nearOffers;
+  const offersTemplate = currentOffer ? nearOffers : currentOffers;
+  const enableZoom = !currentOffer;
   const offers = useMemo(() => offersTemplate, [offersTemplate]);
 
-  const map = useMap(mapRef, city);
+  const map = useMap(mapRef, city, enableZoom);
+
+  useEffect(() => {
+    if (map) {
+      map.setView(
+        { lat: city.location.latitude, lng: city.location.longitude },
+        city.location.zoom
+      );
+    }
+  }, [map, city]);
 
   useEffect(() => {
     if (map && offers) {
+      const markerLayer = layerGroup().addTo(map);
+      if (currentOffer) {
+        leaflet
+          .marker(
+            [currentOffer.location.latitude, currentOffer.location.longitude],
+            { icon: activeIcon }
+          )
+          .addTo(markerLayer);
+      }
       offers.forEach((offer) => {
         leaflet
           .marker([offer.location.latitude, offer.location.longitude], {
-            icon: offer.id === selectedOffer ? activeIcon : defaultIcon,
+            icon:
+              offer.id === selectedOfferId && !currentOffer
+                ? activeIcon
+                : defaultIcon,
           })
-          .addTo(map);
+          .addTo(markerLayer);
       });
+      return () => {
+        map.removeLayer(markerLayer);
+      };
     }
-  }, [map, city, offers, selectedOffer]);
+  }, [currentOffer, map, offers, selectedOfferId]);
 
   return (
     <section
       className={`${styleModifier}__map map`}
       ref={mapRef}
-      style={{ height: styleModifier === 'cities' ? '100%' : '579px' }}
+      style={{
+        height: currentOffer ? MapSizeType.OfferPage : MapSizeType.MainPage,
+      }}
     />
   );
 }

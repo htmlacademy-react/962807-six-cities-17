@@ -11,9 +11,9 @@ import OfferHost from '../../components/offer-host/offer-host';
 import OfferNearPlaces from '../../components/offer-near-places/offer-near-places';
 import OfferPresentation from '../../components/offer-presentation/offer-presentation';
 import OfferReviews from '../../components/offer-reviews/offer-reviews';
-import { AppRoute } from '../../const';
-import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { useAppSelector } from '../../hooks/useAppSelector';
+import { AppRoute, MAX_OFFER_IMAGES } from '../../const';
+import { useAppDispatch } from '../../hooks/use-app-dispatch';
+import { useAppSelector } from '../../hooks/use-app-selector';
 import {
   fetchFullOfferDataAction,
   fetchNearOffersAction,
@@ -30,11 +30,11 @@ export default function OfferPage(): JSX.Element {
   const isFullOfferLoadingError = useAppSelector(getIsFullOfferLoadingError);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
-  const offerId = useParams().id;
+  const { id } = useParams();
+  const isNeedUpdate = id && offer.id !== id;
 
   useEffect(() => {
-    if (offerId && offer.id !== offerId) {
+    if (isNeedUpdate) {
       if (isFullOfferLoadingError) {
         navigate(AppRoute.Empty);
         setTimeout(() => {
@@ -42,25 +42,26 @@ export default function OfferPage(): JSX.Element {
         }, 100);
         return;
       }
-      dispatch(fetchFullOfferDataAction(offerId)).then((response) => {
+      dispatch(fetchFullOfferDataAction(id)).then((response) => {
         if (response.meta.requestStatus === 'rejected') {
           return () => {
-            navigate(AppRoute.Main);
+            navigate(AppRoute.Empty);
           };
         }
-        dispatch(fetchReviewsAction(offerId));
-        dispatch(fetchNearOffersAction(offerId));
+        dispatch(fetchReviewsAction(id));
+        dispatch(fetchNearOffersAction(id));
       });
     }
-  }, [offerId, dispatch, offer, isFullOfferLoadingError, navigate]);
+  }, [id, dispatch, offer, isFullOfferLoadingError, navigate, isNeedUpdate]);
 
   const { title, host, description, goods, images } = offer;
 
-  const getPhotos = function (): JSX.Element[] {
-    return images.map((image) => (
-      <OfferGalleryItem key={image} image={image} title={title} />
-    ));
-  };
+  const getPhotos = () =>
+    images
+      .slice(0, MAX_OFFER_IMAGES)
+      .map((image) => (
+        <OfferGalleryItem key={image} image={image} title={title} />
+      ));
 
   return (
     <div className="page">
@@ -84,7 +85,7 @@ export default function OfferPage(): JSX.Element {
               <OfferReviews />
             </div>
           </div>
-          <Map styleModifier="offer" />
+          <Map currentOffer={offer} />
         </section>
         <OfferNearPlaces />
       </main>

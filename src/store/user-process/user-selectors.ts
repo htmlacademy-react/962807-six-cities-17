@@ -1,7 +1,7 @@
-import { AuthStatus, NameSpace } from '../../const';
+import { AuthenticationStatus, NameSpace } from '../../const';
 import { State, UserData } from '../../types';
 
-export const getAuthStatus = (state: State): AuthStatus =>
-  state[NameSpace.User].authStatus;
+export const getAuthenticationStatus = (state: State): AuthenticationStatus =>
+  state[NameSpace.User].authenticationStatus;
 export const getUserData = (state: State): UserData | null =>
   state[NameSpace.User].user;

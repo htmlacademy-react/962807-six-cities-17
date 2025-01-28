@@ -1,7 +1,7 @@
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { useAppSelector } from '../../hooks/useAppSelector';
+import { useAppSelector } from '../../hooks/use-app-selector';
 import EmptyPage from '../../pages/empty-page/empty-page';
 import FavoritePage from '../../pages/favorites-page/favorites-page';
 import LoadingPage from '../../pages/loading-page/loading-page';

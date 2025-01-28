@@ -1,10 +1,13 @@
-import { CardType } from '../../const';
-import { useAppSelector } from '../../hooks/useAppSelector';
+import { CardType, NEAR_OFFER_COUNT } from '../../const';
+import { useAppSelector } from '../../hooks/use-app-selector';
 import { getNearOffersData } from '../../store/offer-process/offer-selectors';
-import { getOffersCards } from '../../utils/utils';
+import PlacesCardList from '../places-card-list/places-card-list';
 
 export default function OfferNearPlaces(): JSX.Element {
-  const nearOffers = useAppSelector(getNearOffersData).slice(0, 3);
+  const nearOffers = useAppSelector(getNearOffersData).slice(
+    0,
+    NEAR_OFFER_COUNT
+  );
 
   return (
     <div className="container">
@@ -13,7 +16,7 @@ export default function OfferNearPlaces(): JSX.Element {
           Other places in the neighbourhood
         </h2>
         <div className="near-places__list places__list">
-          {getOffersCards(nearOffers, CardType.NearBy)}
+          <PlacesCardList offers={nearOffers} cardType={CardType.NearBy} />
         </div>
       </section>
     </div>

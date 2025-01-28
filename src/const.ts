@@ -5,6 +5,9 @@ export const REQUEST_TIMEOUT = 5000;
 export const MINIMUM_REVIEW_LENGTH = 50;
 export const MAXIMUM_REVIEW_LENGTH = 300;
 export const MAXIMUM_REVIEWS_QUANTITY = 50;
+export const NEAR_OFFER_COUNT = 3;
+export const VISIBLE_REVIEW_LIMIT = 10;
+export const MAX_OFFER_IMAGES = 6;
 
 export enum SortingOption {
   POPULAR = 'Popular',
@@ -27,7 +30,7 @@ export enum AppRoute {
   Empty = '*',
 }
 
-export enum AuthStatus {
+export enum AuthenticationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
@@ -103,7 +106,7 @@ export const CITIES_NAMES = [
   'Dusseldorf',
 ];
 
-export const INIT_OFFER: FullOfferData = {
+export const INITIAL_OFFER: FullOfferData = {
   id: '',
   title: '',
   type: '',
@@ -148,4 +151,19 @@ export enum NameSpace {
   Cards = 'Cards',
   Offer = 'Offer',
   User = 'User',
+}
+
+export enum MapIcon {
+  Default = '/img/pin.svg',
+  Active = '/img/pin-active.svg',
+}
+
+export enum MapBaseSettings {
+  TitleLayer = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+  Copyright = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+}
+
+export enum MapSizeType {
+  MainPage = '100%',
+  OfferPage = '579px',
 }

@@ -1,10 +1,11 @@
 import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { changeActiveCard } from '../../store/card-process/card-process';
 import { Offer } from '../../types';
 import { CardType } from '../../const';
 import FavoriteButton from '../favorites-button/favorites-button';
+import { getRatingStarStyle } from '../../utils/utils';
 
 type CitiesPlacesItemProps = {
   cardType: string;
@@ -69,14 +70,14 @@ export default function PlacesCard({
           <div className="place-card__stars rating__stars">
             <span
               style={{
-                width: `${(100 / 5) * Math.round(rating)}%`,
+                width: getRatingStarStyle(rating),
               }}
             />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

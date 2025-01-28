@@ -1,4 +1,5 @@
 import { FullOfferData } from '../../types';
+import { getRatingStarStyle } from '../../utils/utils';
 import FavoriteButton from '../favorites-button/favorites-button';
 
 export default function OfferPresentation({
@@ -24,14 +25,16 @@ export default function OfferPresentation({
       </div>
       <div className="offer__rating rating">
         <div className="offer__stars rating__stars">
-          <span style={{ width: `${(100 / 5) * Math.round(rating)}%` }} />
+          <span style={{ width: getRatingStarStyle(rating) }} />
           <span className="visually-hidden">Rating</span>
         </div>
         <span className="offer__rating-value rating__value">{rating}</span>
       </div>
       <ul className="offer__features">
         <li className="offer__feature offer__feature--entire">{type}</li>
-        <li className="offer__feature offer__feature--bedrooms">{`${bedrooms} Bedrooms`}</li>
+        <li className="offer__feature offer__feature--bedrooms">
+          {`${bedrooms} ${bedrooms === 1 ? 'Bedroom' : 'Bedrooms'}`}
+        </li>
         <li className="offer__feature offer__feature--adults">
           {`Max ${maxAdults} ${maxAdults === 1 ? 'adult' : 'adults'}`}
         </li>

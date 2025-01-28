@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
 import PlacesEmpty from '../../components/places-empty/places-empty';
 import PlacesFilled from '../../components/places-filled/places-filled';
-import { useAppSelector } from '../../hooks/useAppSelector';
+import { useAppSelector } from '../../hooks/use-app-selector';
 import {
   getIsOffersLoadingError,
   getOfferByCityQuantity,
