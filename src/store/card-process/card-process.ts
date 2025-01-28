@@ -10,8 +10,8 @@ import {
 const filterOffersByCity = (currentCity: City, offers: Offers): Offers =>
   offers.filter((offer) => offer.city.name === currentCity.name);
 
-const sortOffers = (offers: Offers, sortType: string): void => {
-  if (!offers.length) {
+const sortOffers = (offers: Offers, sortType: SortingOption): void => {
+  if (!offers.length || sortType === SortingOption.POPULAR) {
     return;
   }
   const sortingCallback = (
@@ -25,8 +25,6 @@ const sortOffers = (offers: Offers, sortType: string): void => {
         return offerA.price - offerB.price;
       case SortingOption.RATING:
         return offerB.rating - offerA.rating;
-      default:
-        return offerA.isPremium ? -1 : 1;
     }
   };
   offers.sort(sortingCallback);
