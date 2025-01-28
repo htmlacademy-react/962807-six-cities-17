@@ -1,13 +1,13 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AppRoute, AuthenticationStatus } from '../../const';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { logoutAction } from '../../store/api-actions';
+import { getFavoriteOffers } from '../../store/card-process/card-selectors';
 import {
   getAuthenticationStatus,
   getUserData,
 } from '../../store/user-process/user-selectors';
-import { getFavoriteOffers } from '../../store/card-process/card-selectors';
 
 export default function UserNav(): JSX.Element {
   const user = useAppSelector(getUserData);
@@ -15,12 +15,9 @@ export default function UserNav(): JSX.Element {
     useAppSelector(getAuthenticationStatus) === AuthenticationStatus.Auth;
   const favoriteOffersCount = useAppSelector(getFavoriteOffers).length;
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const handleNavLink = () => {
     if (isLogged) {
       dispatch(logoutAction());
-    } else {
-      navigate(AppRoute.Login);
     }
   };
 
@@ -34,7 +31,7 @@ export default function UserNav(): JSX.Element {
           >
             <div className="header__avatar-wrapper user__avatar-wrapper"></div>
             <span className="header__user-name user__name">
-              {user ? user.name : ''}
+              { isLogged && user ? user.email : 'Sign in'}
             </span>
             {isLogged && (
               <span className="header__favorite-count">
@@ -43,13 +40,15 @@ export default function UserNav(): JSX.Element {
             )}
           </Link>
         </li>
-        <li className="header__nav-item">
-          <a className="header__nav-link" onClick={handleNavLink}>
-            <span className={isLogged ? 'header__signout' : 'header__login'}>
-              {isLogged ? 'Sign out' : 'Sign in'}
-            </span>
-          </a>
-        </li>
+        {isLogged ? (
+          <li className="header__nav-item">
+            <a className="header__nav-link" onClick={handleNavLink}>
+              <span className={isLogged ? 'header__signout' : 'header__login'}>
+                Sign out
+              </span>
+            </a>
+          </li>
+        ) : ''}
       </ul>
     </nav>
   );
