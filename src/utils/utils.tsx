@@ -19,3 +19,6 @@ export const getRandomKey = (): string =>
 
 export const getRatingStarStyle = (rating: number) =>
   `${(100 / 5) * Math.round(rating)}%`;
+
+export const getRandomInteger = (min: number, max: number): number =>
+  min + Math.floor((max - min + 1) * Math.random());

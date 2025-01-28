@@ -64,6 +64,7 @@ export const offerProcess = createSlice({
         state.isFullOfferLoading = false;
         state.isFullOfferLoadingError = true;
       })
+
       .addCase(fetchReviewsAction.pending, (state) => {
         state.isReviewsLoading = true;
         state.isReviewsLoadingError = false;
@@ -79,7 +80,6 @@ export const offerProcess = createSlice({
         state.isReviewsLoading = false;
         state.isReviewsLoadingError = true;
       })
-
       .addCase(postReviewAction.pending, (state) => {
         state.isReviewPushing = true;
         state.isReviewPushingError = false;
@@ -98,3 +98,5 @@ export const offerProcess = createSlice({
 });
 
 export const { dropLoadingError } = offerProcess.actions;
+
+export { initialState };

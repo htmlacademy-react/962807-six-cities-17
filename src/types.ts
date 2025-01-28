@@ -43,8 +43,8 @@ export type FullOfferData = {
   rating: number;
   description: string;
   bedrooms: number;
-  goods: [string];
-  images: [string];
+  goods: string[];
+  images: string[];
   maxAdults: number;
 };
 

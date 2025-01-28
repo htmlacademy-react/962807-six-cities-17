@@ -31,7 +31,6 @@ export const userProcess = createSlice({
         state.isLoginError = true;
         state.authenticationStatus = AuthenticationStatus.NoAuth;
       })
-
       .addCase(loginAction.fulfilled, (state, action) => {
         state.isLoginError = false;
         state.authenticationStatus = AuthenticationStatus.Auth;
@@ -51,3 +50,5 @@ export const userProcess = createSlice({
       });
   },
 });
+
+export { initialState };

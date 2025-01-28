@@ -135,3 +135,5 @@ export const cardProcess = createSlice({
 });
 
 export const { changeCity, changeSort, changeActiveCard } = cardProcess.actions;
+
+export { initialState };

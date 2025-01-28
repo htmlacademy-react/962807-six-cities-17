@@ -2,14 +2,14 @@ import { MouseEvent } from 'react';
 
 type LocationNavItemProps = {
   children: string;
-  onCityChange: (evt: MouseEvent<HTMLAnchorElement>) => void;
+  handleCityChange: (evt: MouseEvent<HTMLAnchorElement>) => void;
   active?: true;
 };
 
 export default function LocationNavItem({
   children,
   active,
-  onCityChange,
+  handleCityChange,
 }: LocationNavItemProps): JSX.Element {
   return (
     <li className="locations__item">
@@ -18,7 +18,7 @@ export default function LocationNavItem({
           active ? 'tabs__item--active' : ''
         }`}
         href="#"
-        onClick={onCityChange}
+        onClick={handleCityChange}
       >
         <span>{children}</span>
       </a>

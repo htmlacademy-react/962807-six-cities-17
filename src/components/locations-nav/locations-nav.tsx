@@ -12,7 +12,7 @@ export default function LocationNav(): JSX.Element {
       <LocationNavItem
         key={getRandomKey()}
         active={city === currentCity.name ? true : undefined}
-        onCityChange={(evt) => handleCityChange(evt, currentCity.name)}
+        handleCityChange={(evt) => handleCityChange(evt, currentCity.name)}
       >
         {city}
       </LocationNavItem>
