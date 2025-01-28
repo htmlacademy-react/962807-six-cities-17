@@ -59,13 +59,13 @@ export const cardProcess = createSlice({
       const offersByCity = filterOffersByCity(state.currentCity, state.offers);
       state.offersByCityQuantity = offersByCity.length;
       if (offersByCity.length) {
-        sortOffers(offersByCity, state.sort);
+        sortOffers(offersByCity, state.sort as SortingOption);
         state.offersByCity = offersByCity;
       }
     },
     changeSort: (state, action: PayloadAction<string>) => {
       state.sort = action.payload;
-      sortOffers(state.offersByCity, state.sort);
+      sortOffers(state.offersByCity, state.sort as SortingOption);
     },
     changeActiveCard: (state, action: PayloadAction<string | null>) => {
       state.activeCardOffer = action.payload;
