@@ -10,8 +10,8 @@ import {
 const filterOffersByCity = (currentCity: City, offers: Offers): Offers =>
   offers.filter((offer) => offer.city.name === currentCity.name);
 
-const sortOffers = (offers: Offers, sortType: string): void => {
-  if (!offers.length) {
+const sortOffers = (offers: Offers, sortType: SortingOption): void => {
+  if (!offers.length || sortType === SortingOption.POPULAR) {
     return;
   }
   const sortingCallback = (
@@ -25,8 +25,6 @@ const sortOffers = (offers: Offers, sortType: string): void => {
         return offerA.price - offerB.price;
       case SortingOption.RATING:
         return offerB.rating - offerA.rating;
-      default:
-        return offerA.isPremium ? -1 : 1;
     }
   };
   offers.sort(sortingCallback);
@@ -61,13 +59,13 @@ export const cardProcess = createSlice({
       const offersByCity = filterOffersByCity(state.currentCity, state.offers);
       state.offersByCityQuantity = offersByCity.length;
       if (offersByCity.length) {
-        sortOffers(offersByCity, state.sort);
+        sortOffers(offersByCity, state.sort as SortingOption);
         state.offersByCity = offersByCity;
       }
     },
     changeSort: (state, action: PayloadAction<string>) => {
       state.sort = action.payload;
-      sortOffers(state.offersByCity, state.sort);
+      sortOffers(state.offersByCity, state.sort as SortingOption);
     },
     changeActiveCard: (state, action: PayloadAction<string | null>) => {
       state.activeCardOffer = action.payload;
@@ -88,7 +86,7 @@ export const cardProcess = createSlice({
         );
         state.offersByCityQuantity = offersByCity.length;
         if (offersByCity.length) {
-          sortOffers(offersByCity, state.sort);
+          sortOffers(offersByCity, state.sort as SortingOption);
           state.offersByCity = offersByCity;
         }
       })

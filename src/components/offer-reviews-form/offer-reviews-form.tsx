@@ -1,65 +1,50 @@
-import { Fragment, useState } from 'react';
-import { toast } from 'react-toastify';
-import { MINIMUM_REVIEW_LENGTH, RATING_GRADES } from '../../const';
+import React, { Fragment, useState } from 'react';
+import {
+  MAXIMUM_REVIEW_LENGTH,
+  MINIMUM_REVIEW_LENGTH,
+  RATING_GRADES,
+} from '../../const';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { postReviewAction } from '../../store/api-actions';
 import { getFullOfferData } from '../../store/offer-process/offer-selectors';
-import React from 'react';
 
 export default function OfferReviewsForm(): JSX.Element {
   const dispatch = useAppDispatch();
   const offerId = useAppSelector(getFullOfferData).id;
-  const toastIds = React.useRef(['lengthToast', 'ratingToast']);
 
   const initialState = {
     rating: 0,
     review: '',
-    disable: false,
+    disableForm: false,
+    disableSubmit: true,
   };
   const [reviewForm, setReviewForm] = useState(initialState);
 
   const handleReviewChange: React.FormEventHandler = (
     evt: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
-    if (reviewForm.disable) {
+    if (reviewForm.disableForm) {
       return;
     }
     const { name, value } = evt.target;
 
-    setReviewForm({
-      ...reviewForm,
-      [name]: name === 'rating' ? Number(value) : value,
-    });
-  };
+    setReviewForm((previousState) => {
+      const newState = {
+        ...previousState,
+        [name]: name === 'rating' ? Number(value) : value,
+      };
+      const isLengthCorrect = newState.review.length > MINIMUM_REVIEW_LENGTH;
+      const isRatingChecked = newState.rating;
+      newState.disableSubmit = !isRatingChecked || !isLengthCorrect;
 
-  const checkReviewForm = () => {
-    const isLengthCorrect = reviewForm.review.length > MINIMUM_REVIEW_LENGTH;
-    if (!isLengthCorrect) {
-      toast.info('Please write for review at least 50 characters', {
-        toastId: toastIds.current[0],
-      });
-      return isLengthCorrect;
-    }
-    const isRatingChecked = reviewForm.rating;
-    if (!isRatingChecked) {
-      toast.info(
-        'To post review you need evaluate place by rating from 1 to 5',
-        {
-          toastId: toastIds.current[1],
-        }
-      );
-    }
-    return isLengthCorrect && isRatingChecked;
+      return newState;
+    });
   };
 
   const onSubmit: React.FormEventHandler = (evt) => {
     evt.preventDefault();
-    if (!checkReviewForm()) {
-      return;
-    }
-    toast.dismiss();
-    reviewForm.disable = true;
+    setReviewForm({...reviewForm, disableForm: true});
 
     dispatch(
       postReviewAction({
@@ -71,7 +56,7 @@ export default function OfferReviewsForm(): JSX.Element {
       if (result.meta.requestStatus === 'fulfilled') {
         setReviewForm(initialState);
       } else {
-        setReviewForm({ ...reviewForm, disable: false });
+        setReviewForm({ ...reviewForm, disableForm: false });
       }
     });
   };
@@ -85,7 +70,7 @@ export default function OfferReviewsForm(): JSX.Element {
           id={`${grades.length - index}-stars`}
           type="radio"
           checked={reviewForm.rating === grades.length - index}
-          disabled={reviewForm.disable}
+          disabled={reviewForm.disableForm}
           onChange={handleReviewChange}
         />
         <label
@@ -119,8 +104,10 @@ export default function OfferReviewsForm(): JSX.Element {
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={reviewForm.review}
-        disabled={reviewForm.disable}
+        disabled={reviewForm.disableForm}
         onChange={handleReviewChange}
+        minLength={MINIMUM_REVIEW_LENGTH}
+        maxLength={MAXIMUM_REVIEW_LENGTH}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -131,7 +118,7 @@ export default function OfferReviewsForm(): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={reviewForm.disable}
+          disabled={reviewForm.disableSubmit}
         >
           Submit
         </button>
