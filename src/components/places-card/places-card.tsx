@@ -1,11 +1,11 @@
 import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
+import { CardImageHeightOption, CardImageWidthOption, CardType } from '../../const';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { changeActiveCard } from '../../store/card-process/card-process';
 import { Offer } from '../../types';
-import { CardImageHeightOption, CardImageWidthOption, CardType, HEIGHT_FAVORITES_TYPE, HEIGHT_NON_FAVORITES_TYPE, WIDTH_FAVORITES_TYPE, WIDTH_NON_FAVORITES_TYPE } from '../../const';
-import FavoriteButton from '../favorites-button/favorites-button';
 import { getRatingStarStyle, toUpperCaseFirstLetter } from '../../utils/utils';
+import FavoritesButton from '../favorites-button/favorites-button';
 
 type CitiesPlacesItemProps = {
   cardType: string;
@@ -64,7 +64,7 @@ export default function PlacesCard({
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <FavoriteButton offerId={id} isOfferBookmark={false} />
+          <FavoritesButton offerId={id} isOfferBookmark={false} />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

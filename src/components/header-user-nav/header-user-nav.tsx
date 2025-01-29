@@ -9,7 +9,7 @@ import {
   getUserData,
 } from '../../store/user-process/user-selectors';
 
-export default function UserNav(): JSX.Element {
+export default function HeaderUserNav(): JSX.Element {
   const user = useAppSelector(getUserData);
   const isLogged =
     useAppSelector(getAuthenticationStatus) === AuthenticationStatus.Auth;

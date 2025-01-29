@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import UserNav from '../header-user-nav/header-user-nav';
+import HeaderUserNav from '../header-user-nav/header-user-nav';
 export type HeaderProps = {
   enableUserNav: boolean;
 };
@@ -23,7 +23,7 @@ export default function Header({ enableUserNav }: HeaderProps): JSX.Element {
               />
             </Link>
           </div>
-          {enableUserNav && <UserNav />}
+          {enableUserNav && <HeaderUserNav />}
         </div>
       </div>
     </header>

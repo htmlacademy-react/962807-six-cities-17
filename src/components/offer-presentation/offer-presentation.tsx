@@ -1,6 +1,6 @@
 import { FullOfferData } from '../../types';
 import { getRatingStarStyle, toUpperCaseFirstLetter } from '../../utils/utils';
-import FavoriteButton from '../favorites-button/favorites-button';
+import FavoritesButton from '../favorites-button/favorites-button';
 
 export default function OfferPresentation({
   id,
@@ -21,7 +21,7 @@ export default function OfferPresentation({
       )}
       <div className="offer__name-wrapper">
         <h1 className="offer__name">{title}</h1>
-        <FavoriteButton offerId={id} isOfferBookmark />
+        <FavoritesButton offerId={id} isOfferBookmark />
       </div>
       <div className="offer__rating rating">
         <div className="offer__stars rating__stars">

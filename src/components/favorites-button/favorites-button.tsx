@@ -10,7 +10,7 @@ type FavoriteButtonProps = {
   isOfferBookmark: boolean;
 };
 
-export default function FavoriteButton({
+export default function FavoritesButton({
   offerId,
   isOfferBookmark,
 }: FavoriteButtonProps) {

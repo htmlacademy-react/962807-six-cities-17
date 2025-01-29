@@ -1,13 +1,13 @@
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { getCurrentCity } from '../../store/card-process/card-selectors';
-import LocationNav from '../locations-nav/locations-nav';
+import LocationsNav from '../locations-nav/locations-nav';
 
 export default function PlacesEmpty(): JSX.Element {
   const currentCity = useAppSelector(getCurrentCity);
   return (
     <main className={'page__main page__main--index page__main--index-empty'}>
       <h1 className="visually-hidden">Cities</h1>
-      <LocationNav />
+      <LocationsNav />
       <div className="cities">
         <div
           className={

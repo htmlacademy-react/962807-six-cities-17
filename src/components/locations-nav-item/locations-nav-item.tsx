@@ -6,7 +6,7 @@ type LocationNavItemProps = {
   active?: true;
 };
 
-export default function LocationNavItem({
+export default function LocationsNavItem({
   children,
   active,
   handleCityChange,
