@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { changeActiveCard } from '../../store/card-process/card-process';
 import { Offer } from '../../types';
-import { CardType } from '../../const';
+import { CardImageHeightOption, CardImageWidthOption, CardType, HEIGHT_FAVORITES_TYPE, HEIGHT_NON_FAVORITES_TYPE, WIDTH_FAVORITES_TYPE, WIDTH_NON_FAVORITES_TYPE } from '../../const';
 import FavoriteButton from '../favorites-button/favorites-button';
 import { getRatingStarStyle, toUpperCaseFirstLetter } from '../../utils/utils';
 
@@ -48,8 +48,8 @@ export default function PlacesCard({
           <img
             className="place-card__image"
             src={previewImage}
-            width={cardType === 'favorites' ? 150 : 260}
-            height={cardType === 'favorites' ? 110 : 200}
+            width={cardType === 'favorites' ? CardImageWidthOption.Favorites : CardImageWidthOption.NonFavorites}
+            height={cardType === 'favorites' ? CardImageHeightOption.Favorites : CardImageHeightOption.NonFavorites}
             alt={`${title} ${type} image`}
           />
         </Link>

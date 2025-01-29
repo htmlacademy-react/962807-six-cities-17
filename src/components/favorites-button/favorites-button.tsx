@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { AppRoute, AuthenticationStatus } from '../../const';
+import { AppRoute, AuthenticationStatus, BookmarkHeightOption, BookmarkWidthOption } from '../../const';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { pushFavoriteStatus } from '../../store/api-actions';
@@ -44,8 +44,8 @@ export default function FavoriteButton({
     >
       <svg
         className={`${classNamePrefix}__bookmark-icon`}
-        width={isOfferBookmark ? 31 : 18}
-        height={isOfferBookmark ? 33 : 19}
+        width={isOfferBookmark ? BookmarkWidthOption.Offer : BookmarkWidthOption.NonOffer}
+        height={isOfferBookmark ? BookmarkHeightOption.Offer : BookmarkHeightOption.NonOffer}
       >
         <use xlinkHref="#icon-bookmark" />
       </svg>
