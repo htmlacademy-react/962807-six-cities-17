@@ -5,9 +5,41 @@ export const REQUEST_TIMEOUT = 5000;
 export const MINIMUM_REVIEW_LENGTH = 50;
 export const MAXIMUM_REVIEW_LENGTH = 300;
 export const MAXIMUM_REVIEWS_QUANTITY = 50;
+export const MAXIMUM_RATING_GRADE = 5;
 export const NEAR_OFFER_COUNT = 3;
 export const VISIBLE_REVIEW_LIMIT = 10;
 export const MAX_OFFER_IMAGES = 6;
+
+
+export enum MapIconSize {
+  Width = 28,
+  Height = 40,
+}
+
+export enum MapIconAnchor {
+  left = 14,
+  top = 40
+}
+
+export enum CardImageWidthOption {
+  NonFavorites = 260,
+  Favorites = 150,
+}
+
+export enum CardImageHeightOption {
+  NonFavorites = 200,
+  Favorites = 110,
+}
+
+export enum BookmarkWidthOption {
+  Offer = 31,
+  NonOffer = 18,
+}
+
+export enum BookmarkHeightOption {
+  Offer = 33,
+  NonOffer = 19,
+}
 
 export enum SortingOption {
   POPULAR = 'Popular',

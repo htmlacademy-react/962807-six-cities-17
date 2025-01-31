@@ -2,20 +2,20 @@ import { CITIES_NAMES } from '../../const';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { getCurrentCity } from '../../store/card-process/card-selectors';
 import { getRandomKey, handleCityChange } from '../../utils/utils';
-import LocationNavItem from '../locations-nav-item/locations-nav-item';
+import LocationsNavItem from '../locations-nav-item/locations-nav-item';
 
-export default function LocationNav(): JSX.Element {
+export default function LocationsNav(): JSX.Element {
   const citiesNames = CITIES_NAMES;
   const currentCity = useAppSelector(getCurrentCity);
   const getLocationNavItem = () =>
     citiesNames.map((city) => (
-      <LocationNavItem
+      <LocationsNavItem
         key={getRandomKey()}
         active={city === currentCity.name ? true : undefined}
         handleCityChange={(evt) => handleCityChange(evt, currentCity.name)}
       >
         {city}
-      </LocationNavItem>
+      </LocationsNavItem>
     ));
 
   return (

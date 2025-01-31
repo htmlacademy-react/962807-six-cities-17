@@ -6,7 +6,7 @@ import { Offers } from '../../types';
 import { getRandomKey, handleCityChange } from '../../utils/utils';
 import PlacesCardList from '../places-card-list/places-card-list';
 
-export default function FavoriteList({
+export default function FavoritesList({
   favoriteListData,
 }: {
   favoriteListData: Offers;

@@ -1,5 +1,5 @@
 import { MouseEvent } from 'react';
-import { CITIES_NAMES } from '../const';
+import { CITIES_NAMES, MAXIMUM_RATING_GRADE } from '../const';
 import { changeCity } from '../store/card-process/card-process';
 import { store } from '../store/store';
 
@@ -18,7 +18,7 @@ export const getRandomKey = (): string =>
   (Date.now() * Math.random()).toFixed(10);
 
 export const getRatingStarStyle = (rating: number) =>
-  `${(100 / 5) * Math.round(rating)}%`;
+  `${(100 / MAXIMUM_RATING_GRADE) * Math.round(rating)}%`;
 
 export const getRandomInteger = (min: number, max: number): number =>
   min + Math.floor((max - min + 1) * Math.random());

@@ -10,8 +10,6 @@ import {
 const initialState: UserProcessType = {
   authenticationStatus: AuthenticationStatus.Unknown,
   user: null,
-  isLogin: false,
-  isLogout: false,
   isLoginError: false,
   isLogoutError: false,
 };

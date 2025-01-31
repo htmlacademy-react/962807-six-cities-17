@@ -1,4 +1,5 @@
 import LoadingSpinner from '../../components/loading-spinner/loading-spinner';
+import './loading-page.css';
 
 export default function LoadingPage(): JSX.Element {
   return (
@@ -23,24 +24,9 @@ export default function LoadingPage(): JSX.Element {
 
       <main>
         <h1 className="visually-hidden">Loading...</h1>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '70vh',
-            flexDirection: 'column',
-          }}
-        >
+        <div className="loading-spinner__spinner">
           <LoadingSpinner />
-          <b
-            className="favorites__status"
-            style={{
-              margin: '20px',
-            }}
-          >
-            Loading...
-          </b>
+          <b className="loading-spinner__status">Loading...</b>
         </div>
       </main>
       <footer className="footer container">

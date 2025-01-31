@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import EmptyPage from '../../pages/empty-page/empty-page';
-import FavoritePage from '../../pages/favorites-page/favorites-page';
+import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import LoadingPage from '../../pages/loading-page/loading-page';
 import LoginPage from '../../pages/login-page/login-page';
 import MainPage from '../../pages/main-page/main-page';
@@ -44,7 +44,7 @@ export default function App(): JSX.Element {
               path={AppRoute.Favorites}
               element={
                 <PrivateRoute>
-                  <FavoritePage />
+                  <FavoritesPage />
                 </PrivateRoute>
               }
             />

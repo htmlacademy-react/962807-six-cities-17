@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { MockComponent } from '../../utils/mocks';
+import { MockComponent } from '../../utils/mock-components';
 import OfferGallery from './offer-gallery';
 
 describe('Component: OfferGallery', () => {

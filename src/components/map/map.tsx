@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef } from 'react';
 import leaflet, { layerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-import { MapIcon, MapSizeType, NEAR_OFFER_COUNT } from '../../const';
+import { MapIcon, MapIconAnchor, MapIconSize, MapSizeType, NEAR_OFFER_COUNT } from '../../const';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import useMap from '../../hooks/use-map';
 import {
@@ -20,13 +20,13 @@ type MapProps = {
 
 const defaultIcon = leaflet.icon({
   iconUrl: MapIcon.Default,
-  iconSize: [28, 40],
-  iconAnchor: [14, 40],
+  iconSize: [MapIconSize.Width, MapIconSize.Height],
+  iconAnchor: [MapIconAnchor.left, MapIconAnchor.top],
 });
 const activeIcon = leaflet.icon({
   iconUrl: MapIcon.Active,
-  iconSize: [28, 40],
-  iconAnchor: [14, 40],
+  iconSize: [MapIconSize.Width, MapIconSize.Height],
+  iconAnchor: [MapIconAnchor.left, MapIconAnchor.top],
 });
 
 export default function Map({ currentOffer }: MapProps): JSX.Element {

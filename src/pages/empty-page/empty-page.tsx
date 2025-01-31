@@ -5,6 +5,7 @@ import { getIsOffersLoadingError } from '../../store/card-process/card-selectors
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { getIsFullOfferLoadingError } from '../../store/offer-process/offer-selectors';
 import { Link } from 'react-router-dom';
+import './empty-page.css';
 
 export default function EmptyPage(): JSX.Element {
   const isOffersLoadingError = useAppSelector(getIsOffersLoadingError);
@@ -32,9 +33,8 @@ export default function EmptyPage(): JSX.Element {
                 </p>
                 <Link
                   to="/"
-                  className="reviews__submit form__submit button"
+                  className="reviews__submit form__submit to-main-page-button button"
                   type="submit"
-                  style={{ marginTop: '30px' }}
                 >
                   To Main Page
                 </Link>
