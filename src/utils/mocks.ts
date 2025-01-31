@@ -1,19 +1,28 @@
 import { faker } from '@faker-js/faker';
 import { Action, ThunkDispatch } from '@reduxjs/toolkit';
-import { CITIES_DATA, SortingOption } from '../const';
+import {
+  AuthenticationStatus,
+  CITIES_DATA,
+  NameSpace,
+  SortingOption,
+} from '../const';
 import { createAPI } from '../services/api';
 import {
   AuthenticationData,
+  CardProcessType,
   City,
   FullOfferData,
   Location,
   Offer,
+  OfferProcessType,
   Offers,
   Review,
   Reviews,
   State,
   User,
   UserData,
+  UserProcessType,
+  UserReview,
 } from '../types';
 import { getRandomInteger } from './utils';
 
@@ -59,11 +68,15 @@ export const makeFakeAuthenticationData = (): AuthenticationData => ({
   password: faker.string.nanoid(),
 });
 
-export const makeFakeReview = (): Review => ({
+export const makeFakeUserReview = (): UserReview => ({
   id: faker.string.nanoid(),
   comment: faker.word.words(10),
-  date: String(faker.date.anytime()),
   rating: faker.number.int({ min: 1, max: 5 }),
+});
+
+export const makeFakeReview = (): Review => ({
+  ...makeFakeUserReview(),
+  date: String(faker.date.anytime()),
   user: makeFakeUser(),
 });
 
@@ -102,7 +115,7 @@ export type AppThunkDispatch = ThunkDispatch<
 export const extractActionsTypes = (actions: Action<string>[]) =>
   actions.map(({ type }) => type);
 
-export const makeFakeCardProcessSlice = () => {
+export const makeFakeCardProcessSlice = (): CardProcessType => {
   const offers = makeFakeOffers();
   const currentCity = getRandomCity();
   const offersByCity = offers.filter(
@@ -125,10 +138,39 @@ export const makeFakeCardProcessSlice = () => {
   };
 };
 
-export function MockComponent(): JSX.Element {
-  return (
-    <div data-testid="mockComponent">
-      <p>mockComponent</p>
-    </div>
-  );
-}
+export const makeFakeOfferProcessSlice = (): OfferProcessType => ({
+  offer: makeFakeFullOffer(),
+  reviews: makeFakeReviews(),
+  nearOffers: makeFakeOffers(),
+  isFullOfferLoading: false,
+  isNearOffersLoading: false,
+  isReviewsLoading: false,
+  isReviewPushing: false,
+  isFullOfferLoadingError: false,
+  isNearOffersLoadingError: false,
+  isReviewsLoadingError: false,
+  isReviewPushingError: false,
+});
+
+export const makeFakeUserProcessSlice = (
+  authenticationStatus: AuthenticationStatus = AuthenticationStatus.Unknown
+): UserProcessType => {
+  const user =
+    authenticationStatus === AuthenticationStatus.Auth
+      ? makeFakeUseData()
+      : null;
+  return {
+    authenticationStatus: authenticationStatus,
+    user: user,
+    isLoginError: false,
+    isLogoutError: false,
+  };
+};
+
+export const makeFakeState = (
+  authenticationStatus: AuthenticationStatus = AuthenticationStatus.Unknown
+): State => ({
+  [NameSpace.Cards]: makeFakeCardProcessSlice(),
+  [NameSpace.Offer]: makeFakeOfferProcessSlice(),
+  [NameSpace.User]: makeFakeUserProcessSlice(authenticationStatus),
+});

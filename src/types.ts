@@ -105,8 +105,6 @@ export type CardProcessType = {
 export type UserProcessType = {
   authenticationStatus: AuthenticationStatus;
   user: UserData | null;
-  isLogin: boolean;
-  isLogout: boolean;
   isLoginError: boolean;
   isLogoutError: boolean;
 };
